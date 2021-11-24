@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-function App(): JSX.Element {
+const App = function(): JSX.Element {
     return (
         <Router>
             <AppStyles className="App">

@@ -14,6 +14,8 @@
     ],
     "extends": [
         "standard",
+        "airbnb",
+        "airbnb-typescript",
         "plugin:@typescript-eslint/recommended",
         "plugin:react/recommended",
         "plugin:jest/recommended",
@@ -26,6 +28,7 @@
         "ecmaFeatures": {
             "jsx": true
         },
+        "project": "./tsconfig.json",
         "ecmaVersion": 12,
         "sourceType": "module"
     },
