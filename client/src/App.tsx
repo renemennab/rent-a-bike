@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { getBikes } from './actions/bikeActions'
+import BikesList from './bikes/bikesList'
 
-const App = function(): JSX.Element {
+const App = function (): JSX.Element {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getBikes)
+    }, [])
+
     return (
         <Router>
             <AppStyles className="App">
@@ -10,6 +19,7 @@ const App = function(): JSX.Element {
                     <Switch>
                         <Route path="/">
                             <div>Hello Ionut</div>
+                            <BikesList />
                         </Route>
                     </Switch>
                 </main>
