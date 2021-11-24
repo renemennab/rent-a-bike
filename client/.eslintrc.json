@@ -1,0 +1,95 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "react",
+        "react-hooks",
+        "@typescript-eslint",
+        "jest",
+        "prettier",
+        "standard"
+    ],
+    "extends": [
+        "standard",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended",
+        "plugin:jest/recommended",
+        "plugin:prettier/recommended",
+        "prettier/@typescript-eslint",
+        "prettier/react",
+        "prettier/standard"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-return-assign": "off",
+        "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "next-line space-infix-ops": "off",
+        "eqeqeq": [
+            "warn",
+            "smart"
+        ],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "curly": [
+            "warn",
+            "multi-line",
+            "consistent"
+        ],
+        "newline-before-return": "warn",
+        "prettier/prettier": "warn",
+        "@typescript-eslint/explicit-module-boundary-types": "off"
+    },
+    "overrides": [
+        {
+            // enable the rule specifically for TypeScript files
+            "files": [
+                "*.ts",
+                "*.tsx"
+            ],
+            "rules": {
+                "no-use-before-define": "off",
+                "@typescript-eslint/explicit-module-boundary-types": [
+                    "error"
+                ],
+                "@typescript-eslint/explicit-function-return-type": [
+                    "warn",
+                    {
+                        "allowExpressions": true
+                    }
+                ],
+                "no-unused-expressions": "off",
+                "@typescript-eslint/no-unused-expressions": [
+                    "error",
+                    {
+                        "allowShortCircuit": true,
+                        "allowTernary": true,
+                        "allowTaggedTemplates": true
+                    }
+                ]
+            }
+        },
+        {
+            "files": [
+                "*.spec.*",
+                "cypress/**"
+            ],
+            "rules": {
+                "jest/expect-expect": "off",
+                "jest/valid-expect-in-promise": "off",
+                "jest/valid-expect": "off",
+                "@typescript-eslint/no-unused-expressions":"off",
+                "jest/no-standalone-expect": "off"
+            }
+        }
+    ]
+}

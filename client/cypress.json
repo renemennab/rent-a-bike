@@ -1,0 +1,29 @@
+{
+    "baseUrl": "http://localhost:3002",
+    "viewportWidth": 375,
+    "viewportHeight": 812,
+    "retries": {
+        "runMode": 1,
+        "openMode": 1
+      },
+      "screenshotOnRunFailure": false,
+      "video": false,
+      "reporter": "mochawesome",
+      "reporterOptions": {
+          "reportDir": "cypress/report/mochawesome-report",
+          "overwrite": false,
+          "html": false,
+          "json": true,
+          "timestamp": "mmddyyyy_HHMMss"
+       },
+       "db": {
+        "userName": "sa",
+        "password": "reallyStrongPwd123",
+        "server": "localhost",
+        "options": {
+            "database": "mapa-do-bem-db",
+            "encrypt": true,
+            "rowCollectionOnRequestCompletion" : true
+        }
+    }
+}
