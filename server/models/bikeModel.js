@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+
 const { Schema } = mongoose
 
 const bikeSchema = new Schema({
@@ -7,7 +8,7 @@ const bikeSchema = new Schema({
     location: String,
     rating: Number,
     isAvailable: Boolean
-});
+})
 
 const BikeModel = mongoose.model('Bike', bikeSchema)
 

@@ -1,4 +1,4 @@
-import BikeModel from "../models/bikeModel.js"
+import BikeModel from '../models/bikeModel.js'
 
 export async function getBikes(req, res) {
     try {
@@ -7,7 +7,7 @@ export async function getBikes(req, res) {
 
         return res.status(200).json(bikes)
     } catch (error) {
-        res.status(404).json({ message: error.message })
+        return res.status(404).json({ message: error.message })
     }
 }
 
