@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux'
 import { getBikes } from './actions/bikeActions'
 import MenuOptions from './navBar/menuOptions'
 import NavBar from './navBar/navBar'
+import { ROUTES } from './utils'
+import BikesList from './bikes/bikesList'
 
 const App = function (): JSX.Element {
     const dispatch = useDispatch()
@@ -19,6 +21,9 @@ const App = function (): JSX.Element {
             <AppStyles className="App">
                 <main>
                     <Switch>
+                        <Route path={ROUTES.BIKES}>
+                            <BikesList />
+                        </Route>
                         <Route path="/">
                             <NavBar selectedView={selectedView} setSelectedView={setSelectedView} />
                             <MenuOptions selectedView={selectedView} setSelectedView={setSelectedView} />
