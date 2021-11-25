@@ -12,7 +12,7 @@ const BikesList = function (): JSX.Element {
     const history = useHistory()
     const dispatch = useDispatch()
     useEffect(() => {
-        if (!bikes) {
+        if (!bikes.length) {
             dispatch(getBikes())
         } else {
             history.push('/')
