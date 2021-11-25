@@ -2,14 +2,15 @@ import React, { FormEvent, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { createBike } from '../api'
+import { createBike } from '../actions/bikeActions'
 import PageHeader from '../common/pageHeader'
 import { StyledButton, StyledForm, StyledInput, StyledLabel } from '../common/styled'
 
 const BikeForm = function (): JSX.Element {
     const dispatch = useDispatch()
     const bikes: IBike[] = useSelector((state: { bikes: IBike[] }) => state.bikes)
-    const selectedBike = bikes[0]
+    // @ts-ignore
+    const selectedBike: IBike = undefined // bikes[0]
 
     const [model, setModel] = useState(selectedBike?.model || ``)
     const [color, setColor] = useState(selectedBike?.color || ``)
@@ -56,7 +57,7 @@ const BikeForm = function (): JSX.Element {
                     <StyledInput
                         required
                         type="text"
-                        value={rating}
+                        value={location}
                         onChange={event => setLocation(event.target.value)}
                     />
                 </StyledLabel>
