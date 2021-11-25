@@ -14,8 +14,6 @@ const BikesList = function (): JSX.Element {
     useEffect(() => {
         if (!bikes.length) {
             dispatch(getBikes())
-        } else {
-            history.push('/')
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
