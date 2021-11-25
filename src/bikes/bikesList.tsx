@@ -1,26 +1,36 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createBike } from '../actions/bikeActions'
+import { useHistory } from 'react-router-dom'
+import styled from 'styled-components'
+import { getBikes } from '../actions/bikeActions'
+import AssetList from '../common/assetList'
+import PageHeader from '../common/pageHeader'
 
 const BikesList = function (): JSX.Element {
-    const bikes = useSelector<{ bikes: string[] }>(state => state.bikes)
-    const dispatch = useDispatch()
-    const bikeData: IBike = { isAvailable: true, color: 'black', location: 'brazil', model: '123', rating: 1 }
-    console.log('state', bikes)
+    const bikes = useSelector((state: { bikes: IBike[] }) => state.bikes)
 
-    function handleSubmit(e: React.MouseEvent<HTMLButtonElement>): void {
-        e.preventDefault()
-        dispatch(createBike(bikeData))
-    }
+    const history = useHistory()
+    const dispatch = useDispatch()
+    useEffect(() => {
+        if (!bikes) {
+            dispatch(getBikes())
+        } else {
+            history.push('/')
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
-        <div>
-            bikes list
-            <button type="button" onClick={handleSubmit}>
-                {' '}
-                post bike
-            </button>
-        </div>
+        <StyledPlacesList>
+            <PageHeader pageName="Bikes" />
+            <AssetList bikesData={bikes} />
+        </StyledPlacesList>
     )
 }
+
 export default BikesList
+
+const StyledPlacesList = styled.div`
+    padding: var(--padding);
+    flex-grow: 1;
+`
