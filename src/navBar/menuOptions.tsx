@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { logOutUser } from '../login/loginHelpers'
-import ConfirmationDialog from '../bikes/confirmationDialog'
+import ConfirmationDialog from '../common/confirmationDialog'
 import { ROUTES } from '../utils'
 
 interface IProps {
