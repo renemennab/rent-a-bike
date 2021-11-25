@@ -1,5 +1,5 @@
 interface IBike extends PostBike {
-    id: string
+    _id: string
 }
 
 interface PostBike {
