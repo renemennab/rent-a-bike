@@ -1,7 +1,11 @@
 export const ROUTES = {
-    HOME: '/',
-    BLOG: '/blog',
-    PROJECTS: '/projects',
-    DONATE: '/donate',
-    CONTACT: '/contact'
+    LOGIN: `/login`,
+    SIGNIN: `/signIn`,
+    PROFILE: `/profile`,
+    NEW_BIKE: `/newBike`,
+    BIKES: `/bikes`,
+    USERS: `/users`,
+    RESERVATIONS: `/reservations`
 }
+
+export const la = 1
