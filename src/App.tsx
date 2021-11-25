@@ -7,6 +7,8 @@ import MenuOptions from './navBar/menuOptions'
 import NavBar from './navBar/navBar'
 import { ROUTES } from './utils'
 import BikesList from './bikes/bikesList'
+import SelectedBike from './bikes/selectedBike'
+import BikeForm from './bikes/bikeForm'
 
 const App = function (): JSX.Element {
     const dispatch = useDispatch()
@@ -21,6 +23,12 @@ const App = function (): JSX.Element {
             <AppStyles className="App">
                 <main>
                     <Switch>
+                        <Route path={`${ROUTES.BIKES}/:bikeId/edit`}>
+                            <BikeForm />
+                        </Route>
+                        <Route path={`${ROUTES.BIKES}/:bikeId`}>
+                            <SelectedBike />
+                        </Route>
                         <Route path={ROUTES.BIKES}>
                             <BikesList />
                         </Route>

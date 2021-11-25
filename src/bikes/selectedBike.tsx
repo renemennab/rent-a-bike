@@ -8,10 +8,10 @@ import AssetActions from './assetActions'
 const SelectedBike = function (): JSX.Element {
     const bikes: IBike[] = useSelector((state: { bikes: IBike[] }) => state.bikes)
     const selectedBike = bikes[0]
-    const params = useParams() as { placeId: string }
+    const params = useParams() as { bikeId: string }
 
     useEffect(() => {
-        if (!selectedBike && params.placeId) {
+        if (!selectedBike && params.bikeId) {
             // get bikes
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
