@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import PageHeader from '../components/pageHeader'
+import PageHeader from '../common/pageHeader'
 import { SESSION_DATA } from './loginHelpers'
 
 const UserProfile = function (): JSX.Element {

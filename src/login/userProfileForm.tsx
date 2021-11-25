@@ -1,9 +1,9 @@
 import React, { FormEvent, useContext, useState } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
-import PageHeader from '../components/pageHeader'
-import { StyledButton, StyledForm, StyledInput, StyledLabel } from '../components/styled'
-import UserInfo from '../components/userInfo'
+import PageHeader from '../common/pageHeader'
+import { StyledButton, StyledForm, StyledInput, StyledLabel } from '../common/styled'
+import UserInfo from '../common/userInfo'
 import { loginUser } from './loginHelpers'
 
 const UserProfileForm = function (): JSX.Element {

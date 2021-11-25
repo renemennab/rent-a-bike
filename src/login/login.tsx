@@ -1,9 +1,9 @@
 import React, { FormEvent, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
-import PageHeader from '../components/pageHeader'
-import { StyledButton, StyledForm } from '../components/styled'
-import UserInfo from '../components/userInfo'
+import PageHeader from '../common/pageHeader'
+import { StyledButton, StyledForm } from '../common/styled'
+import UserInfo from '../common/userInfo'
 import { ROUTES } from '../utils'
 import { loginUser } from './loginHelpers'
 
