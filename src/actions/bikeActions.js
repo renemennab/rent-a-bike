@@ -27,3 +27,12 @@ export const updateBike = (bikeId, updatedBike) => async dispatch => {
         console.log(error)
     }
 }
+
+export const deleteBike = (bikeId) => async dispatch => {
+    try {
+        await api.deleteBike(bikeId)
+        dispatch({ type: BIKE_REDUCER_OPTIONS.DELETE, payload: bikeId })
+    } catch (error) {
+        console.log(error)
+    }
+}

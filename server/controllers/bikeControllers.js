@@ -34,3 +34,12 @@ export async function updateBike(req, res) {
 
     return res.json(updateResponse)
 }
+
+export async function deleteBike(req, res) {
+    const { id: _id } = req.params
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that id')
+
+    await BikeModel.findByIdAndRemove(_id)
+
+    return res.json('Post deleted successfuly')
+}

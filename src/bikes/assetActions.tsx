@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
+import { useDispatch } from 'react-redux'
 import { ROUTES } from '../utils'
 import ConfirmationDialog from '../common/confirmationDialog'
+import { deleteBike } from '../actions/bikeActions'
 
 interface IProps {
     itemId: string
@@ -13,14 +15,14 @@ const AssetActions = function ({ itemId, itemType }: IProps): JSX.Element {
     const location = useLocation().pathname
     const [showModal, setShowModal] = useState(false)
     const history = useHistory()
-
+    const dispatch = useDispatch()
     function handleDelete(): void {
         if (itemType === 'user') {
             // deletePlace(itemId)
             // history.push(ROUTES.PLACES)
         } else if (itemType === 'bike') {
-            // deleteEvent(itemId)
-            // history.push('/')
+            dispatch(deleteBike(itemId))
+            history.push(ROUTES.BIKES)
         }
         setShowModal(false)
     }
