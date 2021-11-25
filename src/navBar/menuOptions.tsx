@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { useDispatch } from 'react-redux'
 import { logOutUser } from '../login/loginHelpers'
 import ConfirmationDialog from '../common/confirmationDialog'
 import { ROUTES } from '../utils'
+import { SELECTED_BIKE_REDUCER_OPTIONS } from '../reducers/selectedBikeReducer'
 
 interface IProps {
     selectedView: string
@@ -12,11 +14,10 @@ interface IProps {
 const MenuOptions = function ({ selectedView, setSelectedView }: IProps): JSX.Element {
     const [showDialog, setShowDialog] = useState(false)
     const [userIsLogged, setUserIsLogged] = useState(true)
-    // const { setSelectedPlace } = useContext(SelectedPlaceContext)
-    // const { setSelectedEvent } = useContext(SelectedEventContext)
+    const dispatch = useDispatch()
+
     useEffect(() => {
-        // setSelectedPlace?.(undefined)
-        // setSelectedEvent?.(undefined)
+        dispatch({ type: SELECTED_BIKE_REDUCER_OPTIONS.SET_SELECTED_BIKE, payload: null })
     }, [])
 
     function handleLogOut(): void {

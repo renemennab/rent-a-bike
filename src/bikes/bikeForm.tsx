@@ -8,9 +8,7 @@ import { StyledButton, StyledForm, StyledInput, StyledLabel } from '../common/st
 
 const BikeForm = function (): JSX.Element {
     const dispatch = useDispatch()
-    const bikes: IBike[] = useSelector((state: { bikes: IBike[] }) => state.bikes)
-    // @ts-ignore
-    const selectedBike: IBike = undefined // bikes[0]
+    const { selectedBike } = useSelector((state: { selectedBike?: IBike }) => state)
 
     const [model, setModel] = useState(selectedBike?.model || ``)
     const [color, setColor] = useState(selectedBike?.color || ``)

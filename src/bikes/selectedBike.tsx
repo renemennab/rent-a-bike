@@ -6,10 +6,9 @@ import PageHeader from '../common/pageHeader'
 import AssetActions from './assetActions'
 
 const SelectedBike = function (): JSX.Element {
-    const bikes: IBike[] = useSelector((state: { bikes: IBike[] }) => state.bikes)
-    const selectedBike = bikes[0]
+    const selectedBike = useSelector((state: { selectedBike: IBike }) => state.selectedBike)
     const params = useParams() as { bikeId: string }
-
+    console.log(selectedBike)
     useEffect(() => {
         if (!selectedBike && params.bikeId) {
             // get bikes

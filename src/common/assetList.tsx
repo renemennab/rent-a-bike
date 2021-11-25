@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
+import { SELECTED_BIKE_REDUCER_OPTIONS } from '../reducers/selectedBikeReducer'
 
 interface Props {
     bikesData: IBike[]
 }
 const AssetList = function ({ bikesData }: Props): JSX.Element {
-    const bikes: IBike[] = useSelector((state: { bikes: IBike[] }) => state.bikes)
-    const selectedBike = bikes[0]
+    const dispatch = useDispatch()
     const [filter, setFilter] = useState('')
     const [filteredList, setFilteredList] = useState(bikesData)
     const history = useHistory()
 
     useEffect(() => {
-        const filtered = bikesData?.reduce((acc: any[], asset: IBike) => {
+        const filtered = bikesData?.reduce((acc: IBike[], asset: IBike) => {
             const assetValues = Object.values(asset)
             const matchingValues = assetValues.filter(value =>
                 value.toString().toLowerCase().includes(filter.toLowerCase())
@@ -39,9 +39,14 @@ const AssetList = function ({ bikesData }: Props): JSX.Element {
                 onChange={event => setFilter(event.target.value)}
             />
             {filteredList.map((data: IBike) => (
-                // set selected place here
                 <li className="assetList--card" key={data._id}>
-                    <Link className="assetList--card__link" to={`${placeLink}/${data._id}`} onClick={() => null}>
+                    <Link
+                        className="assetList--card__link"
+                        to={`${placeLink}/${data._id}`}
+                        onClick={() =>
+                            dispatch({ type: SELECTED_BIKE_REDUCER_OPTIONS.SET_SELECTED_BIKE, payload: data })
+                        }
+                    >
                         <h2 className="assetList--card__link--model">{data.model}</h2>
                         <span className="assetList--card__link--color">{data.color}</span>
                         <span className="assetList--card__link--location">{data.location}</span>
