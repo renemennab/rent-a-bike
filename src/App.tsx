@@ -23,6 +23,9 @@ const App = function (): JSX.Element {
             <AppStyles className="App">
                 <main>
                     <Switch>
+                        <Route path={`${ROUTES.NEW_BIKE}`}>
+                            <BikeForm />
+                        </Route>
                         <Route path={`${ROUTES.BIKES}/:bikeId/edit`}>
                             <BikeForm />
                         </Route>
