@@ -17,10 +17,13 @@ code {
     box-sizing: border-box;
 }
 :root{
-    --dark-blue: #1b53c9;
+    --red: #F28482;
+    --light-blue: #CEEAF7;
+    --dark-blue: #457B9D;
     --black: #141414;
-    --gray: #999997;
-    --yellow: #f6bc33;
+    --gray: #cccccc;
+    --dark-gray: #8e8e8e;
+    --yellow: #F7D08A;
     --padding: 30px;
 }
 
