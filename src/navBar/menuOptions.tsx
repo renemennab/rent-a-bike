@@ -17,7 +17,6 @@ const MenuOptions = function ({ selectedView, setSelectedView }: IProps): JSX.El
     useEffect(() => {
         // setSelectedPlace?.(undefined)
         // setSelectedEvent?.(undefined)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function handleLogOut(): void {
@@ -27,53 +26,53 @@ const MenuOptions = function ({ selectedView, setSelectedView }: IProps): JSX.El
     }
 
     return (
-        <StyledMenuOptions className={`menuOptions ${selectedView === `menu` ? `open` : ``}`}>
-            <button type="button" className={`menuOptions--header `} onClick={() => setSelectedView(`map`)}>
+        <StyledMenuOptions className={`menuOptions ${selectedView === 'menu' ? 'open' : ''}`}>
+            <button type="button" className="menuOptions--header " onClick={() => setSelectedView('map')}>
                 <h1 className="menuOptions--header__title">Rent a Bike</h1>
                 <i className="fas fa-chevron-down" />
             </button>
-            <ul className={`menuOptions--optionList `}>
+            <ul className="menuOptions--optionList ">
                 {userIsLogged ? (
                     <>
-                        <li className={`menuOptions--optionList__item `}>
-                            <Link to={ROUTES.PROFILE} className={`menuOptions--optionList__item--button `}>
+                        <li className="menuOptions--optionList__item ">
+                            <Link to={ROUTES.PROFILE} className="menuOptions--optionList__item--button ">
                                 <i className="fas fa-user" /> Perfil
                             </Link>
                         </li>
                         {/* {window.sessionStorage.getItem(SESSION_DATA.USER_TYPE) === COLLECTOR ? ( */}
                         {true ? (
                             <>
-                                <li className={`menuOptions--optionList__item `}>
-                                    <Link to={ROUTES.NEW_BIKE} className={`menuOptions--optionList__item--button `}>
+                                <li className="menuOptions--optionList__item ">
+                                    <Link to={ROUTES.NEW_BIKE} className="menuOptions--optionList__item--button ">
                                         <i className="fas fa-sign-in-alt" />
                                         Add New Bike
                                     </Link>
                                 </li>
-                                <li className={`menuOptions--optionList__item `}>
-                                    <Link to={ROUTES.RESERVATIONS} className={`menuOptions--optionList__item--button `}>
+                                <li className="menuOptions--optionList__item ">
+                                    <Link to={ROUTES.RESERVATIONS} className="menuOptions--optionList__item--button ">
                                         <i className="fas fa-sign-in-alt" />
                                         My Reservations
                                     </Link>
                                 </li>
-                                <li className={`menuOptions--optionList__item `}>
-                                    <Link to={ROUTES.BIKES} className={`menuOptions--optionList__item--button `}>
+                                <li className="menuOptions--optionList__item ">
+                                    <Link to={ROUTES.BIKES} className="menuOptions--optionList__item--button ">
                                         <i className="fas fa-map-marker-alt" />
                                         Bikes
                                     </Link>
                                 </li>
                             </>
                         ) : (
-                            <li className={`menuOptions--optionList__item `}>
-                                <Link to={ROUTES.USERS} className={`menuOptions--optionList__item--button `}>
+                            <li className="menuOptions--optionList__item ">
+                                <Link to={ROUTES.USERS} className="menuOptions--optionList__item--button ">
                                     <i className="far fa-calendar" /> Manage Users
                                 </Link>
                             </li>
                         )}
-                        <li className={`menuOptions--optionList__item `}>
+                        <li className="menuOptions--optionList__item ">
                             <button
                                 type="button"
                                 onClick={() => setShowDialog(true)}
-                                className={`menuOptions--optionList__item--button `}
+                                className="menuOptions--optionList__item--button "
                             >
                                 <i className="fas fa-sign-out-alt" />
                                 Logout
@@ -81,8 +80,8 @@ const MenuOptions = function ({ selectedView, setSelectedView }: IProps): JSX.El
                         </li>
                     </>
                 ) : (
-                    <li className={`menuOptions--optionList__item `}>
-                        <Link to={ROUTES.LOGIN} className={`menuOptions--optionList__item--button `}>
+                    <li className="menuOptions--optionList__item ">
+                        <Link to={ROUTES.LOGIN} className="menuOptions--optionList__item--button ">
                             <i className="fas fa-sign-in-alt" />
                             Login
                         </Link>
