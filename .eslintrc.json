@@ -34,6 +34,7 @@
     },
     "rules": {
         "no-return-assign": "off",
+        "func-names": "off",
         "@typescript-eslint/no-use-before-define": "off",
         "@typescript-eslint/ban-ts-comment": "off",
         "next-line space-infix-ops": "off",
