@@ -8,8 +8,8 @@ import { ROUTES } from '../utils'
 import { SELECTED_BIKE_REDUCER_OPTIONS } from '../reducers/selectedBikeReducer'
 
 interface IProps {
-    selectedView: string
-    setSelectedView: (type: string) => void
+    selectedView: boolean
+    setSelectedView: (type: boolean) => void
 }
 const MenuOptions = function ({ selectedView, setSelectedView }: IProps): JSX.Element {
     const [showDialog, setShowDialog] = useState(false)
@@ -27,10 +27,10 @@ const MenuOptions = function ({ selectedView, setSelectedView }: IProps): JSX.El
     }
 
     return (
-        <StyledMenuOptions className={`menuOptions ${selectedView === 'menu' ? 'open' : ''}`}>
-            <button type="button" className="menuOptions--header " onClick={() => setSelectedView('map')}>
+        <StyledMenuOptions className={`menuOptions ${selectedView ? 'open' : ''}`}>
+            <button type="button" className="menuOptions--header " onClick={() => setSelectedView(false)}>
                 <h1 className="menuOptions--header__title">Rent a Bike</h1>
-                <i className="fas fa-chevron-down" />
+                <i className="fas fa-chevron-left" />
             </button>
             <ul className="menuOptions--optionList ">
                 {userIsLogged ? (
@@ -98,8 +98,8 @@ const MenuOptions = function ({ selectedView, setSelectedView }: IProps): JSX.El
 export default MenuOptions
 const StyledMenuOptions = styled.nav`
     position: absolute;
-    top: 100vh;
-    left: 0;
+    left: -100vh;
+    top: 0;
     height: 100vh;
     width: 100%;
     background: white;
@@ -108,7 +108,7 @@ const StyledMenuOptions = styled.nav`
     max-height: 0;
     overflow: hidden;
     &.open {
-        transform: translateY(-100vh);
+        transform: translateX(100vh);
         max-height: 100vh;
     }
     .menuOptions {

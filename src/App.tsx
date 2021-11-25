@@ -3,12 +3,11 @@ import styled from 'styled-components'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getBikes } from './actions/bikeActions'
-import MenuOptions from './navBar/menuOptions'
-import NavBar from './navBar/navBar'
 import { ROUTES } from './utils'
 import BikesList from './bikes/bikesList'
 import SelectedBike from './bikes/selectedBike'
 import BikeForm from './bikes/bikeForm'
+import HomePage from './home/homePage'
 
 const App = function (): JSX.Element {
     const dispatch = useDispatch()
@@ -36,8 +35,7 @@ const App = function (): JSX.Element {
                             <BikesList />
                         </Route>
                         <Route path="/">
-                            <NavBar selectedView={selectedView} setSelectedView={setSelectedView} />
-                            <MenuOptions selectedView={selectedView} setSelectedView={setSelectedView} />
+                            <HomePage />
                         </Route>
                     </Switch>
                 </main>
