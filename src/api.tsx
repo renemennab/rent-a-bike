@@ -1,6 +1,12 @@
 import axios from 'axios'
 
-const url = 'http://localhost:5000/bikes'
+export const API_PATHS = {
+    BIKES: 'bikes',
+    USERS: 'users',
+    LOGIN: 'login'
+}
 
-export const fetchBikes = (): Promise<Response> => axios.get(url)
-export const createBike = (newBike: IBike): Promise<Response> => axios.post(url, newBike)
+const baseUrl = 'http://localhost:5000/'
+
+export const fetchBikes = (): Promise<Response> => axios.get(baseUrl + API_PATHS.BIKES)
+export const createBike = (newBike: PostBike): Promise<Response> => axios.post(baseUrl + API_PATHS.BIKES, newBike)
