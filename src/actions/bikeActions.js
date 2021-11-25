@@ -6,7 +6,7 @@ export const getBikes = () => async dispatch => {
         const { data } = await api.fetchBikes()
         dispatch({ type: BIKE_REDUCER_OPTIONS.FETCH_ALL, payload: data })
     } catch (error) {
-        console.log(error.message)
+        console.log(error)
     }
 }
 
@@ -15,6 +15,15 @@ export const createBike = (newBike) => async dispatch => {
         const { data } = await api.createBike(newBike)
         dispatch({ type: BIKE_REDUCER_OPTIONS.CREATE, payload: data })
     } catch (error) {
-        console.log(error.message)
+        console.log(error)
+    }
+}
+
+export const updateBike = (bikeId, updatedBike) => async dispatch => {
+    try {
+        const { data } = await api.updateBike(bikeId, updatedBike)
+        dispatch({ type: BIKE_REDUCER_OPTIONS.UPDATE, payload: data })
+    } catch (error) {
+        console.log(error)
     }
 }

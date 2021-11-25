@@ -2,9 +2,11 @@ import React, { FormEvent, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { createBike } from '../actions/bikeActions'
+import { createBike, updateBike } from '../actions/bikeActions'
 import PageHeader from '../common/pageHeader'
 import { StyledButton, StyledForm, StyledInput, StyledLabel } from '../common/styled'
+import { ROUTES } from '../utils'
+import { SELECTED_BIKE_REDUCER_OPTIONS } from '../reducers/selectedBikeReducer'
 
 const BikeForm = function (): JSX.Element {
     const dispatch = useDispatch()
@@ -16,13 +18,13 @@ const BikeForm = function (): JSX.Element {
     const [rating, setRating] = useState(selectedBike?.rating || '')
 
     const history = useHistory()
-    const params = useParams() as { BikeId: string }
+    const params = useParams() as { bikeId: string }
     console.log(params)
     console.log(selectedBike)
 
     // const [relatedEvents, setRelatedEvents] = useState(``)
     useEffect(() => {
-        if (!selectedBike && params.BikeId) {
+        if (!selectedBike && params.bikeId) {
             console.log(selectedBike)
             // setModel(selectedBike.model)
             // setColor(selectedBike.color)
@@ -33,9 +35,15 @@ const BikeForm = function (): JSX.Element {
     }, [])
 
     function handleBikeSubmit(event: FormEvent<HTMLFormElement>): void {
-        const bikeData: PostBike = { isAvailable: true, color, location, model, rating }
         event.preventDefault()
-        dispatch(createBike(bikeData))
+        const bikeData: PostBike = { isAvailable: true, color, location, model, rating }
+        if (params.bikeId && selectedBike) {
+            dispatch(updateBike(selectedBike._id, bikeData))
+        } else {
+            dispatch(createBike(bikeData))
+        }
+        dispatch({ type: SELECTED_BIKE_REDUCER_OPTIONS.SET_SELECTED_BIKE, payload: null })
+        history.push(ROUTES.BIKES)
     }
 
     return (
