@@ -20,7 +20,7 @@ const SelectedBike = function (): JSX.Element {
     return selectedBike ? (
         <StyledSelectedBike className="selectedBike">
             <PageHeader pageName={selectedBike.model} />
-            <AssetActions itemId={selectedBike.id} itemType="bike" />
+            <AssetActions itemId={selectedBike._id} itemType="bike" />
             <span className="selectedBike--buildingNum">
                 <strong>Color: </strong> {selectedBike.color}
             </span>

@@ -40,8 +40,8 @@ const AssetList = function ({ bikesData }: Props): JSX.Element {
             />
             {filteredList.map((data: IBike) => (
                 // set selected place here
-                <li className="assetList--card" key={data.id}>
-                    <Link className="assetList--card__link" to={`${placeLink}/${data.id}`} onClick={() => null}>
+                <li className="assetList--card" key={data._id}>
+                    <Link className="assetList--card__link" to={`${placeLink}/${data._id}`} onClick={() => null}>
                         <h2 className="assetList--card__link--model">{data.model}</h2>
                         <span className="assetList--card__link--color">{data.color}</span>
                         <span className="assetList--card__link--location">{data.location}</span>
