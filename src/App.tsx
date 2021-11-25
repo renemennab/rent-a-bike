@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getBikes } from './actions/bikeActions'
-import BikesList from './bikes/bikesList'
+import MenuOptions from './navBar/menuOptions'
+import NavBar from './navBar/navBar'
 
 const App = function (): JSX.Element {
     const dispatch = useDispatch()
+    const [selectedView, setSelectedView] = useState('map')
 
     useEffect(() => {
         dispatch(getBikes)
@@ -18,8 +20,8 @@ const App = function (): JSX.Element {
                 <main>
                     <Switch>
                         <Route path="/">
-                            <div>Hello Ionut</div>
-                            <BikesList />
+                            <NavBar selectedView={selectedView} setSelectedView={setSelectedView} />
+                            <MenuOptions selectedView={selectedView} setSelectedView={setSelectedView} />
                         </Route>
                     </Switch>
                 </main>
