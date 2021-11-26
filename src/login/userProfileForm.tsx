@@ -7,7 +7,8 @@ import UserInfo from '../common/userInfo'
 import { loginUser } from './loginHelpers'
 
 const UserProfileForm = function (): JSX.Element {
-    const [name, setName] = useState(``)
+    const [firstName, setFirstName] = useState(``)
+    const [lastName, setLastName] = useState(``)
     const [email, setEmail] = useState(``)
     const [password, setPassword] = useState(``)
 
@@ -15,7 +16,7 @@ const UserProfileForm = function (): JSX.Element {
 
     function handleSignIn(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault()
-        const params = { name, email, password }
+        const params = { firstName, lastName, email, password }
         // postUser(params).then(response => {
         //     if (response?.status === 200) {
         //         console.log('usuário criado')
@@ -36,19 +37,28 @@ const UserProfileForm = function (): JSX.Element {
             <StyledForm action="" onSubmit={event => handleSignIn(event)}>
                 <fieldset className="userInfo">
                     <StyledLabel className="column">
-                        Nome
+                        First Name
                         <StyledInput
                             required
                             type="text"
-                            value={name}
-                            onChange={event => setName(event.target.value)}
+                            value={firstName}
+                            onChange={event => setFirstName(event.target.value)}
+                        />
+                    </StyledLabel>
+                    <StyledLabel className="column">
+                        Last Name
+                        <StyledInput
+                            required
+                            type="text"
+                            value={lastName}
+                            onChange={event => setLastName(event.target.value)}
                         />
                     </StyledLabel>
                     <UserInfo email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
                 </fieldset>
 
                 <StyledButton>
-                    Salvar <i className="fa fa-save" />
+                    Save <i className="fa fa-save" />
                 </StyledButton>
             </StyledForm>
         </StyledSignIn>

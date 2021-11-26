@@ -16,7 +16,7 @@ const UserInfo = function ({ email, setEmail, password, setPassword }: IProps): 
                 <StyledInput required type="email" value={email} onChange={event => setEmail(event.target.value)} />
             </StyledLabel>
             <StyledLabel className="column">
-                Senha
+                Password
                 <StyledInput
                     required
                     type="password"

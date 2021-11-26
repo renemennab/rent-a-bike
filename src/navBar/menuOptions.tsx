@@ -13,7 +13,7 @@ interface IProps {
 }
 const MenuOptions = function ({ selectedView, setSelectedView }: IProps): JSX.Element {
     const [showDialog, setShowDialog] = useState(false)
-    const [userIsLogged, setUserIsLogged] = useState(true)
+    const [userIsLogged, setUserIsLogged] = useState(false)
     const dispatch = useDispatch()
 
     useEffect(() => {
