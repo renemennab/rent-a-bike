@@ -11,6 +11,7 @@ import HomePage from './home/homePage'
 import Login from './login/login'
 import UserProfileForm from './login/userProfileForm'
 import UserProfile from './login/userProfile'
+import UsersList from './users/usersList'
 
 const App = function (): JSX.Element {
     const dispatch = useDispatch()
@@ -30,6 +31,7 @@ const App = function (): JSX.Element {
                         <Route path={ROUTES.BIKES} component={BikesList} />
                         <Route path={ROUTES.PROFILE} component={UserProfile} />
                         <Route path={ROUTES.NEW_USER} component={UserProfileForm} />
+                        <Route path={ROUTES.USERS} component={UsersList} />
                         <Route path={ROUTES.SIGNUP} component={UserProfileForm} />
                         <Route path={ROUTES.LOGIN} component={Login} />
                         <Route path="/" component={HomePage} />
