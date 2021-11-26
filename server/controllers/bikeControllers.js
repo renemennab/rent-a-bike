@@ -17,7 +17,7 @@ export async function createBike(req, res) {
 
     if (!req.userId) return res.json({ message: 'Unauthenticated' })
 
-    const newBike = new BikeModel(bike)
+    const newBike = new BikeModel({ ...bike, creator: req.userId, cratedAt: new Date().getTime() })
     try {
         await newBike.save()
 

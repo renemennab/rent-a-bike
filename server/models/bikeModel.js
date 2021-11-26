@@ -7,7 +7,9 @@ const bikeSchema = new Schema({
     color: String,
     location: String,
     rating: Number,
-    isAvailable: Boolean
+    isAvailable: Boolean,
+    creator: String,
+    createdAt: { type: Number, default: new Date().getTime() }
 })
 
 const BikeModel = mongoose.model('Bike', bikeSchema)
