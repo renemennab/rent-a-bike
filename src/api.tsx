@@ -6,7 +6,7 @@ export const API_PATHS = {
     LOGIN: 'login'
 }
 
-const baseUrl = 'http://localhost:5000/'
+const baseUrl = 'https://bike-rental-manager.herokuapp.com/'
 interface IResponse {
     data: IBike
 }
