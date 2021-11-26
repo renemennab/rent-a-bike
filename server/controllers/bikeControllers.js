@@ -34,7 +34,7 @@ export async function updateBike(req, res) {
 
     if (!req.userId) return res.json({ message: 'Unauthenticated' })
 
-    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that id')
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No bike with that id')
 
     const updateResponse = await BikeModel.findByIdAndUpdate(_id, { ...updatedBike, _id }, { new: true })
 
@@ -46,9 +46,9 @@ export async function deleteBike(req, res) {
 
     if (!req.userId) return res.json({ message: 'Unauthenticated' })
 
-    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that id')
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No bike with that id')
 
     await BikeModel.findByIdAndRemove(_id)
 
-    return res.json('Post deleted successfuly')
+    return res.json('Bike deleted successfuly')
 }
