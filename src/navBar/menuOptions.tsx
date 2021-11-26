@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
-import { logOutUser } from '../login/loginHelpers'
+import { getLoggedInUser } from '../login/loginHelpers'
 import ConfirmationDialog from '../common/confirmationDialog'
 import { ROUTES } from '../utils'
 import { SELECTED_BIKE_REDUCER_OPTIONS } from '../reducers/selectedBikeReducer'
+import { LOGGED_USER_REDUCER_OPTIONS } from '../reducers/loggedUser'
 
 interface IProps {
     selectedView: boolean
@@ -14,14 +15,24 @@ interface IProps {
 const MenuOptions = function ({ selectedView, setSelectedView }: IProps): JSX.Element {
     const [showDialog, setShowDialog] = useState(false)
     const [userIsLogged, setUserIsLogged] = useState(false)
+    const [userIsManager, setUserIsManager] = useState(false)
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch({ type: SELECTED_BIKE_REDUCER_OPTIONS.SET_SELECTED_BIKE, payload: null })
     }, [])
 
+    useEffect(() => {
+        const user = getLoggedInUser()
+
+        if (user) {
+            setUserIsLogged(true)
+            if (user.result.isManager) setUserIsManager(true)
+        }
+    }, [])
+
     function handleLogOut(): void {
-        logOutUser()
+        dispatch({ type: LOGGED_USER_REDUCER_OPTIONS.LOGOUT_USER })
         setUserIsLogged?.(false)
         setShowDialog(false)
     }
@@ -40,8 +51,7 @@ const MenuOptions = function ({ selectedView, setSelectedView }: IProps): JSX.El
                                 <i className="fas fa-user" /> Perfil
                             </Link>
                         </li>
-                        {/* {window.sessionStorage.getItem(SESSION_DATA.USER_TYPE) === COLLECTOR ? ( */}
-                        {true ? (
+                        {userIsManager ? (
                             <>
                                 <li className="menuOptions--optionList__item ">
                                     <Link to={ROUTES.NEW_BIKE} className="menuOptions--optionList__item--button ">
