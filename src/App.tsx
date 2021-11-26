@@ -27,8 +27,8 @@ const App = function (): JSX.Element {
                         <Route path={`${ROUTES.BIKES}/:bikeId/edit`} component={BikeForm} />
                         <Route path={`${ROUTES.BIKES}/:bikeId`} component={SelectedBike} />
                         <Route path={ROUTES.BIKES} component={BikesList} />
-                        <Route path="/signIn" component={UserProfileForm} />
-                        <Route path="/login" component={Login} />
+                        <Route path={ROUTES.SIGNUP} component={UserProfileForm} />
+                        <Route path={ROUTES.LOGIN} component={Login} />
                         <Route path="/" component={HomePage} />
                     </Switch>
                 </main>
