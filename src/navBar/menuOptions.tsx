@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { getLoggedInUser } from '../login/loginHelpers'
 import ConfirmationDialog from '../common/confirmationDialog'
-import { ROUTES } from '../utils'
+import { checkIfTokenIsExpired, ROUTES } from '../utils'
 import { SELECTED_BIKE_REDUCER_OPTIONS } from '../reducers/selectedBikeReducer'
 import { LOGGED_USER_REDUCER_OPTIONS } from '../reducers/loggedUser'
 
@@ -28,6 +28,9 @@ const MenuOptions = function ({ selectedView, setSelectedView }: IProps): JSX.El
         if (user) {
             setUserIsLogged(true)
             if (user.result.isManager) setUserIsManager(true)
+            if (checkIfTokenIsExpired(user.token)) {
+                handleLogOut()
+            }
         }
     }, [])
 
