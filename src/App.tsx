@@ -29,6 +29,7 @@ const App = function (): JSX.Element {
                         <Route path={`${ROUTES.BIKES}/:bikeId`} component={SelectedBike} />
                         <Route path={ROUTES.BIKES} component={BikesList} />
                         <Route path={ROUTES.PROFILE} component={UserProfile} />
+                        <Route path={ROUTES.NEW_USER} component={UserProfileForm} />
                         <Route path={ROUTES.SIGNUP} component={UserProfileForm} />
                         <Route path={ROUTES.LOGIN} component={Login} />
                         <Route path="/" component={HomePage} />

@@ -1,13 +1,15 @@
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import PageHeader from '../common/pageHeader'
 import { StyledButton, StyledForm, StyledInput, StyledLabel } from '../common/styled'
 import UserInfo from '../common/userInfo'
-import { signUpUser } from '../actions/loggedUserActions'
+import { createUser } from '../actions/loggedUserActions'
+import { getLoggedInUser } from './loginHelpers'
 
 const UserProfileForm = function (): JSX.Element {
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [firstName, setFirstName] = useState(``)
     const [lastName, setLastName] = useState(``)
     const [email, setEmail] = useState(``)
@@ -18,8 +20,14 @@ const UserProfileForm = function (): JSX.Element {
     function handleSignUp(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault()
         const params = { firstName, lastName, email, password }
-        dispatch(signUpUser(params, history))
+
+        dispatch(createUser(params, history, !isLoggedIn))
     }
+
+    useEffect(() => {
+        const user = getLoggedInUser()
+        if (user) setIsLoggedIn(true)
+    }, [])
 
     return (
         <StyledSignIn>
@@ -48,7 +56,7 @@ const UserProfileForm = function (): JSX.Element {
                 </fieldset>
 
                 <StyledButton>
-                    Signup <i className="fa fa-save" />
+                    {isLoggedIn ? 'Create User' : 'Sign up'} <i className="fa fa-save" />
                 </StyledButton>
             </StyledForm>
         </StyledSignIn>

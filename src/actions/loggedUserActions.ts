@@ -2,6 +2,7 @@ import { Dispatch } from 'redux'
 import { RouteComponentProps } from 'react-router-dom'
 import * as api from '../api'
 import { LOGGED_USER_REDUCER_OPTIONS } from '../reducers/loggedUser'
+import { ROUTES } from '../utils'
 
 export const loginUser =
     (params: ILoginParams, history: RouteComponentProps['history']) =>
@@ -15,13 +16,17 @@ export const loginUser =
         }
     }
 
-export const signUpUser =
-    (params: ISignupParams, history: RouteComponentProps['history']) =>
+export const createUser =
+    (params: ISignupParams, history: RouteComponentProps['history'], login?: boolean) =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const { data } = await api.createUser(params)
-            dispatch({ type: LOGGED_USER_REDUCER_OPTIONS.LOGIN_USER, payload: data })
-            history.push('/')
+            if (login) {
+                dispatch({ type: LOGGED_USER_REDUCER_OPTIONS.LOGIN_USER, payload: data })
+                history.push('/')
+            } else {
+                history.push(ROUTES.USERS)
+            }
         } catch (error) {
             console.log(error)
         }
