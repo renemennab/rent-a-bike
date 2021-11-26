@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import mongoose from 'mongoose'
 import secretString from '../middleware/constants.js'
 import UserModel from '../models/userModel.js'
 
@@ -58,4 +59,39 @@ export async function getUsers(req, res) {
     } catch (error) {
         return res.status(404).json({ message: error.message })
     }
+}
+
+export async function getUser(req, res) {
+    const { id: _id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No user with that id')
+
+    try {
+        const user = await UserModel.findById(_id)
+
+        return res.status(200).json(user)
+    } catch (error) {
+        return res.status(404).json({ message: error.message })
+    }
+}
+
+export async function updateUser(req, res) {
+    const { id: _id } = req.params
+    const updatedUser = req.body
+
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No user with that id')
+
+    const updateResponse = await UserModel.findByIdAndUpdate(_id, { ...updatedUser, _id }, { new: true })
+
+    return res.json(updateResponse)
+}
+
+export async function deleteUser(req, res) {
+    const { id: _id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No user with that id')
+
+    await UserModel.findByIdAndRemove(_id)
+
+    return res.json('User deleted successfuly')
 }
