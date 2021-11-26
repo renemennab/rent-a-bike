@@ -1,28 +1,22 @@
 import React, { FormEvent, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
+import { loginUser } from '../actions/loggedUserActions'
 import PageHeader from '../common/pageHeader'
 import { StyledButton, StyledForm } from '../common/styled'
 import UserInfo from '../common/userInfo'
 import { ROUTES } from '../utils'
-import { loginUser } from './loginHelpers'
 
 const Login = function (): JSX.Element {
     const [email, setEmail] = useState(``)
     const [password, setPassword] = useState(``)
     const [userNotFound, setUserNotFound] = useState(false)
     const history = useHistory()
-
+    const dispatch = useDispatch()
     function handleLogin(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault()
-        loginUser({ email, password }).then(response => {
-            if (response?.status === 200) {
-                // setUserIsLogged?.(true)
-                history.push('/')
-            } else {
-                setUserNotFound(true)
-            }
-        })
+        dispatch(loginUser({ email, password }, history))
     }
 
     return (
@@ -34,6 +28,7 @@ const Login = function (): JSX.Element {
                     Login <i className="fas fa-sign-in-alt" />
                 </StyledButton>
             </StyledForm>
+
             {userNotFound ? <span className="login--userNotFound">USUÁRIO NÃO ENCONTRADO</span> : null}
             <Link to={ROUTES.SIGNIN} className="login--signInLink">
                 Não tem uma conta? Cadastre-se aqui

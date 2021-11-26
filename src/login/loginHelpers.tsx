@@ -1,34 +1,16 @@
-import { API_PATHS } from '../api'
-
 export const SESSION_DATA = {
-    NAME: 'name',
+    FIRST_NAME: 'firstName',
+    LAST_NAME: 'lastName',
     EMAIL: 'email',
-    ID: 'id',
-    IS_MANAGER: false
-}
-const URL_BASE = 'https://localhost:3000/'
-
-export function loginUser(params: LoginParams): Promise<Response> {
-    const { email, password } = params
-
-    return fetch(URL_BASE + API_PATHS.LOGIN, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, senha: password })
-    })
-        .then(response => response.json())
-        .then((data: LogInResponse) => {
-            window.sessionStorage.setItem(SESSION_DATA.ID, data.id)
-            window.sessionStorage.setItem(SESSION_DATA.NAME, data.name)
-            window.sessionStorage.setItem(SESSION_DATA.EMAIL, params.email)
-
-            return { status: 200 }
-        })
-        .catch(err => err)
+    ID: '_id',
+    IS_MANAGER: 'isManager',
+    RESULT: 'result',
+    TOKEN: 'token',
+    PROFILE: 'profile'
 }
 
-export function logOutUser(): void {
-    window.sessionStorage.clear()
+export function getLoggedInUser(): IlocalStorageProfile {
+    const profileString = window.localStorage.getItem(SESSION_DATA.PROFILE)
+    const profile = profileString ? JSON.parse(profileString) : null
+    return profile
 }
