@@ -5,6 +5,7 @@ export const ROUTES = {
     SIGNIN: `/signIn`,
     PROFILE: `/profile`,
     NEW_BIKE: `/newBike`,
+    NEW_USER: `/newUser`,
     BIKES: `/bikes`,
     USERS: `/users`,
     RESERVATIONS: `/reservations`

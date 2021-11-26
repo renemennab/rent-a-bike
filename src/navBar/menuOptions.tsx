@@ -51,34 +51,40 @@ const MenuOptions = function ({ selectedView, setSelectedView }: IProps): JSX.El
                     <>
                         <li className="menuOptions--optionList__item ">
                             <Link to={ROUTES.PROFILE} className="menuOptions--optionList__item--button ">
-                                <i className="fas fa-user" /> Perfil
+                                <i className="fas fa-user" /> My Profile
+                            </Link>
+                        </li>
+                        <li className="menuOptions--optionList__item ">
+                            <Link to={ROUTES.BIKES} className="menuOptions--optionList__item--button ">
+                                <i className="fas fa-bicycle" />
+                                Bikes
                             </Link>
                         </li>
                         {userIsManager ? (
                             <>
                                 <li className="menuOptions--optionList__item ">
+                                    <Link to={ROUTES.USERS} className="menuOptions--optionList__item--button ">
+                                        <i className="fas fa-users" /> Users
+                                    </Link>
+                                </li>
+                                <li className="menuOptions--optionList__item ">
                                     <Link to={ROUTES.NEW_BIKE} className="menuOptions--optionList__item--button ">
-                                        <i className="fas fa-sign-in-alt" />
+                                        <i className="fas fa-plus" />
                                         Add New Bike
                                     </Link>
                                 </li>
                                 <li className="menuOptions--optionList__item ">
-                                    <Link to={ROUTES.RESERVATIONS} className="menuOptions--optionList__item--button ">
-                                        <i className="fas fa-sign-in-alt" />
-                                        My Reservations
-                                    </Link>
-                                </li>
-                                <li className="menuOptions--optionList__item ">
-                                    <Link to={ROUTES.BIKES} className="menuOptions--optionList__item--button ">
-                                        <i className="fas fa-map-marker-alt" />
-                                        Bikes
+                                    <Link to={ROUTES.NEW_USER} className="menuOptions--optionList__item--button ">
+                                        <i className="fas fa-plus" />
+                                        Add New User
                                     </Link>
                                 </li>
                             </>
                         ) : (
                             <li className="menuOptions--optionList__item ">
-                                <Link to={ROUTES.USERS} className="menuOptions--optionList__item--button ">
-                                    <i className="far fa-calendar" /> Manage Users
+                                <Link to={ROUTES.RESERVATIONS} className="menuOptions--optionList__item--button ">
+                                    <i className="far fa-calendar-alt" />
+                                    My Reservations
                                 </Link>
                             </li>
                         )}
