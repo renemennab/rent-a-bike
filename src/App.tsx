@@ -23,27 +23,13 @@ const App = function (): JSX.Element {
             <AppStyles className="App">
                 <main>
                     <Switch>
-                        <Route path={`${ROUTES.NEW_BIKE}`}>
-                            <BikeForm />
-                        </Route>
-                        <Route path={`${ROUTES.BIKES}/:bikeId/edit`}>
-                            <BikeForm />
-                        </Route>
-                        <Route path={`${ROUTES.BIKES}/:bikeId`}>
-                            <SelectedBike />
-                        </Route>
-                        <Route path={ROUTES.BIKES}>
-                            <BikesList />
-                        </Route>
-                        <Route path="/signIn">
-                            <UserProfileForm />
-                        </Route>
-                        <Route path="/login">
-                            <Login />
-                        </Route>
-                        <Route path="/">
-                            <HomePage />
-                        </Route>
+                        <Route path={`${ROUTES.NEW_BIKE}`} component={BikeForm} />
+                        <Route path={`${ROUTES.BIKES}/:bikeId/edit`} component={BikeForm} />
+                        <Route path={`${ROUTES.BIKES}/:bikeId`} component={SelectedBike} />
+                        <Route path={ROUTES.BIKES} component={BikesList} />
+                        <Route path="/signIn" component={UserProfileForm} />
+                        <Route path="/login" component={Login} />
+                        <Route path="/" component={HomePage} />
                     </Switch>
                 </main>
             </AppStyles>
