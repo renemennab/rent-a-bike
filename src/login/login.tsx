@@ -16,7 +16,7 @@ const Login = function (): JSX.Element {
     const dispatch = useDispatch()
     function handleLogin(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault()
-        dispatch(loginUser({ email, password }, history))
+        dispatch(loginUser({ email, password }, history, setUserNotFound))
     }
 
     return (
@@ -29,9 +29,9 @@ const Login = function (): JSX.Element {
                 </StyledButton>
             </StyledForm>
 
-            {userNotFound ? <span className="login--userNotFound">USUÁRIO NÃO ENCONTRADO</span> : null}
+            {userNotFound ? <span className="login--userNotFound">USER NOT FOUND</span> : null}
             <Link to={ROUTES.SIGNUP} className="login--signInLink">
-                Não tem uma conta? Cadastre-se aqui
+                Need to create an account? Sign up here!
             </Link>
         </StyledLogin>
     )

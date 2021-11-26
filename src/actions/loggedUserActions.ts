@@ -5,13 +5,14 @@ import { LOGGED_USER_REDUCER_OPTIONS } from '../reducers/loggedUser'
 import { ROUTES } from '../utils'
 
 export const loginUser =
-    (params: ILoginParams, history: RouteComponentProps['history']) =>
+    (params: ILoginParams, history: RouteComponentProps['history'], setUserNotFound: (status: boolean) => void) =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const { data } = await api.loginUser(params)
             dispatch({ type: LOGGED_USER_REDUCER_OPTIONS.LOGIN_USER, payload: data })
             history.push('/')
         } catch (error) {
+            setUserNotFound(true)
             console.log(error)
         }
     }
