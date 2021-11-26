@@ -48,3 +48,11 @@ export const StyledForm = styled.form`
     width: 100%;
     margin-top: 40px;
 `
+export const FilterInput = styled.input`
+    width: 100%;
+    height: 30px;
+    border-radius: 35px;
+    margin-bottom: 20px;
+    border: 1px solid var(--black);
+    padding-left: 16px;
+`
