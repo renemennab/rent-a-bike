@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import PageHeader from '../common/pageHeader'
 import { StyledButton, StyledForm, StyledInput, StyledLabel } from '../common/styled'
 import UserInfo from '../common/userInfo'
-import { createUser } from '../actions/loggedUserActions'
+import { createUser } from '../actions/userActions'
 import { getLoggedInUser } from './loginHelpers'
 
 const UserProfileForm = function (): JSX.Element {
