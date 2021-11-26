@@ -4,6 +4,7 @@ import * as api from '../api'
 import { LOGGED_USER_REDUCER_OPTIONS } from '../reducers/loggedUser'
 import { ROUTES } from '../utils'
 import { USERS_REDUCER_OPTIONS } from '../reducers/usersReducer'
+import { SELECTED_USER_REDUCER_OPTIONS } from '../reducers/selectedUserReducer'
 
 export const loginUser =
     (params: ILoginParams, history: RouteComponentProps['history'], setUserNotFound: (status: boolean) => void) =>
@@ -41,6 +42,17 @@ export const fetchUsers =
         try {
             const { data } = await api.fetchUsers()
             dispatch({ type: USERS_REDUCER_OPTIONS.FETCH_ALL, payload: data })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+export const fetchUser =
+    (userId: string) =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            const { data } = await api.fetchUser(userId)
+            dispatch({ type: SELECTED_USER_REDUCER_OPTIONS.SET_SELECTED_USER, payload: data })
         } catch (error) {
             console.log(error)
         }
