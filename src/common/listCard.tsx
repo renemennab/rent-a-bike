@@ -31,3 +31,10 @@ export const CardSpan = styled.span`
     font-size: 14px;
     margin-bottom: 15px;
 `
+export const ListOfCards = styled.ul`
+    padding: var(--padding);
+    flex-grow: 1;
+    width: 100%;
+    list-style: none;
+    margin: 0;
+`
