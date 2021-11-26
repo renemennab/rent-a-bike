@@ -30,7 +30,7 @@ const Login = function (): JSX.Element {
             </StyledForm>
 
             {userNotFound ? <span className="login--userNotFound">USUÁRIO NÃO ENCONTRADO</span> : null}
-            <Link to={ROUTES.SIGNIN} className="login--signInLink">
+            <Link to={ROUTES.SIGNUP} className="login--signInLink">
                 Não tem uma conta? Cadastre-se aqui
             </Link>
         </StyledLogin>

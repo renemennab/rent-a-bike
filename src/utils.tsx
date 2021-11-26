@@ -2,7 +2,7 @@ import jwtDecode from 'jwt-decode'
 
 export const ROUTES = {
     LOGIN: `/login`,
-    SIGNIN: `/signIn`,
+    SIGNUP: `/signup`,
     PROFILE: `/profile`,
     NEW_BIKE: `/newBike`,
     NEW_USER: `/newUser`,
