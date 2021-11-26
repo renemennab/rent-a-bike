@@ -12,6 +12,7 @@ import Login from './login/login'
 import UserProfileForm from './login/userProfileForm'
 import UserProfile from './login/userProfile'
 import UsersList from './users/usersList'
+import SelectedUser from './users/selectedUser'
 
 const App = function (): JSX.Element {
     const dispatch = useDispatch()
@@ -29,6 +30,8 @@ const App = function (): JSX.Element {
                         <Route path={`${ROUTES.BIKES}/:bikeId/edit`} component={BikeForm} />
                         <Route path={`${ROUTES.BIKES}/:bikeId`} component={SelectedBike} />
                         <Route path={ROUTES.BIKES} component={BikesList} />
+                        <Route path={`${ROUTES.USERS}/:userId/edit`} component={UserProfileForm} />
+                        <Route path={`${ROUTES.USERS}/:userId`} component={SelectedUser} />
                         <Route path={ROUTES.PROFILE} component={UserProfile} />
                         <Route path={ROUTES.NEW_USER} component={UserProfileForm} />
                         <Route path={ROUTES.USERS} component={UsersList} />
