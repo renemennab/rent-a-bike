@@ -31,9 +31,10 @@ export const updateBike = (bikeId: string, updatedbike: PostBike): Promise<IBike
 export const deleteBike = (bikeId: string): Promise<Response> => API.delete(`${API_PATHS.BIKES}/${bikeId}`)
 
 interface IUserResponse {
-    data: IUser
+    data: IStorageResult
 }
 
+export const fetchUsers = (): Promise<IUserResponse> => API.get(API_PATHS.USER)
 export const createUser = (newUser: ISignupParams): Promise<IUserResponse> =>
     API.post(`${API_PATHS.USER}/${API_PATHS.SIGNUP}`, newUser)
 export const loginUser = (user: ILoginParams): Promise<IUserResponse> =>
