@@ -29,14 +29,22 @@ const HomePage = function (): JSX.Element {
                     <Logo />
                 </div>
             </div>
-            <div className="homePage--energy">
-                <Lamp className="homePage--energy__lamp" />
-                <p className="homePage--energy__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-            <div className="homePage--timeMoney">
-                <p className="homePage--timeMoney__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <TimeMoney className="homePage--timeMoney__image" />
-            </div>
+            {isUserLoggedIn ? null : (
+                <>
+                    <div className="homePage--energy">
+                        <Lamp className="homePage--energy__lamp" />
+                        <p className="homePage--energy__text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        </p>
+                    </div>
+                    <div className="homePage--timeMoney">
+                        <p className="homePage--timeMoney__text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        </p>
+                        <TimeMoney className="homePage--timeMoney__image" />
+                    </div>
+                </>
+            )}
 
             <OptionsList />
 
