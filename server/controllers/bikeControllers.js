@@ -29,8 +29,7 @@ export async function getBike(req, res) {
 export async function createBike(req, res) {
     const bike = req.body
 
-    if (!req.bikeId) return res.json({ message: 'Unauthenticated' })
-
+    if (!req.userId) return res.json({ message: 'Unauthenticated' })
     const newBike = new BikeModel({ ...bike, creator: req.bikeId, cratedAt: new Date().getTime() })
     try {
         await newBike.save()
@@ -46,7 +45,7 @@ export async function updateBike(req, res) {
     const { id: _id } = req.params
     const updatedBike = req.body
 
-    if (!req.bikeId) return res.json({ message: 'Unauthenticated' })
+    if (!req.userId) return res.json({ message: 'Unauthenticated' })
 
     if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No bike with that id')
 
@@ -58,7 +57,7 @@ export async function updateBike(req, res) {
 export async function deleteBike(req, res) {
     const { id: _id } = req.params
 
-    if (!req.bikeId) return res.json({ message: 'Unauthenticated' })
+    if (!req.userId) return res.json({ message: 'Unauthenticated' })
 
     if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No bike with that id')
 
