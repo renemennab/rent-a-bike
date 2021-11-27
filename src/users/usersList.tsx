@@ -8,6 +8,7 @@ import PageHeader from '../common/pageHeader'
 import { CardHeading, CardLink, CardSpan, ListCard } from '../common/listCard'
 import { FilterInput } from '../common/styled'
 import { fetchUsers } from '../actions/userActions'
+import { getLoggedInUser } from '../login/loginHelpers'
 
 const UsersList = function (): JSX.Element {
     const usersData = useSelector((state: { users: IStorageResult[] }) => state.users)
@@ -49,20 +50,23 @@ const UsersList = function (): JSX.Element {
                 value={filter}
                 onChange={event => setFilter(event.target.value)}
             />
-            {filteredList.map((user: IStorageResult) => (
-                <ListCard className="users--card" key={user._id}>
-                    <CardLink
-                        className="users--card__link"
-                        to={`${placeLink}/${user._id}`}
-                        onClick={() =>
-                            dispatch({ type: SELECTED_USER_REDUCER_OPTIONS.SET_SELECTED_USER, payload: user })
-                        }
-                    >
-                        <CardHeading className="users--card__link--model">{`${user.firstName} ${user.lastName}`}</CardHeading>
-                        <CardSpan className="users--card__link--color">{user.email}</CardSpan>
-                    </CardLink>
-                </ListCard>
-            ))}
+            {filteredList.map((user: IStorageResult) => {
+                if (user._id === getLoggedInUser().result._id) return null
+                return (
+                    <ListCard className="users--card" key={user._id}>
+                        <CardLink
+                            className="users--card__link"
+                            to={`${placeLink}/${user._id}`}
+                            onClick={() =>
+                                dispatch({ type: SELECTED_USER_REDUCER_OPTIONS.SET_SELECTED_USER, payload: user })
+                            }
+                        >
+                            <CardHeading className="users--card__link--model">{`${user.firstName} ${user.lastName}`}</CardHeading>
+                            <CardSpan className="users--card__link--color">{user.email}</CardSpan>
+                        </CardLink>
+                    </ListCard>
+                )
+            })}
         </StyledPlacesList>
     )
 }
