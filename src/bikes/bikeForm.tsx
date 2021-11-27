@@ -2,7 +2,7 @@ import React, { FormEvent, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { createBike, updateBike } from '../actions/bikeActions'
+import { createBike, getBike, updateBike } from '../actions/bikeActions'
 import PageHeader from '../common/pageHeader'
 import { StyledButton, StyledForm, StyledInput, StyledLabel } from '../common/styled'
 import { ROUTES } from '../utils'
@@ -19,20 +19,23 @@ const BikeForm = function (): JSX.Element {
 
     const history = useHistory()
     const params = useParams() as { bikeId: string }
-    console.log(params)
-    console.log(selectedBike)
 
     // const [relatedEvents, setRelatedEvents] = useState(``)
     useEffect(() => {
         if (!selectedBike && params.bikeId) {
-            console.log(selectedBike)
-            // setModel(selectedBike.model)
-            // setColor(selectedBike.color)
-            // setLocation(selectedBike.location)
-            // setRating(selectedBike.rating)
+            dispatch(getBike(params.bikeId))
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+    useEffect(() => {
+        if (selectedBike) {
+            setModel(selectedBike.model)
+            setColor(selectedBike.color)
+            setLocation(selectedBike.location)
+            setRating(selectedBike.rating)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedBike])
 
     function handleBikeSubmit(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault()

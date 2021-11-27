@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { deleteBike } from '../actions/bikeActions'
+import { deleteBike, getBike } from '../actions/bikeActions'
 import PageHeader from '../common/pageHeader'
 import SelectedAssetButtons from '../common/selectedAssetButtons'
 import { ROUTES } from '../utils'
@@ -14,7 +14,7 @@ const SelectedBike = function (): JSX.Element {
     const dispatch = useDispatch()
     useEffect(() => {
         if (!selectedBike && params.bikeId) {
-            // get bikes
+            dispatch(getBike(params.bikeId))
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
