@@ -8,6 +8,7 @@ import { SELECTED_BIKE_REDUCER_OPTIONS } from '../reducers/selectedBikeReducer'
 import PageHeader from '../common/pageHeader'
 import { CardHeading, CardLink, CardSpan, ListCard } from '../common/listCard'
 import { FilterInput } from '../common/styled'
+import DateSelector from '../reservation/dateSelector'
 
 const BikesList = function (): JSX.Element {
     const bikesData = useSelector((state: { bikes: IBike[] }) => state.bikes)
@@ -48,6 +49,7 @@ const BikesList = function (): JSX.Element {
                 value={filter}
                 onChange={event => setFilter(event.target.value)}
             />
+            <DateSelector />
             {filteredList.map((data: IBike) => (
                 <ListCard className="bikes--card" key={data._id}>
                     <CardLink

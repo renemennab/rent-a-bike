@@ -43,4 +43,9 @@ interface IStorageResult extends ISignupParams {
     _id: string
 }
 
+interface ITimestamps {
+    start: number
+    end: number
+}
+
 type AssetType = 'user' | 'bike'
