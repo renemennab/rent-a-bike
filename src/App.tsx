@@ -13,6 +13,7 @@ import UserProfileForm from './users/userProfileForm'
 import UsersList from './users/usersList'
 import SelectedUser from './users/selectedUser'
 import ReservationsList from './reservation/reservationsList'
+import SelectedReservation from './reservation/selectedReservation'
 
 const App = function (): JSX.Element {
     const dispatch = useDispatch()
@@ -30,6 +31,7 @@ const App = function (): JSX.Element {
                         <Route path={`${ROUTES.BIKES}/:bikeId/edit`} component={BikeForm} />
                         <Route path={`${ROUTES.BIKES}/:bikeId`} component={SelectedBike} />
                         <Route path={ROUTES.BIKES} component={BikesList} />
+                        <Route path={`${ROUTES.RESERVATIONS}/:reservationId`} component={SelectedReservation} />
                         <Route path={ROUTES.RESERVATIONS} component={ReservationsList} />
                         <Route path={`${ROUTES.USERS}/:userId/edit`} component={UserProfileForm} />
                         <Route path={`${ROUTES.USERS}/:userId`} component={SelectedUser} />
