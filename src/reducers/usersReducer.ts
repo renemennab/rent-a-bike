@@ -22,11 +22,9 @@ const usersReducer = (users: IStorageResult[] = [], action: IAction = defaultAct
         case CREATE:
             return [...users, action.payload[0]]
         case UPDATE:
-            return users.map(updatedUser =>
-                updatedUser._id === action.payload[0]._id ? action.payload[0] : updatedUser
-            )
+            return users.map(user => (user._id === action.payload[0]._id ? action.payload[0] : user))
         case DELETE:
-            return users.filter(deletedUser => deletedUser._id !== action.payload[0]._id)
+            return users.filter(user => user._id !== action.payload[0]._id)
         default:
             return users
     }

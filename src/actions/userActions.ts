@@ -59,22 +59,22 @@ export const fetchUser =
     }
 
 export const updateUser =
-    (userId: string, updatedUser: PostUser) =>
+    (updatedUser: IStorageResult) =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const { data } = await api.updateUser(userId, updatedUser)
-            dispatch({ type: USERS_REDUCER_OPTIONS.UPDATE, payload: data })
+            const { data } = await api.updateUser(updatedUser._id, updatedUser)
+            dispatch({ type: USERS_REDUCER_OPTIONS.UPDATE, payload: [data] })
         } catch (error) {
             console.log(error)
         }
     }
 
 export const deleteUser =
-    (userId: string) =>
+    (user: IStorageResult) =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            await api.deleteUser(userId)
-            dispatch({ type: USERS_REDUCER_OPTIONS.DELETE, payload: userId })
+            await api.deleteUser(user._id)
+            dispatch({ type: USERS_REDUCER_OPTIONS.DELETE, payload: [user] })
         } catch (error) {
             console.log(error)
         }

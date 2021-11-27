@@ -1,19 +1,21 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
-import { fetchUser } from '../actions/userActions'
+import { fetchUser, deleteUser } from '../actions/userActions'
 import { ListOfCards, ListCard, CardHeading } from '../common/listCard'
 import PageHeader from '../common/pageHeader'
+import SelectedAssetButtons from '../common/selectedAssetButtons'
 import { getLoggedInUser } from '../login/loginHelpers'
 import { SELECTED_USER_REDUCER_OPTIONS } from '../reducers/selectedUserReducer'
-// import AssetActions from './assetActions'
+import { ROUTES } from '../utils'
 
 const SelectedUser = function (): JSX.Element {
     const loggedInUser = getLoggedInUser().result
     const selectedUser = useSelector((state: { selectedUser: IStorageResult }) => state.selectedUser)
     const params = useParams() as { userId: string }
     const dispatch = useDispatch()
+    const history = useHistory()
 
     useEffect(() => {
         if (!selectedUser && params.userId) {
@@ -24,11 +26,18 @@ const SelectedUser = function (): JSX.Element {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    const onDelete = (): void => {
+        dispatch(deleteUser(user))
+        history.push(ROUTES.USERS)
+    }
+
     const user = selectedUser || loggedInUser
 
     return (
         <StyledSelectedUser className="selectedUser">
             <PageHeader pageName={`${user.firstName} ${user.lastName}`} />
+            <SelectedAssetButtons onDelete={onDelete} />
             <span className="selectedUser--email">
                 <strong>email: </strong> {user.email}
             </span>
