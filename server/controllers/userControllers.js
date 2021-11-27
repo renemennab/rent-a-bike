@@ -76,14 +76,28 @@ export async function getUser(req, res) {
 }
 
 export async function updateUser(req, res) {
-    const { id: _id } = req.params
-    const updatedUser = req.body
+    const { email, password, firstName, lastName, isManager, userId } = req.body
+    try {
+        if (!mongoose.Types.ObjectId.isValid(userId)) return res.status(404).send('No user with that id')
+        const existingUser = await UserModel.findOne({ email })
+        if (existingUser && existingUser._id.toString() !== userId) {
+            return res.status(400).json('Email already exist for another user')
+        }
+        const hashedPassword = await bcrypt.hash(password, 12)
 
-    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No user with that id')
+        const updatedUser = {
+            email,
+            password: hashedPassword,
+            firstName,
+            lastName,
+            isManager
+        }
+        const updateResponse = await UserModel.findByIdAndUpdate(userId, { ...updatedUser, _id: userId }, { new: true })
 
-    const updateResponse = await UserModel.findByIdAndUpdate(_id, { ...updatedUser, _id }, { new: true })
-
-    return res.json(updateResponse)
+        return res.json(updateResponse)
+    } catch (error) {
+        return res.status(500).json({ message: 'Something went wrong' })
+    }
 }
 
 export async function deleteUser(req, res) {

@@ -59,11 +59,13 @@ export const fetchUser =
     }
 
 export const updateUser =
-    (updatedUser: IStorageResult) =>
+    (updatedUser: IUpdateUserParams, history: RouteComponentProps['history']) =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const { data } = await api.updateUser(updatedUser._id, updatedUser)
+            const { data } = await api.updateUser(updatedUser)
             dispatch({ type: USERS_REDUCER_OPTIONS.UPDATE, payload: [data] })
+            dispatch({ type: SELECTED_USER_REDUCER_OPTIONS.SET_SELECTED_USER, payload: data })
+            history.push(`${ROUTES.USERS}/${updatedUser.userId}`)
         } catch (error) {
             console.log(error)
         }

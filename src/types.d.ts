@@ -9,12 +9,8 @@ interface PostBike {
     rating: string
     isAvailable: boolean
 }
-interface IUser extends PostUser {
-    id: string
-}
-
-interface PostUser extends LoginParams {
-    name: string
+interface IUpdateUserParams extends ISignupParams {
+    userId: string
 }
 
 interface LoginParams {
@@ -35,21 +31,13 @@ interface ISignupParams extends ILoginParams {
     firstName: string
     lastName: string
 }
-interface IUser {
-    firstName: string
-    lastName: string
-}
 
 interface IlocalStorageProfile {
     result: IStorageResult
     token: string
 }
 
-interface IStorageResult {
-    firstName: string
-    lastName: string
-    email: string
-    password: string
+interface IStorageResult extends ISignupParams {
     isManager: false
     reservations: string[]
     _id: string

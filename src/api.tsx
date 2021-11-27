@@ -41,6 +41,6 @@ export const createUser = (newUser: ISignupParams): Promise<{ data: IlocalStorag
     API.post(`${API_PATHS.USER}/${API_PATHS.SIGNUP}`, newUser)
 export const loginUser = (user: ILoginParams): Promise<{ data: IlocalStorageProfile }> =>
     API.post(`${API_PATHS.USER}/${API_PATHS.LOGIN}`, user)
-export const updateUser = (userId: string, updateduser: IStorageResult): Promise<IUserResponse> =>
-    API.patch(`${API_PATHS.USER}/${userId}`, updateduser)
+export const updateUser = (updateduser: IUpdateUserParams): Promise<IUserResponse> =>
+    API.patch(`${API_PATHS.USER}/${updateduser.userId}`, updateduser)
 export const deleteUser = (userId: string): Promise<Response> => API.delete(`${API_PATHS.USER}/${userId}`)
