@@ -45,6 +45,14 @@ const DateSelector = function (): JSX.Element {
                     className="dateSelector--end__picker"
                 />
             </div>
+            <div className="dateSelector--buttons">
+                <button type="button" className="dateSelector--buttons__filter">
+                    Filter by dates
+                </button>
+                <button type="button" className="dateSelector--buttons__clearFilter">
+                    Clear date filter
+                </button>
+            </div>
         </StyledDateSelector>
     )
 }
@@ -71,6 +79,25 @@ const StyledDateSelector = styled.div`
                 font-size: 16px;
                 border: none;
                 border-bottom: 2px solid var(--yellow);
+            }
+        }
+        &--buttons {
+            margin-bottom: 40px;
+            &__filter {
+                border: none;
+                background: var(--dark-blue);
+                padding: 10px;
+                margin-right: 10px;
+                color: white;
+                border-radius: 5px;
+                font-size: 15px;
+                font-weight: 600;
+            }
+            &__clearFilter {
+                border: none;
+                background: transparent;
+                color: var(--dark-blue);
+                font-size: 15px;
             }
         }
     }
