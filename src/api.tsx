@@ -1,13 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { set } from 'lodash'
-
-export const API_PATHS = {
-    BIKES: 'bikes',
-    RESERVATIONS: 'reservations',
-    USER: 'user',
-    LOGIN: 'login',
-    SIGNUP: 'signup'
-}
+import API_PATHS from './pathConstants'
 
 const isDev = process.env.NODE_ENV === 'development'
 const API = axios.create({ baseURL: isDev ? 'http://localhost:5000/' : 'https://bike-rental-manager.herokuapp.com/' })
