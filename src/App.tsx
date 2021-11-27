@@ -10,7 +10,6 @@ import BikeForm from './bikes/bikeForm'
 import HomePage from './home/homePage'
 import Login from './login/login'
 import UserProfileForm from './login/userProfileForm'
-import UserProfile from './login/userProfile'
 import UsersList from './users/usersList'
 import SelectedUser from './users/selectedUser'
 
@@ -32,7 +31,7 @@ const App = function (): JSX.Element {
                         <Route path={ROUTES.BIKES} component={BikesList} />
                         <Route path={`${ROUTES.USERS}/:userId/edit`} component={UserProfileForm} />
                         <Route path={`${ROUTES.USERS}/:userId`} component={SelectedUser} />
-                        <Route path={ROUTES.PROFILE} component={UserProfile} />
+                        <Route path={ROUTES.PROFILE} component={SelectedUser} />
                         <Route path={ROUTES.NEW_USER} component={UserProfileForm} />
                         <Route path={ROUTES.USERS} component={UsersList} />
                         <Route path={ROUTES.SIGNUP} component={UserProfileForm} />
