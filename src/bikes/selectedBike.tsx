@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import PageHeader from '../common/pageHeader'
-import AssetActions from './assetActions'
+import AssetActions from '../common/assetActions'
 
 const SelectedBike = function (): JSX.Element {
     const selectedBike = useSelector((state: { selectedBike: IBike }) => state.selectedBike)

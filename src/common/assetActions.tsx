@@ -3,7 +3,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { ROUTES } from '../utils'
-import ConfirmationDialog from '../common/confirmationDialog'
+import ConfirmationDialog from './confirmationDialog'
 import { deleteBike } from '../actions/bikeActions'
 
 interface IProps {
