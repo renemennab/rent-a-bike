@@ -118,31 +118,58 @@ OptionsList.defaultProps = {
     isNav: false
 }
 const StyledOptionsList = styled.ul`
+    padding: 0;
     .optionsList {
-        padding: 0;
         &--item {
             list-style: none;
             &__button {
+                width: 300px;
+                padding: 20px;
+                background: var(--yellow);
+                font-weight: 600;
+                border-radius: 8px;
                 display: flex;
+                justify-content: center;
                 align-items: center;
-                padding: 10px;
-                border-radius: 10px;
-                padding: 18px 0;
-                border: none;
-                background: white;
-                text-decoration: none;
-                font-size: 18px;
+                font-size: 20px;
+                margin-top: 20px;
                 &,
                 &:visited {
-                    color: var(--dark-blue);
+                    color: white;
                 }
                 i {
                     margin-right: 8px;
-                    color: var(--yellow);
+                }
+                &:hover {
+                    background: var(--red);
                 }
             }
-            &:hover {
-                background: lightblue;
+        }
+    }
+    &.isNav {
+        .optionsList {
+            &--item {
+                &__button {
+                    padding: 10px;
+                    border-radius: 10px;
+                    padding: 18px 0;
+                    border: none;
+                    background: white;
+                    text-decoration: none;
+                    font-size: 18px;
+                    justify-content: flex-start;
+
+                    &,
+                    &:visited {
+                        color: var(--dark-blue);
+                    }
+                    i {
+                        color: var(--yellow);
+                    }
+                    &:hover {
+                        background: lightblue;
+                    }
+                }
             }
         }
     }

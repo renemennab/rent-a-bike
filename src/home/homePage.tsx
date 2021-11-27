@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { getLoggedInUser } from '../login/loginHelpers'
 import MenuOptions from '../navBar/menuOptions'
+import OptionsList from '../navBar/optionsList'
 import { ROUTES } from '../utils'
 import Lamp from './lamp'
 import Logo from './logo'
@@ -36,12 +37,9 @@ const HomePage = function (): JSX.Element {
                 <p className="homePage--timeMoney__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                 <TimeMoney className="homePage--timeMoney__image" />
             </div>
-            {isUserLoggedIn ? null : (
-                <Link to={ROUTES.LOGIN} className="homePage--login ">
-                    <i className="fas fa-sign-in-alt" />
-                    LOGIN
-                </Link>
-            )}
+
+            <OptionsList />
+
             <MenuOptions selectedView={showOptions} setSelectedView={setShowOptions} />
         </StyledHomePage>
     )
@@ -49,23 +47,29 @@ const HomePage = function (): JSX.Element {
 
 export default HomePage
 const StyledHomePage = styled.div`
-    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 40px;
     .homePage {
         &--menuBtn {
             position: fixed;
             left: 20px;
             top: 20px;
-            background: transparent;
+            background: var(--yellow);
+            border-radius: 8px;
+            padding: 15px;
             color: white;
             border: none;
             font-size: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         &--banner {
             width: 100%;
             height: 60vh;
+            min-height: 60vh;
             background: var(--yellow);
             display: flex;
             justify-content: center;
