@@ -3,12 +3,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { deleteBike, getBike } from '../actions/bikeActions'
+import { createReservation } from '../actions/reservationActions'
 import PageHeader from '../common/pageHeader'
 import SelectedAssetButtons from '../common/selectedAssetButtons'
+import DateSelector from '../reservation/dateSelector'
 import { ROUTES } from '../utils'
 
 const SelectedBike = function (): JSX.Element {
-    const selectedBike = useSelector((state: { selectedBike: IBike }) => state.selectedBike)
+    const { selectedBike, selectedTimestamps } = useSelector(
+        (state: { selectedBike: IBike; selectedTimestamps: ITimestamps }) => state
+    )
     const params = useParams() as { bikeId: string }
     const history = useHistory()
     const dispatch = useDispatch()
@@ -22,6 +26,15 @@ const SelectedBike = function (): JSX.Element {
     const onDelete = (): void => {
         dispatch(deleteBike(selectedBike))
         history.push(ROUTES.BIKES)
+    }
+
+    const handleBikeBooking = (): void => {
+        const reservationParams = {
+            bikeId: selectedBike._id,
+            startTimestamp: selectedTimestamps.start,
+            endTimestamp: selectedTimestamps.end
+        }
+        dispatch(createReservation(reservationParams))
     }
 
     return selectedBike ? (
@@ -40,6 +53,10 @@ const SelectedBike = function (): JSX.Element {
             <span className="selectedBike--latitude">
                 <strong>Rating: </strong> {selectedBike.rating}
             </span>
+            <DateSelector />
+            <button type="button" className="dateSelector--buttons__clearFilter" onClick={handleBikeBooking}>
+                Book Bike
+            </button>
         </StyledSelectedBike>
     ) : (
         <div />

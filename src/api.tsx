@@ -3,6 +3,7 @@ import { set } from 'lodash'
 
 export const API_PATHS = {
     BIKES: 'bikes',
+    RESERVATIONS: 'reservations',
     USER: 'user',
     LOGIN: 'login',
     SIGNUP: 'signup'
@@ -30,6 +31,22 @@ export const createBike = (newBike: PostBike): Promise<IBikeResponse> => API.pos
 export const updateBike = (bikeId: string, updatedbike: PostBike): Promise<IBikeResponse> =>
     API.patch(`${API_PATHS.BIKES}/${bikeId}`, updatedbike)
 export const deleteBike = (bikeId: string): Promise<Response> => API.delete(`${API_PATHS.BIKES}/${bikeId}`)
+
+interface IReservationResponse {
+    data: IReservation
+}
+
+export const fetchReservations = (): Promise<IReservationResponse> => API.get(API_PATHS.RESERVATIONS)
+export const fetchReservation = (reservationId: string): Promise<IReservationResponse> =>
+    API.get(`${API_PATHS.RESERVATIONS}/${reservationId}`)
+export const createReservation = (newReservation: PostReservation): Promise<IReservationResponse> =>
+    API.post(API_PATHS.RESERVATIONS, newReservation)
+export const updateReservation = (
+    reservationId: string,
+    updatedreservation: PostReservation
+): Promise<IReservationResponse> => API.patch(`${API_PATHS.RESERVATIONS}/${reservationId}`, updatedreservation)
+export const deleteReservation = (reservationId: string): Promise<Response> =>
+    API.delete(`${API_PATHS.RESERVATIONS}/${reservationId}`)
 
 interface IUserResponse {
     data: IStorageResult

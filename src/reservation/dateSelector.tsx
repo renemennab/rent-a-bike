@@ -47,7 +47,7 @@ const DateSelector = function (): JSX.Element {
             </div>
             <div className="dateSelector--buttons">
                 <button type="button" className="dateSelector--buttons__filter">
-                    Filter by dates
+                    Check Availability
                 </button>
                 <button type="button" className="dateSelector--buttons__clearFilter">
                     Clear date filter

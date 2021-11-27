@@ -9,6 +9,18 @@ interface PostBike {
     rating: string
     isAvailable: boolean
 }
+interface IReservation extends PostReservation {
+    _id: string
+    userId: string
+    creator: string
+    createdAt: number
+}
+
+interface PostReservation {
+    bikeId: string
+    startTimestamp: number
+    endTimestamp: number
+}
 interface IUpdateUserParams extends ISignupParams {
     userId: string
 }
