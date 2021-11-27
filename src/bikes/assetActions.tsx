@@ -29,10 +29,6 @@ const AssetActions = function ({ itemId, itemType }: IProps): JSX.Element {
 
     return (
         <StyledAssetActions className="assetActions">
-            <button type="button" className="assetActions--favourite" aria-label="adicionar aos favoritos">
-                <i className="far fa-star" />
-                {/* filled star <i class="fas fa-star"></i> */}
-            </button>
             <Link to={`${location}/edit`} className="assetActions--edit" aria-label="editar">
                 <i className="far fa-edit" />
             </Link>
