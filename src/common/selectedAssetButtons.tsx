@@ -5,13 +5,14 @@ import { useDispatch } from 'react-redux'
 import { ROUTES } from '../utils'
 import ConfirmationDialog from './confirmationDialog'
 import { deleteBike } from '../actions/bikeActions'
+import { deleteUser } from '../actions/userActions'
 
 interface IProps {
     itemId: string
     itemType: AssetType
 }
 
-const AssetActions = function ({ itemId, itemType }: IProps): JSX.Element {
+const SelectedAssetButtons = function ({ itemId, itemType }: IProps): JSX.Element {
     const location = useLocation().pathname
     const [showModal, setShowModal] = useState(false)
     const history = useHistory()
@@ -28,13 +29,13 @@ const AssetActions = function ({ itemId, itemType }: IProps): JSX.Element {
     }
 
     return (
-        <StyledAssetActions className="assetActions">
-            <Link to={`${location}/edit`} className="assetActions--edit" aria-label="editar">
+        <StyledSelectedAssetButtons className="selectedAssetButtons">
+            <Link to={`${location}/edit`} className="selectedAssetButtons--edit" aria-label="editar">
                 <i className="far fa-edit" />
             </Link>
             <button
                 type="button"
-                className="assetActions--remove"
+                className="selectedAssetButtons--remove"
                 onClick={() => setShowModal(true)}
                 aria-label="deletar"
             >
@@ -43,11 +44,11 @@ const AssetActions = function ({ itemId, itemType }: IProps): JSX.Element {
             {showModal ? (
                 <ConfirmationDialog onCancel={() => setShowModal(false)} onDelete={() => handleDelete()} />
             ) : null}
-        </StyledAssetActions>
+        </StyledSelectedAssetButtons>
     )
 }
-export default AssetActions
-const StyledAssetActions = styled.div`
+export default SelectedAssetButtons
+const StyledSelectedAssetButtons = styled.div`
     width: auto;
     display: flex;
     justify-content: flex-end;
@@ -55,7 +56,7 @@ const StyledAssetActions = styled.div`
     position: absolute;
     top: var(--padding);
     right: var(--padding);
-    .assetActions {
+    .selectedAssetButtons {
         &--edit,
         &--remove,
         &--favourite {
