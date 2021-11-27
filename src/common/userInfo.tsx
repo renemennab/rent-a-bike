@@ -6,9 +6,10 @@ interface IProps {
     setEmail: Dispatch<SetStateAction<string>>
     password: string
     setPassword: Dispatch<SetStateAction<string>>
+    newPassword?: boolean
 }
 
-const UserInfo = function ({ email, setEmail, password, setPassword }: IProps): JSX.Element {
+const UserInfo = function ({ email, setEmail, password, setPassword, newPassword }: IProps): JSX.Element {
     return (
         <>
             <StyledLabel className="column">
@@ -16,9 +17,9 @@ const UserInfo = function ({ email, setEmail, password, setPassword }: IProps): 
                 <StyledInput required type="email" value={email} onChange={event => setEmail(event.target.value)} />
             </StyledLabel>
             <StyledLabel className="column">
-                Password
+                {newPassword ? 'New' : ''} Password
                 <StyledInput
-                    required
+                    required={!newPassword}
                     type="password"
                     value={password}
                     onChange={event => setPassword(event.target.value)}
@@ -28,4 +29,7 @@ const UserInfo = function ({ email, setEmail, password, setPassword }: IProps): 
     )
 }
 
+UserInfo.defaultProps = {
+    newPassword: false
+}
 export default UserInfo
