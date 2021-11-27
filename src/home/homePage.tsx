@@ -92,21 +92,5 @@ const StyledHomePage = styled.div`
                 width: 200px;
             }
         }
-        &--login {
-            width: 300px;
-            padding: 20px;
-            color: white;
-            background: var(--yellow);
-            font-weight: 600;
-            border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            margin-top: 20px;
-            i {
-                margin-right: 5px;
-            }
-        }
     }
 `
