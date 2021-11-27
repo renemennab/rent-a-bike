@@ -36,9 +36,9 @@ interface IUserResponse {
 
 export const fetchUsers = (): Promise<IUserResponse> => API.get(API_PATHS.USER)
 export const fetchUser = (userId: string): Promise<IUserResponse> => API.get(`${API_PATHS.USER}/${userId}`)
-export const createUser = (newUser: ISignupParams): Promise<IUserResponse> =>
+export const createUser = (newUser: ISignupParams): Promise<{ data: IlocalStorageProfile }> =>
     API.post(`${API_PATHS.USER}/${API_PATHS.SIGNUP}`, newUser)
-export const loginUser = (user: ILoginParams): Promise<IUserResponse> =>
+export const loginUser = (user: ILoginParams): Promise<{ data: IlocalStorageProfile }> =>
     API.post(`${API_PATHS.USER}/${API_PATHS.LOGIN}`, user)
 export const updateUser = (userId: string, updateduser: IStorageResult): Promise<IUserResponse> =>
     API.patch(`${API_PATHS.USER}/${userId}`, updateduser)

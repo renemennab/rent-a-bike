@@ -24,9 +24,9 @@ export const createUser =
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const { data } = await api.createUser(params)
+            dispatch({ type: USERS_REDUCER_OPTIONS.CREATE, payload: [data.result] })
             if (login) {
                 dispatch({ type: LOGGED_USER_REDUCER_OPTIONS.LOGIN_USER, payload: data })
-                dispatch({ type: USERS_REDUCER_OPTIONS.CREATE, payload: [data] })
                 history.push('/')
             } else {
                 history.push(ROUTES.USERS)
