@@ -20,7 +20,7 @@ const SelectedBike = function (): JSX.Element {
     }, [])
 
     const onDelete = (): void => {
-        dispatch(deleteBike(selectedBike._id))
+        dispatch(deleteBike(selectedBike))
         history.push(ROUTES.BIKES)
     }
 

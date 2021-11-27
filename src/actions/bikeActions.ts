@@ -18,7 +18,7 @@ export const createBike =
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const { data } = await api.createBike(newBike)
-            dispatch({ type: BIKE_REDUCER_OPTIONS.CREATE, payload: data })
+            dispatch({ type: BIKE_REDUCER_OPTIONS.CREATE, payload: [data] })
         } catch (error) {
             console.log(error)
         }
@@ -29,18 +29,18 @@ export const updateBike =
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const { data } = await api.updateBike(bikeId, updatedBike)
-            dispatch({ type: BIKE_REDUCER_OPTIONS.UPDATE, payload: data })
+            dispatch({ type: BIKE_REDUCER_OPTIONS.UPDATE, payload: [data] })
         } catch (error) {
             console.log(error)
         }
     }
 
 export const deleteBike =
-    (bikeId: string) =>
+    (deletedBike: IBike) =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            await api.deleteBike(bikeId)
-            dispatch({ type: BIKE_REDUCER_OPTIONS.DELETE, payload: bikeId })
+            await api.deleteBike(deletedBike._id)
+            dispatch({ type: BIKE_REDUCER_OPTIONS.DELETE, payload: [deletedBike] })
         } catch (error) {
             console.log(error)
         }
