@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux'
 import * as api from '../api'
 import { BIKE_REDUCER_OPTIONS } from '../reducers/bikesReducer'
+import { SELECTED_BIKE_REDUCER_OPTIONS } from '../reducers/selectedBikeReducer'
 
 export const getBikes =
     () =>
@@ -8,6 +9,17 @@ export const getBikes =
         try {
             const { data } = await api.fetchBikes()
             dispatch({ type: BIKE_REDUCER_OPTIONS.FETCH_ALL, payload: data })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+export const getBike =
+    (bikeId: string) =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            const { data } = await api.fetchBike(bikeId)
+            dispatch({ type: SELECTED_BIKE_REDUCER_OPTIONS.SET_SELECTED_BIKE, payload: data })
         } catch (error) {
             console.log(error)
         }
