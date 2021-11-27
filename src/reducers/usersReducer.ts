@@ -1,8 +1,8 @@
 export const USERS_REDUCER_OPTIONS = {
-    FETCH_ALL: 'FETCH_ALL',
-    CREATE: 'CREATE',
-    UPDATE: 'UPDATE',
-    DELETE: 'DELETE'
+    FETCH_ALL: 'FETCH_ALL_USERS',
+    CREATE: 'CREATE_USER',
+    UPDATE: 'UPDATE_USER',
+    DELETE: 'DELETE_USER'
 }
 
 const optionValues = Object.values(USERS_REDUCER_OPTIONS)

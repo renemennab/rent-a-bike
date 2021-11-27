@@ -1,8 +1,8 @@
 export const BIKE_REDUCER_OPTIONS = {
-    FETCH_ALL: 'FETCH_ALL',
-    CREATE: 'CREATE',
-    UPDATE: 'UPDATE',
-    DELETE: 'DELETE'
+    FETCH_ALL: 'FETCH_ALL_BIKES',
+    CREATE: 'CREATE_BIKE',
+    UPDATE: 'UPDATE_BIKE',
+    DELETE: 'DELETE_BIKE'
 }
 
 const optionValues = Object.values(BIKE_REDUCER_OPTIONS)
