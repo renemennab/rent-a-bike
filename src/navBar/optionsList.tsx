@@ -10,7 +10,7 @@ import { LOGGED_USER_REDUCER_OPTIONS } from '../reducers/loggedUser'
 import { SELECTED_USER_REDUCER_OPTIONS } from '../reducers/selectedUserReducer'
 
 interface IProps {
-    isNav: boolean
+    isNav?: boolean
 }
 const OptionsList = function ({ isNav }: IProps): JSX.Element {
     const [showDialog, setShowDialog] = useState(false)
@@ -111,7 +111,12 @@ const OptionsList = function ({ isNav }: IProps): JSX.Element {
         </>
     )
 }
+
 export default OptionsList
+
+OptionsList.defaultProps = {
+    isNav: false
+}
 const StyledOptionsList = styled.ul`
     .optionsList {
         padding: 0;
