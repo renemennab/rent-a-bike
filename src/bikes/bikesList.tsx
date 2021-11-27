@@ -11,7 +11,8 @@ import { FilterInput } from '../common/styled'
 import DateSelector from '../reservation/dateSelector'
 
 const BikesList = function (): JSX.Element {
-    const bikesData = useSelector((state: { bikes: IBike[] }) => state.bikes)
+    const { bikes, bikesByDates } = useSelector((state: { bikes: IBike[]; bikesByDates: IBike[] }) => state)
+    const bikesData = bikesByDates.length ? bikesByDates : bikes
     const [filter, setFilter] = useState('')
     const [filteredList, setFilteredList] = useState(bikesData)
     const history = useHistory()
@@ -36,7 +37,7 @@ const BikesList = function (): JSX.Element {
 
         setFilteredList(filtered)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filter, bikesData])
+    }, [filter, bikes, bikesByDates])
 
     const placeLink = history.location.pathname === '/' ? '' : history.location.pathname
 

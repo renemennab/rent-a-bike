@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import bikesByDatesReducer from './bikesByDatesReducer'
 import bikeReducer from './bikesReducer'
 import loggedUserReducer from './loggedUser'
 import selectedBikeReducer from './selectedBikeReducer'
@@ -12,5 +13,6 @@ export default combineReducers({
     selectedUser: selectedUserReducer,
     selectedTimestamps: selectedTimestampsReducer,
     loggedUser: loggedUserReducer,
-    users: usersReducer
+    users: usersReducer,
+    bikesByDates: bikesByDatesReducer
 })
