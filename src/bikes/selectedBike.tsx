@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory, useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import { deleteBike } from '../actions/bikeActions'
 import PageHeader from '../common/pageHeader'
 import SelectedAssetButtons from '../common/selectedAssetButtons'
+import { ROUTES } from '../utils'
 
 const SelectedBike = function (): JSX.Element {
     const selectedBike = useSelector((state: { selectedBike: IBike }) => state.selectedBike)
     const params = useParams() as { bikeId: string }
-    console.log(selectedBike)
+    const history = useHistory()
+    const dispatch = useDispatch()
     useEffect(() => {
         if (!selectedBike && params.bikeId) {
             // get bikes
@@ -16,10 +19,15 @@ const SelectedBike = function (): JSX.Element {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const onDelete = (): void => {
+        dispatch(deleteBike(selectedBike._id))
+        history.push(ROUTES.BIKES)
+    }
+
     return selectedBike ? (
         <StyledSelectedBike className="selectedBike">
             <PageHeader pageName={selectedBike.model} />
-            <SelectedAssetButtons itemId={selectedBike._id} itemType="bike" />
+            <SelectedAssetButtons onDelete={onDelete} />
             <span className="selectedBike--buildingNum">
                 <strong>Color: </strong> {selectedBike.color}
             </span>

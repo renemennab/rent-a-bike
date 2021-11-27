@@ -1,30 +1,18 @@
 import React, { useState } from 'react'
-import { Link, useHistory, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
-import { ROUTES } from '../utils'
 import ConfirmationDialog from './confirmationDialog'
-import { deleteBike } from '../actions/bikeActions'
-import { deleteUser } from '../actions/userActions'
 
 interface IProps {
-    itemId: string
-    itemType: AssetType
+    onDelete: () => void
 }
 
-const SelectedAssetButtons = function ({ itemId, itemType }: IProps): JSX.Element {
+const SelectedAssetButtons = function ({ onDelete }: IProps): JSX.Element {
     const location = useLocation().pathname
     const [showModal, setShowModal] = useState(false)
-    const history = useHistory()
-    const dispatch = useDispatch()
+
     function handleDelete(): void {
-        if (itemType === 'user') {
-            dispatch(deleteUser(itemId))
-            history.push(ROUTES.USERS)
-        } else if (itemType === 'bike') {
-            dispatch(deleteBike(itemId))
-            history.push(ROUTES.BIKES)
-        }
+        onDelete()
         setShowModal(false)
     }
 
@@ -47,7 +35,9 @@ const SelectedAssetButtons = function ({ itemId, itemType }: IProps): JSX.Elemen
         </StyledSelectedAssetButtons>
     )
 }
+
 export default SelectedAssetButtons
+
 const StyledSelectedAssetButtons = styled.div`
     width: auto;
     display: flex;
