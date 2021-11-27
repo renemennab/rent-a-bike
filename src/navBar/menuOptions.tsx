@@ -7,6 +7,7 @@ import ConfirmationDialog from '../common/confirmationDialog'
 import { checkIfTokenIsExpired, ROUTES } from '../utils'
 import { SELECTED_BIKE_REDUCER_OPTIONS } from '../reducers/selectedBikeReducer'
 import { LOGGED_USER_REDUCER_OPTIONS } from '../reducers/loggedUser'
+import { SELECTED_USER_REDUCER_OPTIONS } from '../reducers/selectedUserReducer'
 
 interface IProps {
     selectedView: boolean
@@ -20,6 +21,7 @@ const MenuOptions = function ({ selectedView, setSelectedView }: IProps): JSX.El
 
     useEffect(() => {
         dispatch({ type: SELECTED_BIKE_REDUCER_OPTIONS.SET_SELECTED_BIKE, payload: null })
+        dispatch({ type: SELECTED_USER_REDUCER_OPTIONS.SET_SELECTED_USER, payload: null })
     }, [])
 
     useEffect(() => {

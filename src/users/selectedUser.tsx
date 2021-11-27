@@ -7,7 +7,6 @@ import { ListOfCards, ListCard, CardHeading } from '../common/listCard'
 import PageHeader from '../common/pageHeader'
 import SelectedAssetButtons from '../common/selectedAssetButtons'
 import { getLoggedInUser } from '../login/loginHelpers'
-import { SELECTED_USER_REDUCER_OPTIONS } from '../reducers/selectedUserReducer'
 import { ROUTES } from '../utils'
 
 const SelectedUser = function (): JSX.Element {
@@ -21,9 +20,7 @@ const SelectedUser = function (): JSX.Element {
         if (!selectedUser && params.userId) {
             dispatch(fetchUser(params.userId))
         }
-        return () => {
-            dispatch({ type: SELECTED_USER_REDUCER_OPTIONS.SET_SELECTED_USER, payload: null })
-        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

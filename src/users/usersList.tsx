@@ -17,6 +17,8 @@ const UsersList = function (): JSX.Element {
     const history = useHistory()
     const dispatch = useDispatch()
     useEffect(() => {
+        dispatch({ type: SELECTED_USER_REDUCER_OPTIONS.SET_SELECTED_USER, payload: null })
+
         if (!usersData.length) {
             dispatch(fetchUsers())
         }
