@@ -12,11 +12,12 @@ import DateSelector from '../reservation/dateSelector'
 
 const BikesList = function (): JSX.Element {
     const { bikes, bikesByDates } = useSelector((state: { bikes: IBike[]; bikesByDates: IBike[] }) => state)
-    const bikesData = bikesByDates.length ? bikesByDates : bikes
+    const bikesData = bikesByDates || bikes
     const [filter, setFilter] = useState('')
     const [filteredList, setFilteredList] = useState(bikesData)
     const history = useHistory()
     const dispatch = useDispatch()
+
     useEffect(() => {
         if (!bikesData.length) {
             dispatch(getBikes())

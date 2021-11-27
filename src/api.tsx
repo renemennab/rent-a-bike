@@ -18,6 +18,8 @@ interface IBikeResponse {
     data: IBike
 }
 
+export const fetchBikesByDates = (dates: ITimestamps): Promise<IBikeResponse> =>
+    API.get(`${API_PATHS.BIKES}/bikesByDates/${JSON.stringify(dates)}`)
 export const fetchBikes = (): Promise<IBikeResponse> => API.get(API_PATHS.BIKES)
 export const fetchBike = (bikeId: string): Promise<IBikeResponse> => API.get(`${API_PATHS.BIKES}/${bikeId}`)
 export const createBike = (newBike: PostBike): Promise<IBikeResponse> => API.post(API_PATHS.BIKES, newBike)

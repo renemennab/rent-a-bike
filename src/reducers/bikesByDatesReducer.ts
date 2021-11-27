@@ -5,13 +5,13 @@ export const BIKES_BY_DATES_REDUCER_OPTIONS = {
 const optionValues = Object.values(BIKES_BY_DATES_REDUCER_OPTIONS)
 
 interface IAction {
-    payload: IBike[]
+    payload: IBike[] | null
     type: typeof optionValues[number]
 }
 
 const defaultAction = { type: '', payload: [] }
 
-const bikesByDates = (selectedBike: IBike[] = [], action: IAction = defaultAction): IBike[] => {
+const bikesByDates = (selectedBike: IBike[] | null = null, action: IAction = defaultAction): IBike[] | null => {
     const { SET_BIKES_BY_DATES } = BIKES_BY_DATES_REDUCER_OPTIONS
     switch (action.type) {
         case SET_BIKES_BY_DATES:

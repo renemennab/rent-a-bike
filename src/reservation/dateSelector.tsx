@@ -4,6 +4,8 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { getBikesByDates } from '../actions/bikeByDatesActions'
+import { BIKES_BY_DATES_REDUCER_OPTIONS } from '../reducers/bikesByDatesReducer'
 import { SELECTED_TIMESTAMPS_REDUCER_OPTIONS } from '../reducers/selectedTimestamps'
 
 // CSS Modules, react-datepicker-cssmodules.css
@@ -12,6 +14,14 @@ import { SELECTED_TIMESTAMPS_REDUCER_OPTIONS } from '../reducers/selectedTimesta
 const DateSelector = function (): JSX.Element {
     const dispatch = useDispatch()
     const { selectedTimestamps } = useSelector((state: { selectedTimestamps: ITimestamps }) => state)
+
+    const applyDatesFilter = (): void => {
+        dispatch(getBikesByDates(selectedTimestamps))
+    }
+
+    const clearDatesFilter = (): void => {
+        dispatch({ type: BIKES_BY_DATES_REDUCER_OPTIONS.SET_BIKES_BY_DATES, payload: null })
+    }
 
     return (
         <StyledDateSelector className="dateSelector">
@@ -46,10 +56,10 @@ const DateSelector = function (): JSX.Element {
                 />
             </div>
             <div className="dateSelector--buttons">
-                <button type="button" className="dateSelector--buttons__filter">
+                <button type="button" className="dateSelector--buttons__filter" onClick={applyDatesFilter}>
                     Check Availability
                 </button>
-                <button type="button" className="dateSelector--buttons__clearFilter">
+                <button type="button" className="dateSelector--buttons__clearFilter" onClick={clearDatesFilter}>
                     Clear date filter
                 </button>
             </div>

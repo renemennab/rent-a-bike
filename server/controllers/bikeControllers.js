@@ -1,5 +1,33 @@
 import mongoose from 'mongoose'
 import BikeModel from '../models/bikeModel.js'
+import ReservationModel from '../models/reservationModel.js'
+import checkIfDatesOverlap from './utils.js'
+
+export async function getBikesByDates(req, res) {
+    const { datesString } = req.params
+    const datesObj = JSON.parse(datesString)
+
+    try {
+        const reservations = await ReservationModel.find()
+        const idsFromBikesWithConflicts = reservations.reduce((acc, reservation) => {
+            const overlap = checkIfDatesOverlap(datesObj, reservation.startTimestamp, reservation.endTimestamp)
+            if (overlap) acc.add(reservation.bikeId)
+
+            return acc
+        }, new Set())
+        const bikes = await BikeModel.find()
+        // const availableBikes = await BikeModel.find({ _id: { $nin: idsFromBikesWithConflicts } })
+        const availableBikes = bikes.map(bike => {
+            const isAvailable = ![...idsFromBikesWithConflicts].includes(bike._id.toString())
+
+            return Object.assign(bike, { isAvailable })
+        })
+
+        return res.status(200).json(availableBikes)
+    } catch (error) {
+        return res.status(404).json({ message: error.message })
+    }
+}
 
 export async function getBikes(req, res) {
     try {

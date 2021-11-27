@@ -3,5 +3,6 @@ export default {
     RESERVATIONS: 'reservations',
     USER: 'user',
     LOGIN: 'login',
-    SIGNUP: 'signup'
+    SIGNUP: 'signup',
+    BIKES_BY_DATES: 'bikesByDates'
 }
