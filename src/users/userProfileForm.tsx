@@ -6,7 +6,7 @@ import PageHeader from '../common/pageHeader'
 import { StyledButton, StyledForm, StyledInput, StyledLabel } from '../common/styled'
 import UserInfo from '../common/userInfo'
 import { createUser } from '../actions/userActions'
-import { getLoggedInUser } from './loginHelpers'
+import { getLoggedInUser } from '../login/loginHelpers'
 
 const UserProfileForm = function (): JSX.Element {
     const [isLoggedIn, setIsLoggedIn] = useState(false)

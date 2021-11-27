@@ -9,7 +9,7 @@ import SelectedBike from './bikes/selectedBike'
 import BikeForm from './bikes/bikeForm'
 import HomePage from './home/homePage'
 import Login from './login/login'
-import UserProfileForm from './login/userProfileForm'
+import UserProfileForm from './users/userProfileForm'
 import UsersList from './users/usersList'
 import SelectedUser from './users/selectedUser'
 
