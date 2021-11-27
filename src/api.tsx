@@ -40,3 +40,6 @@ export const createUser = (newUser: ISignupParams): Promise<IUserResponse> =>
     API.post(`${API_PATHS.USER}/${API_PATHS.SIGNUP}`, newUser)
 export const loginUser = (user: ILoginParams): Promise<IUserResponse> =>
     API.post(`${API_PATHS.USER}/${API_PATHS.LOGIN}`, user)
+export const updateUser = (userId: string, updateduser: PostUser): Promise<IUserResponse> =>
+    API.patch(`${API_PATHS.USER}/${userId}`, updateduser)
+export const deleteUser = (userId: string): Promise<Response> => API.delete(`${API_PATHS.USER}/${userId}`)

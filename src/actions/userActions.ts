@@ -57,3 +57,25 @@ export const fetchUser =
             console.log(error)
         }
     }
+
+export const updateUser =
+    (userId: string, updatedUser: PostUser) =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            const { data } = await api.updateUser(userId, updatedUser)
+            dispatch({ type: USERS_REDUCER_OPTIONS.UPDATE, payload: data })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+export const deleteUser =
+    (userId: string) =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            await api.deleteUser(userId)
+            dispatch({ type: USERS_REDUCER_OPTIONS.DELETE, payload: userId })
+        } catch (error) {
+            console.log(error)
+        }
+    }
