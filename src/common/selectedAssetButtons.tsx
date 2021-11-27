@@ -19,8 +19,8 @@ const SelectedAssetButtons = function ({ itemId, itemType }: IProps): JSX.Elemen
     const dispatch = useDispatch()
     function handleDelete(): void {
         if (itemType === 'user') {
-            // deletePlace(itemId)
-            // history.push(ROUTES.PLACES)
+            dispatch(deleteUser(itemId))
+            history.push(ROUTES.USERS)
         } else if (itemType === 'bike') {
             dispatch(deleteBike(itemId))
             history.push(ROUTES.BIKES)
