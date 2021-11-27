@@ -1,136 +1,35 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react'
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
-import { getLoggedInUser } from '../login/loginHelpers'
-import ConfirmationDialog from '../common/confirmationDialog'
-import { checkIfTokenIsExpired, ROUTES } from '../utils'
-import { SELECTED_BIKE_REDUCER_OPTIONS } from '../reducers/selectedBikeReducer'
-import { LOGGED_USER_REDUCER_OPTIONS } from '../reducers/loggedUser'
-import { SELECTED_USER_REDUCER_OPTIONS } from '../reducers/selectedUserReducer'
+import OptionsList from './optionsList'
 
 interface IProps {
     selectedView: boolean
     setSelectedView: (type: boolean) => void
 }
 const MenuOptions = function ({ selectedView, setSelectedView }: IProps): JSX.Element {
-    const [showDialog, setShowDialog] = useState(false)
-    const [userIsLogged, setUserIsLogged] = useState(false)
-    const [userIsManager, setUserIsManager] = useState(false)
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch({ type: SELECTED_BIKE_REDUCER_OPTIONS.SET_SELECTED_BIKE, payload: null })
-        dispatch({ type: SELECTED_USER_REDUCER_OPTIONS.SET_SELECTED_USER, payload: null })
-    }, [])
-
-    useEffect(() => {
-        const user = getLoggedInUser()
-
-        if (user) {
-            setUserIsLogged(true)
-            if (user.result.isManager) setUserIsManager(true)
-            if (checkIfTokenIsExpired(user.token)) {
-                handleLogOut()
-            }
-        }
-    }, [])
-
-    function handleLogOut(): void {
-        dispatch({ type: LOGGED_USER_REDUCER_OPTIONS.LOGOUT_USER })
-        setUserIsLogged?.(false)
-        setShowDialog(false)
-    }
-
     return (
         <StyledMenuOptions className={`menuOptions ${selectedView ? 'open' : ''}`}>
             <button type="button" className="menuOptions--header " onClick={() => setSelectedView(false)}>
                 <h1 className="menuOptions--header__title">Rent a Bike</h1>
                 <i className="fas fa-chevron-left" />
             </button>
-            <ul className="menuOptions--optionList ">
-                {userIsLogged ? (
-                    <>
-                        <li className="menuOptions--optionList__item ">
-                            <Link to={ROUTES.PROFILE} className="menuOptions--optionList__item--button ">
-                                <i className="fas fa-user" /> My Profile
-                            </Link>
-                        </li>
-                        <li className="menuOptions--optionList__item ">
-                            <Link to={ROUTES.BIKES} className="menuOptions--optionList__item--button ">
-                                <i className="fas fa-bicycle" />
-                                Bikes
-                            </Link>
-                        </li>
-                        {userIsManager ? (
-                            <>
-                                <li className="menuOptions--optionList__item ">
-                                    <Link to={ROUTES.USERS} className="menuOptions--optionList__item--button ">
-                                        <i className="fas fa-users" /> Users
-                                    </Link>
-                                </li>
-                                <li className="menuOptions--optionList__item ">
-                                    <Link to={ROUTES.NEW_BIKE} className="menuOptions--optionList__item--button ">
-                                        <i className="fas fa-plus" />
-                                        Add New Bike
-                                    </Link>
-                                </li>
-                                <li className="menuOptions--optionList__item ">
-                                    <Link to={ROUTES.NEW_USER} className="menuOptions--optionList__item--button ">
-                                        <i className="fas fa-plus" />
-                                        Add New User
-                                    </Link>
-                                </li>
-                            </>
-                        ) : (
-                            <li className="menuOptions--optionList__item ">
-                                <Link to={ROUTES.RESERVATIONS} className="menuOptions--optionList__item--button ">
-                                    <i className="far fa-calendar-alt" />
-                                    My Reservations
-                                </Link>
-                            </li>
-                        )}
-                        <li className="menuOptions--optionList__item ">
-                            <button
-                                type="button"
-                                onClick={() => setShowDialog(true)}
-                                className="menuOptions--optionList__item--button "
-                            >
-                                <i className="fas fa-sign-out-alt" />
-                                Logout
-                            </button>
-                        </li>
-                    </>
-                ) : (
-                    <li className="menuOptions--optionList__item ">
-                        <Link to={ROUTES.LOGIN} className="menuOptions--optionList__item--button ">
-                            <i className="fas fa-sign-in-alt" />
-                            Login
-                        </Link>
-                    </li>
-                )}
-            </ul>
-            {showDialog ? (
-                <ConfirmationDialog onCancel={() => setShowDialog(false)} onDelete={() => handleLogOut()} text="sair" />
-            ) : null}
+            <OptionsList isNav />
         </StyledMenuOptions>
     )
 }
 export default MenuOptions
 const StyledMenuOptions = styled.nav`
     position: absolute;
-    left: -100vh;
+    left: -100vw;
     top: 0;
     height: 100vh;
     width: 100%;
     background: white;
     padding: 10px 40px;
     transition: all 0.5s ease-in-out;
-    max-height: 0;
     overflow: hidden;
     &.open {
-        transform: translateX(100vh);
-        max-height: 100vh;
+        transform: translateX(100vw);
     }
     .menuOptions {
         &--header {
@@ -145,34 +44,6 @@ const StyledMenuOptions = styled.nav`
             }
             i {
                 color: var(--yellow);
-            }
-        }
-        &--optionList {
-            padding: 0;
-            &__item {
-                list-style: none;
-                &--button {
-                    display: flex;
-                    align-items: center;
-                    padding: 10px;
-                    border-radius: 10px;
-                    padding: 18px 0;
-                    border: none;
-                    background: white;
-                    text-decoration: none;
-                    font-size: 18px;
-                    &,
-                    &:visited {
-                        color: var(--dark-blue);
-                    }
-                    i {
-                        margin-right: 8px;
-                        color: var(--yellow);
-                    }
-                }
-                &:hover {
-                    background: lightblue;
-                }
             }
         }
     }
