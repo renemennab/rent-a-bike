@@ -34,7 +34,7 @@ const SelectedUser = function (): JSX.Element {
     return (
         <StyledSelectedUser className="selectedUser">
             <PageHeader pageName={`${user.firstName} ${user.lastName}`} />
-            <SelectedAssetButtons onDelete={onDelete} />
+            {selectedUser ? <SelectedAssetButtons onDelete={onDelete} /> : null}
             <span className="selectedUser--email">
                 <strong>email: </strong> {user.email}
             </span>
