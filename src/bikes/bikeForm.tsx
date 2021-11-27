@@ -48,7 +48,7 @@ const BikeForm = function (): JSX.Element {
 
     return (
         <StyledNewColectionBike className="newBike">
-            <PageHeader pageName="Novo Ponto de Coleta" />
+            <PageHeader pageName={params.bikeId ? 'Edit Bike' : 'New Bike'} />
             <StyledForm action="" onSubmit={event => handleBikeSubmit(event)}>
                 <StyledLabel className="column">
                     Model
