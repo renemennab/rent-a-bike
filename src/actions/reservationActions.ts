@@ -13,6 +13,16 @@ export const getReservations =
             console.log(error)
         }
     }
+export const getUserReservations =
+    (userId: string) =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            const { data } = await api.fetchUserReservations(userId)
+            dispatch({ type: RESERVATION_REDUCER_OPTIONS.FETCH_ALL, payload: data })
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 export const getReservation =
     (reservationId: string) =>

@@ -69,3 +69,15 @@ export async function deleteReservation(req, res) {
 
     return res.json('Reservation deleted successfuly')
 }
+
+export async function getUserReservations(req, res) {
+    const { id: _id } = req.params
+
+    try {
+        const reservations = await ReservationModel.find().where('userId').equals(_id)
+
+        return res.status(200).json(reservations)
+    } catch (error) {
+        return res.status(404).json({ message: error.message })
+    }
+}
