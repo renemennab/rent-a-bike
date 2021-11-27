@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
-import { SELECTED_BIKE_REDUCER_OPTIONS } from '../reducers/selectedBikeReducer'
+import { SELECTED_USER_REDUCER_OPTIONS } from '../reducers/selectedUserReducer'
 
 import PageHeader from '../common/pageHeader'
 import { CardHeading, CardLink, CardSpan, ListCard } from '../common/listCard'
@@ -55,7 +55,7 @@ const UsersList = function (): JSX.Element {
                         className="users--card__link"
                         to={`${placeLink}/${user._id}`}
                         onClick={() =>
-                            dispatch({ type: SELECTED_BIKE_REDUCER_OPTIONS.SET_SELECTED_BIKE, payload: user })
+                            dispatch({ type: SELECTED_USER_REDUCER_OPTIONS.SET_SELECTED_USER, payload: user })
                         }
                     >
                         <CardHeading className="users--card__link--model">{`${user.firstName} ${user.lastName}`}</CardHeading>
