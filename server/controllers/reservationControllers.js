@@ -3,7 +3,25 @@ import ReservationModel from '../models/reservationModel.js'
 
 export async function getReservations(req, res) {
     try {
-        const reservations = await ReservationModel.find()
+        const reservations = await ReservationModel.aggregate([
+            { $addFields: { bikeId: { $toObjectId: '$bikeId' }, userId: { $toObjectId: '$userId' } } },
+            {
+                $lookup: {
+                    from: 'bikes',
+                    localField: 'bikeId',
+                    foreignField: '_id',
+                    as: 'bikeInfo'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'userId',
+                    foreignField: '_id',
+                    as: 'userInfo'
+                }
+            }
+        ])
 
         return res.status(200).json(reservations)
     } catch (error) {
