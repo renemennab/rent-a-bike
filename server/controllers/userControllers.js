@@ -53,7 +53,17 @@ export async function signup(req, res) {
 
 export async function getUsers(req, res) {
     try {
-        const users = await UserModel.find()
+        const users = await UserModel.aggregate([
+            { $addFields: { userId: { $toString: '$_id' } } },
+            {
+                $lookup: {
+                    from: 'reservations',
+                    localField: 'userId',
+                    foreignField: 'userId',
+                    as: 'reservations'
+                }
+            }
+        ])
 
         return res.status(200).json(users)
     } catch (error) {
