@@ -51,13 +51,18 @@ interface IlocalStorageProfile {
 
 interface IStorageResult extends ISignupParams {
     isManager: false
-    reservations: string[]
+    reservations: IReservation[]
     _id: string
 }
 
 interface ITimestamps {
     start: number
     end: number
+}
+
+interface ISearchFilters {
+    showUserWithReservation?: boolean
+    bikeRating?: number
 }
 
 type AssetType = 'user' | 'bike'
