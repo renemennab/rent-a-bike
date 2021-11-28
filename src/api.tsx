@@ -32,16 +32,22 @@ interface IReservationResponse {
 }
 
 export const fetchReservations = (): Promise<IReservationResponse> => API.get(API_PATHS.RESERVATIONS)
+
 export const fetchReservation = (reservationId: string): Promise<IReservationResponse> =>
     API.get(`${API_PATHS.RESERVATIONS}/${reservationId}`)
-export const fetchUserReservations = (userId: string): Promise<IReservationResponse> =>
-    API.get(`${API_PATHS.RESERVATIONS}/${API_PATHS.USER}/${userId}`)
+
+export function fetchUserReservations(userId: string): Promise<{ data: IReservation[] }> {
+    return API.get(`${API_PATHS.RESERVATIONS}/${API_PATHS.USER}/${userId}`)
+}
+
 export const createReservation = (newReservation: PostReservation): Promise<IReservationResponse> =>
     API.post(API_PATHS.RESERVATIONS, newReservation)
+
 export const updateReservation = (
     reservationId: string,
     updatedreservation: PostReservation
 ): Promise<IReservationResponse> => API.patch(`${API_PATHS.RESERVATIONS}/${reservationId}`, updatedreservation)
+
 export const deleteReservation = (reservationId: string): Promise<Response> =>
     API.delete(`${API_PATHS.RESERVATIONS}/${reservationId}`)
 

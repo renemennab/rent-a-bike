@@ -8,8 +8,8 @@ import { SELECTED_RESERVATION_REDUCER_OPTIONS } from '../reducers/selectedReserv
 import PageHeader from '../common/pageHeader'
 import { CardHeading, CardLink, CardSpan, ListCard } from '../common/listCard'
 import { FilterInput } from '../common/styled'
-import DateSelector from './dateSelector'
 import { getLoggedInUser } from '../login/loginHelpers'
+import { handleGoBack } from '../common/utils'
 
 const ReservationsList = function (): JSX.Element {
     const { reservations, reservationsByDates } = useSelector(
@@ -22,8 +22,10 @@ const ReservationsList = function (): JSX.Element {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        const user = getLoggedInUser()
+        if (user.result.isManager) handleGoBack(history)
         if (!reservationsData.length) {
-            dispatch(getUserReservations(getLoggedInUser().result._id))
+            dispatch(getUserReservations(user.result._id))
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

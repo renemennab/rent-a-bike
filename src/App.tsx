@@ -33,6 +33,11 @@ const App = function (): JSX.Element {
                         <Route path={ROUTES.BIKES} component={BikesList} />
                         <Route path={`${ROUTES.RESERVATIONS}/:reservationId`} component={SelectedReservation} />
                         <Route path={ROUTES.RESERVATIONS} component={ReservationsList} />
+                        <Route
+                            path={`${ROUTES.USERS}/:userId${ROUTES.RESERVATIONS}/:reservationId`}
+                            component={SelectedReservation}
+                        />
+                        <Route path={`${ROUTES.USERS}/:userId${ROUTES.RESERVATIONS}`} component={ReservationsList} />
                         <Route path={`${ROUTES.USERS}/:userId/edit`} component={UserProfileForm} />
                         <Route path={`${ROUTES.USERS}/:userId`} component={SelectedUser} />
                         <Route path={ROUTES.PROFILE} component={SelectedUser} />
