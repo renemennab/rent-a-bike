@@ -5,6 +5,7 @@ import { LOGGED_USER_REDUCER_OPTIONS } from '../reducers/loggedUser'
 import { ROUTES } from '../utils'
 import { USERS_REDUCER_OPTIONS } from '../reducers/usersReducer'
 import { SELECTED_USER_REDUCER_OPTIONS } from '../reducers/selectedUserReducer'
+import { SEARCH_FILTERS_REDUCER_OPTIONS } from '../reducers/searchFiltersReducer'
 
 export const loginUser =
     (params: ILoginParams, history: RouteComponentProps['history'], setUserNotFound: (status: boolean) => void) =>
@@ -80,4 +81,17 @@ export const deleteUser =
         } catch (error) {
             console.log(error)
         }
+    }
+
+export const setShowUsersWithReservations =
+    (status: boolean) =>
+    (dispatch: Dispatch): void => {
+        const { SHOW_USERS_WITH_RESERVATIONS } = SEARCH_FILTERS_REDUCER_OPTIONS
+
+        if (status) {
+            window.sessionStorage.removeItem(SHOW_USERS_WITH_RESERVATIONS)
+        } else {
+            window.sessionStorage.setItem(SHOW_USERS_WITH_RESERVATIONS, 'true')
+        }
+        dispatch({ type: SHOW_USERS_WITH_RESERVATIONS, payload: { showUserWithReservation: status } })
     }
