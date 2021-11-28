@@ -8,6 +8,7 @@ import loggedUserReducer from './loggedUser'
 import selectedTimestampsReducer from './selectedTimestamps'
 import selectedUserReducer from './selectedUserReducer'
 import usersReducer from './usersReducer'
+import searchFiltersReducer from './searchFiltersReducer'
 
 export default combineReducers({
     bikes: bikeReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
     selectedTimestamps: selectedTimestampsReducer,
     loggedUser: loggedUserReducer,
     users: usersReducer,
-    bikesByDates: bikesByDatesReducer
+    bikesByDates: bikesByDatesReducer,
+    searchFilters: searchFiltersReducer
 })
