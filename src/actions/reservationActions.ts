@@ -1,7 +1,9 @@
+import { RouteComponentProps } from 'react-router-dom'
 import { Dispatch } from 'redux'
 import * as api from '../api'
 import { RESERVATION_REDUCER_OPTIONS } from '../reducers/reservationsReducer'
 import { SELECTED_RESERVATION_REDUCER_OPTIONS } from '../reducers/selectedReservationReducer'
+import { ROUTES } from '../utils'
 
 export const getReservations =
     () =>
@@ -36,11 +38,12 @@ export const getReservation =
     }
 
 export const createReservation =
-    (newReservation: PostReservation) =>
+    (newReservation: PostReservation, history: RouteComponentProps['history']) =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const { data } = await api.createReservation(newReservation)
             dispatch({ type: RESERVATION_REDUCER_OPTIONS.CREATE, payload: [data] })
+            history.push(ROUTES.RESERVATIONS)
         } catch (error) {
             console.log(error)
         }

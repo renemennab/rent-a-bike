@@ -34,7 +34,7 @@ const SelectedBike = function (): JSX.Element {
             startTimestamp: selectedTimestamps.start,
             endTimestamp: selectedTimestamps.end
         }
-        dispatch(createReservation(reservationParams))
+        dispatch(createReservation(reservationParams, history))
     }
 
     return selectedBike ? (
