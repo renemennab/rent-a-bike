@@ -74,7 +74,18 @@ export async function getUserReservations(req, res) {
     const { id: _id } = req.params
 
     try {
-        const reservations = await ReservationModel.find().where('userId').equals(_id)
+        const reservations = await ReservationModel.aggregate([
+            { $match: { userId: _id } },
+            { $addFields: { bikeId: { $toObjectId: '$bikeId' } } },
+            {
+                $lookup: {
+                    from: 'bikes',
+                    localField: 'bikeId',
+                    foreignField: '_id',
+                    as: 'bikeInfo'
+                }
+            }
+        ])
 
         return res.status(200).json(reservations)
     } catch (error) {
