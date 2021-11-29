@@ -19,7 +19,7 @@ export const getBike =
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const { data } = await api.fetchBike(bikeId)
-            dispatch({ type: SELECTED_BIKE_REDUCER_OPTIONS.SET_SELECTED_BIKE, payload: data })
+            dispatch({ type: SELECTED_BIKE_REDUCER_OPTIONS.SET_SELECTED_BIKE, payload: data[0] as IBike })
         } catch (error) {
             console.log(error)
         }

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import BikeModel from '../models/bikeModel.js'
 import ReservationModel from '../models/reservationModel.js'
-import checkIfDatesOverlap from './utils.js'
+import { checkIfDatesOverlap, getBikeAgregationModel } from './utils.js'
 
 export async function getBikesByDates(req, res) {
     const { datesString } = req.params
@@ -32,25 +32,7 @@ export async function getBikesByDates(req, res) {
 export async function getBikes(req, res) {
     const { userId } = req
     try {
-        const bikes = await BikeModel.aggregate([
-            {
-                $addFields: {
-                    rateAverage: { $avg: '$ratings.rating' },
-                    userRating: {
-                        $filter: {
-                            input: '$ratings',
-                            as: 'userRating',
-                            cond: { $eq: ['$$userRating.userId', userId] }
-                        }
-                    }
-                }
-            },
-            {
-                $addFields: {
-                    userRatingValue: { $sum: '$userRating.rating' }
-                }
-            }
-        ])
+        const bikes = await BikeModel.aggregate(getBikeAgregationModel(userId))
 
         return res.status(200).json(bikes)
     } catch (error) {
@@ -64,7 +46,10 @@ export async function getBike(req, res) {
     if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No bike with that id')
 
     try {
-        const bike = await BikeModel.findById(_id)
+        const bike = await BikeModel.aggregate([
+            { $match: { _id: new mongoose.Types.ObjectId(_id) } },
+            ...getBikeAgregationModel(req.userId)
+        ])
 
         return res.status(200).json(bike)
     } catch (error) {

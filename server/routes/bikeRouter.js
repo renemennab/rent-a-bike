@@ -13,7 +13,7 @@ import middlewareAuth from '../middleware/middlewareAuth.js'
 
 const bikeRouter = express.Router()
 
-bikeRouter.get('/:id', getBike)
+bikeRouter.get('/:id', middlewareAuth, getBike)
 bikeRouter.get('/', middlewareAuth, getBikes)
 bikeRouter.get(`/${pathConstants.BIKES_BY_DATES}/:datesString`, getBikesByDates)
 bikeRouter.post('/', middlewareAuth, createBike)

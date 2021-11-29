@@ -18,10 +18,8 @@ const SelectedBike = function (): JSX.Element {
     const params = useParams() as { bikeId: string }
     const history = useHistory()
     const dispatch = useDispatch()
-    const userRating = selectedBike?.ratings.reduce((acc, ratingObj) => {
-        if (ratingObj.userId === getLoggedInUser().result._id) return ratingObj.rating
-        return acc
-    }, 0)
+    const userRating = selectedBike?.userRatingValue
+
     useEffect(() => {
         if (!selectedBike && params.bikeId) {
             dispatch(getBike(params.bikeId))

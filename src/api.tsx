@@ -15,7 +15,7 @@ API.interceptors.request.use((req: AxiosRequestConfig) => {
 })
 
 interface IBikeResponse {
-    data: IBike
+    data: IBike[]
 }
 
 export const fetchBikesByDates = (dates: ITimestamps): Promise<IBikeResponse> =>

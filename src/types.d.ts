@@ -1,7 +1,7 @@
 interface IBike extends PostBike {
     _id: string
     rateAverage: number
-    ratings: { userId: string; rating: number }[]
+    userRatingValue: number
 }
 
 interface PostBike {
