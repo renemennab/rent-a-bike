@@ -22,9 +22,7 @@ const BikesList = function (): JSX.Element {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (!bikesData.length) {
-            dispatch(getBikes())
-        }
+        dispatch(getBikes())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -65,7 +63,7 @@ const BikesList = function (): JSX.Element {
 
     return (
         <StyledBikesList className="bikesList">
-            <PageHeader pageName="bikes" />
+            <PageHeader pageName="Bikes" />
             <FilterInput
                 className="bikesList--searchInput"
                 type="text"
