@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { SELECTED_USER_REDUCER_OPTIONS } from '../reducers/selectedUserReducer'
 
@@ -10,6 +10,7 @@ import { FilterInput } from '../common/styled'
 import { fetchUsers, setShowUsersWithReservations } from '../actions/userActions'
 import { getLoggedInUser } from '../login/loginHelpers'
 import { SEARCH_FILTERS_REDUCER_OPTIONS } from '../reducers/searchFiltersReducer'
+import { ROUTES } from '../utils'
 
 const UsersList = function (): JSX.Element {
     const usersData = useSelector((state: { users: IStorageResult[] }) => state.users)
@@ -60,16 +61,22 @@ const UsersList = function (): JSX.Element {
         dispatch(setShowUsersWithReservations(!showUserWithReservation))
     }
 
+    const { isManager } = getLoggedInUser().result
     return (
-        <StyledPlacesList>
-            <PageHeader pageName="users" />
+        <StyledUsersList className="usersList">
+            <PageHeader pageName="Users" />
+            {isManager ? (
+                <Link to={ROUTES.NEW_USER} className="usersList--AddBikeBtn">
+                    <i className="fas fa-plus" />
+                </Link>
+            ) : null}
             <FilterInput
                 className="users--searchInput"
                 type="text"
                 value={filter}
                 onChange={event => setFilter(event.target.value)}
             />
-            <button type="button" onClick={handleShowUsersWithReservations}>
+            <button type="button" onClick={handleShowUsersWithReservations} className="usersList--filterBtn">
                 {showUserWithReservation ? 'Show all users' : 'Show users with reservations'}
             </button>
             {filteredList.map((user: IStorageResult) => {
@@ -107,16 +114,39 @@ const UsersList = function (): JSX.Element {
                     </ListCard>
                 )
             })}
-        </StyledPlacesList>
+        </StyledUsersList>
     )
 }
 
 export default UsersList
 
-const StyledPlacesList = styled.div`
+const StyledUsersList = styled.div`
     padding: var(--padding);
     flex-grow: 1;
     width: 100%;
     list-style: none;
     margin: 0;
+
+    .usersList {
+        &--filterBtn {
+            padding: 10px 0;
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            justify-content: center;
+            border: none;
+            background: var(--dark-blue);
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        &--AddBikeBtn {
+            color: var(--yellow);
+            font-size: 35px;
+            position: absolute;
+            right: var(--padding);
+            top: var(--padding);
+        }
+    }
 `

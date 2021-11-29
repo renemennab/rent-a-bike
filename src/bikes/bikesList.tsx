@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { getBikes, setBikeRatingFilter } from '../actions/bikeActions'
 import { SELECTED_BIKE_REDUCER_OPTIONS } from '../reducers/selectedBikeReducer'
@@ -11,6 +11,8 @@ import { FilterInput } from '../common/styled'
 import DateSelector from '../reservation/dateSelector'
 import { RATING_OPTIONS, SEARCH_FILTERS_REDUCER_OPTIONS } from '../reducers/searchFiltersReducer'
 import { checkIfBikeIsAvailable, checkIfFilterMatchesBike } from '../common/utils'
+import { ROUTES } from '../utils'
+import { getLoggedInUser } from '../login/loginHelpers'
 
 const BikesList = function (): JSX.Element {
     const { bikes, bikesByDates } = useSelector((state: { bikes: IBike[]; bikesByDates: IBike[] }) => state)
@@ -52,9 +54,16 @@ const BikesList = function (): JSX.Element {
         dispatch(setBikeRatingFilter(Number(value)))
     }
 
+    const { isManager } = getLoggedInUser().result
+
     return (
         <StyledBikesList className="bikesList">
             <PageHeader pageName="Bikes" />
+            {isManager ? (
+                <Link to={ROUTES.NEW_BIKE} className="bikesList--AddBikeBtn ">
+                    <i className="fas fa-plus" />
+                </Link>
+            ) : null}
             <FilterInput
                 className="bikesList--searchInput"
                 type="text"
@@ -131,6 +140,7 @@ const StyledBikesList = styled.div`
     width: 100%;
     list-style: none;
     margin: 0;
+    position: relative;
     .bikesList {
         &--ratingInputs {
             margin: 10px 0 40px;
@@ -138,6 +148,13 @@ const StyledBikesList = styled.div`
             max-width: 500px;
             display: flex;
             justify-content: space-around;
+        }
+        &--AddBikeBtn {
+            color: var(--yellow);
+            font-size: 35px;
+            position: absolute;
+            right: var(--padding);
+            top: var(--padding);
         }
     }
 `
