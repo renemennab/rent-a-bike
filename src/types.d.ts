@@ -15,6 +15,7 @@ interface IReservation extends PostReservation {
     userId: string
     creator: string
     createdAt: number
+    bikeInfo: IBike[]
 }
 
 interface PostReservation {

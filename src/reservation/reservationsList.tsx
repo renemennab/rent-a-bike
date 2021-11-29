@@ -3,13 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { getUserReservations } from '../actions/reservationActions'
-import { SELECTED_RESERVATION_REDUCER_OPTIONS } from '../reducers/selectedReservationReducer'
-
 import PageHeader from '../common/pageHeader'
-import { CardHeading, CardLink, CardSpan, ListCard } from '../common/listCard'
 import { FilterInput } from '../common/styled'
 import { getLoggedInUser } from '../login/loginHelpers'
 import { handleGoBack } from '../common/utils'
+import ReservationCard from './reservationCard'
 
 const ReservationsList = function (): JSX.Element {
     const { reservations, reservationsByDates } = useSelector(
@@ -49,7 +47,7 @@ const ReservationsList = function (): JSX.Element {
 
     return (
         <StyledPlacesList>
-            <PageHeader pageName="reservations" />
+            <PageHeader pageName="Reservations" />
             <FilterInput
                 className="reservations--searchInput"
                 type="text"
@@ -57,22 +55,7 @@ const ReservationsList = function (): JSX.Element {
                 onChange={event => setFilter(event.target.value)}
             />
             {filteredList.map((data: IReservation) => (
-                <ListCard className="reservations--card" key={data._id}>
-                    <CardLink
-                        className="reservations--card__link"
-                        to={`${placeLink}/${data._id}`}
-                        onClick={() =>
-                            dispatch({
-                                type: SELECTED_RESERVATION_REDUCER_OPTIONS.SET_SELECTED_RESERVATION,
-                                payload: data
-                            })
-                        }
-                    >
-                        <CardHeading className="reservations--card__link--model">{data.bikeId}</CardHeading>
-                        <CardSpan className="reservations--card__link--color">{data.startTimestamp}</CardSpan>
-                        <CardSpan className="reservations--card__link--location">{data.endTimestamp}</CardSpan>
-                    </CardLink>
-                </ListCard>
+                <ReservationCard key={data._id} reservationInfo={data} linkUrl={`${placeLink}/${data._id}`} />
             ))}
         </StyledPlacesList>
     )
