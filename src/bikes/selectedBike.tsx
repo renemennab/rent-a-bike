@@ -5,10 +5,11 @@ import styled from 'styled-components'
 import { deleteBike, getBike } from '../actions/bikeActions'
 import { createReservation } from '../actions/reservationActions'
 import { rateBike } from '../api'
+import { CardRating } from '../common/listCard'
 import PageHeader from '../common/pageHeader'
 import SelectedAssetButtons from '../common/selectedAssetButtons'
+import { checkIfBikeIsAvailable } from '../common/utils'
 import { RATING_OPTIONS } from '../reducers/searchFiltersReducer'
-import DateSelector from '../reservation/dateSelector'
 import { ROUTES } from '../utils'
 
 const SelectedBike = function (): JSX.Element {
@@ -41,12 +42,13 @@ const SelectedBike = function (): JSX.Element {
         dispatch(createReservation(reservationParams, history))
     }
 
-    const handleRatingClick = (event: React.MouseEvent<HTMLElement>): void => {
+    const handleRatingClick = (event: React.MouseEvent<HTMLElement>, value: number): void => {
         event.preventDefault()
 
-        const rating = (event.target as HTMLButtonElement).textContent as string
-        rateBike(selectedBike._id, Number(rating)).then(() => dispatch(getBike(params.bikeId)))
+        rateBike(selectedBike._id, value).then(() => dispatch(getBike(params.bikeId)))
     }
+    const isAvailable = checkIfBikeIsAvailable(selectedBike)
+
     return selectedBike ? (
         <StyledSelectedBike className="selectedBike">
             <PageHeader pageName={selectedBike.model} />
@@ -57,28 +59,31 @@ const SelectedBike = function (): JSX.Element {
             <span className="selectedBike--location">
                 <strong>Location: </strong> {selectedBike.location}
             </span>
-            <span className="selectedBike--isAvailable">
-                <strong>IsAvailable: </strong> {selectedBike.isAvailable}
-            </span>
             <span className="selectedBike--rating">
                 <h3 className="selectedBike--rating__title">Rate Bike: </h3>
                 <div className="selectedBike--rating__buttons">
                     {RATING_OPTIONS.map(ratingValue => (
                         <button
-                            className={userRating === ratingValue ? 'selectedRating' : ''}
+                            className={ratingValue <= userRating ? 'selectedRating' : ''}
                             type="button"
-                            onClick={handleRatingClick}
+                            onClick={event => handleRatingClick(event, ratingValue)}
                             key={ratingValue}
                         >
-                            {ratingValue}
+                            <i className={`${ratingValue <= userRating ? 'fas' : 'far'} fa-star`} />
                         </button>
                     ))}
                 </div>
-                {selectedBike.rateAverage}
+                <CardRating className={`selectedBike--rating__value rating${Math.floor(selectedBike.rateAverage)}`}>
+                    {selectedBike.rateAverage}
+                </CardRating>
             </span>
-            <DateSelector />
-            <button type="button" className="dateSelector--buttons__clearFilter" onClick={handleBikeBooking}>
-                Book Bike
+            <button
+                type="button"
+                disabled={!isAvailable}
+                className="selectedBike--bookingBtn"
+                onClick={handleBikeBooking}
+            >
+                {isAvailable ? 'Book Bike' : 'Bike Unavailable'}
             </button>
         </StyledSelectedBike>
     ) : (
@@ -105,10 +110,34 @@ const StyledSelectedBike = styled.div`
             }
         }
         &--rating {
+            position: relative;
             &__buttons {
-                button.selectedRating {
-                    color: var(--red);
+                button {
+                    background: transparent;
+                    font-size: 30px;
+                    border: none;
+                    opacity: 0.2;
+                    &.selectedRating {
+                        color: var(--yellow);
+                        opacity: 1;
+                    }
                 }
+            }
+        }
+        &--bookingBtn {
+            padding: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 17px;
+            background: var(--red);
+            color: white;
+            margin-top: 80px;
+            text-transform: uppercase;
+            &:disabled {
+                color: black;
+                background: var(--gray);
+                opacity: 0.6;
             }
         }
     }
