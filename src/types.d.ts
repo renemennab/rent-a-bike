@@ -63,7 +63,7 @@ interface ITimestamps {
 
 interface ISearchFilters {
     showUserWithReservation?: boolean
-    bikeRating?: number
+    bikeRating: number
 }
 
 type AssetType = 'user' | 'bike'

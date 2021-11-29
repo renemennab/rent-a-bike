@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux'
 import * as api from '../api'
 import { BIKE_REDUCER_OPTIONS } from '../reducers/bikesReducer'
+import { SEARCH_FILTERS_REDUCER_OPTIONS } from '../reducers/searchFiltersReducer'
 import { SELECTED_BIKE_REDUCER_OPTIONS } from '../reducers/selectedBikeReducer'
 
 export const getBikes =
@@ -56,4 +57,13 @@ export const deleteBike =
         } catch (error) {
             console.log(error)
         }
+    }
+
+export const setBikeRatingFilter =
+    (rating: number) =>
+    (dispatch: Dispatch): void => {
+        const { BIKE_RATING } = SEARCH_FILTERS_REDUCER_OPTIONS
+
+        window.sessionStorage.setItem(BIKE_RATING, rating.toString())
+        dispatch({ type: BIKE_RATING, payload: { bikeRating: rating } })
     }
