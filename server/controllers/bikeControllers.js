@@ -30,9 +30,27 @@ export async function getBikesByDates(req, res) {
 }
 
 export async function getBikes(req, res) {
+    const { userId } = req
     try {
-        const bikes = await BikeModel.aggregate([{ $addFields: { rateAverage: { $avg: '$ratings.rating' } } }])
-        console.log(bikes)
+        const bikes = await BikeModel.aggregate([
+            {
+                $addFields: {
+                    rateAverage: { $avg: '$ratings.rating' },
+                    userRating: {
+                        $filter: {
+                            input: '$ratings',
+                            as: 'userRating',
+                            cond: { $eq: ['$$userRating.userId', userId] }
+                        }
+                    }
+                }
+            },
+            {
+                $addFields: {
+                    userRatingValue: { $sum: '$userRating.rating' }
+                }
+            }
+        ])
 
         return res.status(200).json(bikes)
     } catch (error) {
