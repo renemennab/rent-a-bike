@@ -9,6 +9,7 @@ import { CardRating } from '../common/listCard'
 import PageHeader from '../common/pageHeader'
 import SelectedAssetButtons from '../common/selectedAssetButtons'
 import { checkIfBikeIsAvailable } from '../common/utils'
+import { getLoggedInUser } from '../login/loginHelpers'
 import { RATING_OPTIONS } from '../reducers/searchFiltersReducer'
 import { ROUTES } from '../utils'
 
@@ -48,6 +49,7 @@ const SelectedBike = function (): JSX.Element {
         rateBike(selectedBike._id, value).then(() => dispatch(getBike(params.bikeId)))
     }
     const isAvailable = checkIfBikeIsAvailable(selectedBike)
+    const { isManager } = getLoggedInUser().result
 
     return selectedBike ? (
         <StyledSelectedBike className="selectedBike">
@@ -60,31 +62,35 @@ const SelectedBike = function (): JSX.Element {
                 <strong>Location: </strong> {selectedBike.location}
             </span>
             <span className="selectedBike--rating">
-                <h3 className="selectedBike--rating__title">Rate Bike: </h3>
-                <div className="selectedBike--rating__buttons">
-                    {RATING_OPTIONS.map(ratingValue => (
-                        <button
-                            className={ratingValue <= userRating ? 'selectedRating' : ''}
-                            type="button"
-                            onClick={event => handleRatingClick(event, ratingValue)}
-                            key={ratingValue}
-                        >
-                            <i className={`${ratingValue <= userRating ? 'fas' : 'far'} fa-star`} />
-                        </button>
-                    ))}
-                </div>
+                <h3 className="selectedBike--rating__title">{isManager ? 'Bike Rating' : 'Rate Bike'}: </h3>
+                {isManager ? null : (
+                    <div className="selectedBike--rating__buttons">
+                        {RATING_OPTIONS.map(ratingValue => (
+                            <button
+                                className={ratingValue <= userRating ? 'selectedRating' : ''}
+                                type="button"
+                                onClick={event => handleRatingClick(event, ratingValue)}
+                                key={ratingValue}
+                            >
+                                <i className={`${ratingValue <= userRating ? 'fas' : 'far'} fa-star`} />
+                            </button>
+                        ))}
+                    </div>
+                )}
                 <CardRating className={`selectedBike--rating__value rating${Math.floor(selectedBike.rateAverage)}`}>
                     {selectedBike.rateAverage}
                 </CardRating>
             </span>
-            <button
-                type="button"
-                disabled={!isAvailable}
-                className="selectedBike--bookingBtn"
-                onClick={handleBikeBooking}
-            >
-                {isAvailable ? 'Book Bike' : 'Bike Unavailable'}
-            </button>
+            {isManager ? null : (
+                <button
+                    type="button"
+                    disabled={!isAvailable}
+                    className="selectedBike--bookingBtn"
+                    onClick={handleBikeBooking}
+                >
+                    {isAvailable ? 'Book Bike' : 'Bike Unavailable'}
+                </button>
+            )}
         </StyledSelectedBike>
     ) : (
         <div />
