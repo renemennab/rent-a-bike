@@ -17,3 +17,5 @@ export const checkIfFilterMatchesBike = (bike: IBike, searchFilter: string): boo
     if (matchingValues.length) return true
     return false
 }
+
+export const checkIfBikeIsAvailable = (bike: IBike): boolean => !bike?.reservations?.length
