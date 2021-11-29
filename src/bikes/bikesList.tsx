@@ -27,9 +27,9 @@ const BikesList = function (): JSX.Element {
 
     useEffect(() => {
         const filtered = bikesData?.reduce((acc: IBike[], asset: IBike) => {
-            const assetValues = Object.values(asset)
-            const matchingValues = assetValues.filter(value =>
-                value.toString().toLowerCase().includes(filter.toLowerCase())
+            const { model, color, location } = asset
+            const matchingValues = [model, color, location].filter(value =>
+                value?.toString().toLowerCase().includes(filter.toLowerCase())
             )
             if (matchingValues.length) acc.push(asset)
 

@@ -1,29 +1,55 @@
 import mongoose from 'mongoose'
 import BikeModel from '../models/bikeModel.js'
-import ReservationModel from '../models/reservationModel.js'
-import { checkIfDatesOverlap, getBikeAgregationModel } from './utils.js'
+import { getBikeAgregationModel } from './utils.js'
 
 export async function getBikesByDates(req, res) {
     const { datesString } = req.params
     const datesObj = JSON.parse(datesString)
 
     try {
-        const reservations = await ReservationModel.find()
-        const idsFromBikesWithConflicts = reservations.reduce((acc, reservation) => {
-            const overlap = checkIfDatesOverlap(datesObj, reservation.startTimestamp, reservation.endTimestamp)
-            if (overlap) acc.add(reservation.bikeId)
+        const reservations = await BikeModel.aggregate([
+            {
+                $lookup: {
+                    from: 'reservations',
+                    let: {
+                        originalBikeId: { $toString: '$_id' }
+                    },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $and: [
+                                        {
+                                            $or: [
+                                                {
+                                                    $and: [
+                                                        { $gt: ['$startTimestamp', datesObj.start] },
+                                                        { $lt: ['$startTimestamp', datesObj.end] }
+                                                    ]
+                                                },
+                                                {
+                                                    $and: [
+                                                        { $gt: ['$endTimestamp', datesObj.start] },
+                                                        { $lt: ['$endTimestamp', datesObj.end] }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            $eq: ['$bikeId', '$$originalBikeId']
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ],
+                    as: 'reservations'
+                }
+            },
+            ...getBikeAgregationModel(req.userId)
+        ])
 
-            return acc
-        }, new Set())
-        const bikes = await BikeModel.find()
-        // const availableBikes = await BikeModel.find({ _id: { $nin: idsFromBikesWithConflicts } })
-        const availableBikes = bikes.map(bike => {
-            const isAvailable = ![...idsFromBikesWithConflicts].includes(bike._id.toString())
-
-            return Object.assign(bike, { isAvailable })
-        })
-
-        return res.status(200).json(availableBikes)
+        return res.status(200).json(reservations)
     } catch (error) {
         return res.status(404).json({ message: error.message })
     }
