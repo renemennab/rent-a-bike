@@ -6,11 +6,11 @@ import { getBikes, setBikeRatingFilter } from '../actions/bikeActions'
 import { SELECTED_BIKE_REDUCER_OPTIONS } from '../reducers/selectedBikeReducer'
 
 import PageHeader from '../common/pageHeader'
-import { CardHeading, CardLink, CardSpan, ListCard } from '../common/listCard'
+import { CardAvailability, CardHeading, CardLink, CardRating, CardSpan, ListCard } from '../common/listCard'
 import { FilterInput } from '../common/styled'
 import DateSelector from '../reservation/dateSelector'
 import { RATING_OPTIONS, SEARCH_FILTERS_REDUCER_OPTIONS } from '../reducers/searchFiltersReducer'
-import { checkIfFilterMatchesBike } from '../common/utils'
+import { checkIfBikeIsAvailable, checkIfFilterMatchesBike } from '../common/utils'
 
 const BikesList = function (): JSX.Element {
     const { bikes, bikesByDates } = useSelector((state: { bikes: IBike[]; bikesByDates: IBike[] }) => state)
@@ -86,8 +86,9 @@ const BikesList = function (): JSX.Element {
             <DateSelector />
             {filteredList.map((data: IBike) => {
                 if (data.rateAverage < bikeRating) return null
+                const isAvailable = checkIfBikeIsAvailable(data)
                 return (
-                    <ListCard className="bikesList--card" key={data._id}>
+                    <ListCard className={`bikesList--card ${isAvailable ? '' : 'unavailable'}`} key={data._id}>
                         <CardLink
                             className="bikesList--card__link"
                             to={`${placeLink}/${data._id}`}
@@ -98,7 +99,22 @@ const BikesList = function (): JSX.Element {
                             <CardHeading className="bikesList--card__link--model">{data.model}</CardHeading>
                             <CardSpan className="bikesList--card__link--color">{data.color}</CardSpan>
                             <CardSpan className="bikesList--card__link--location">{data.location}</CardSpan>
-                            <CardSpan className="bikesList--card__link--rating">{data.rateAverage}</CardSpan>
+                            <CardRating
+                                className={`bikesList--card__link--rating rating${Math.floor(data.rateAverage)}`}
+                            >
+                                {data.rateAverage}
+                            </CardRating>
+                            <CardAvailability className={isAvailable ? '' : 'unavailable'}>
+                                {isAvailable ? (
+                                    <>
+                                        <i className="fas fa-check" /> Available
+                                    </>
+                                ) : (
+                                    <>
+                                        <i className="fas fa-times" /> Unavailable
+                                    </>
+                                )}
+                            </CardAvailability>
                         </CardLink>
                     </ListCard>
                 )
