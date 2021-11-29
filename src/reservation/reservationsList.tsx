@@ -6,7 +6,7 @@ import { getUserReservations } from '../actions/reservationActions'
 import PageHeader from '../common/pageHeader'
 import { FilterInput } from '../common/styled'
 import { getLoggedInUser } from '../login/loginHelpers'
-import { handleGoBack } from '../common/utils'
+import { checkIfFilterMatchesBike, handleGoBack } from '../common/utils'
 import ReservationCard from './reservationCard'
 
 const ReservationsList = function (): JSX.Element {
@@ -29,13 +29,8 @@ const ReservationsList = function (): JSX.Element {
     }, [])
 
     useEffect(() => {
-        const filtered = reservationsData?.reduce((acc: IReservation[], asset: IReservation) => {
-            const assetValues = Object.values(asset)
-            const matchingValues = assetValues.filter(value =>
-                value.toString().toLowerCase().includes(filter.toLowerCase())
-            )
-            if (matchingValues.length) acc.push(asset)
-
+        const filtered = reservationsData?.reduce((acc: IReservation[], reservation: IReservation) => {
+            if (checkIfFilterMatchesBike(reservation.bikeInfo[0], filter)) return [...acc, reservation]
             return acc
         }, [])
 
