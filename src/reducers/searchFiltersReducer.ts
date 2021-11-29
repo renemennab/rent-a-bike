@@ -3,6 +3,8 @@ export const SEARCH_FILTERS_REDUCER_OPTIONS = {
     BIKE_RATING: 'BIKE_RATING'
 }
 
+export const RATING_OPTIONS = [1, 2, 3, 4, 5]
+
 const optionValues = Object.values(SEARCH_FILTERS_REDUCER_OPTIONS)
 
 interface IAction {

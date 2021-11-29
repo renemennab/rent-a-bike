@@ -7,7 +7,7 @@ import { createReservation } from '../actions/reservationActions'
 import { rateBike } from '../api'
 import PageHeader from '../common/pageHeader'
 import SelectedAssetButtons from '../common/selectedAssetButtons'
-import { getLoggedInUser } from '../login/loginHelpers'
+import { RATING_OPTIONS } from '../reducers/searchFiltersReducer'
 import DateSelector from '../reservation/dateSelector'
 import { ROUTES } from '../utils'
 
@@ -47,7 +47,6 @@ const SelectedBike = function (): JSX.Element {
         const rating = (event.target as HTMLButtonElement).textContent as string
         rateBike(selectedBike._id, Number(rating)).then(() => dispatch(getBike(params.bikeId)))
     }
-    const ratingOptions = [1, 2, 3, 4, 5]
     return selectedBike ? (
         <StyledSelectedBike className="selectedBike">
             <PageHeader pageName={selectedBike.model} />
@@ -64,7 +63,7 @@ const SelectedBike = function (): JSX.Element {
             <span className="selectedBike--rating">
                 <h3 className="selectedBike--rating__title">Rate Bike: </h3>
                 <div className="selectedBike--rating__buttons">
-                    {ratingOptions.map(ratingValue => (
+                    {RATING_OPTIONS.map(ratingValue => (
                         <button
                             className={userRating === ratingValue ? 'selectedRating' : ''}
                             type="button"
