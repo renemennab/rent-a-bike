@@ -9,7 +9,7 @@ import SelectedBike from './bikes/selectedBike'
 import BikeForm from './bikes/bikeForm'
 import HomePage from './home/homePage'
 import Login from './login/login'
-import UserProfileForm from './users/userProfileForm'
+import UserProfileForm, { OCASIONS } from './users/userProfileForm'
 import UsersList from './users/usersList'
 import SelectedUser from './users/selectedUser'
 import ReservationsList from './reservation/reservationsList'
@@ -38,12 +38,18 @@ const App = function (): JSX.Element {
                             component={SelectedReservation}
                         />
                         <Route path={`${ROUTES.USERS}/:userId${ROUTES.RESERVATIONS}`} component={ReservationsList} />
-                        <Route path={`${ROUTES.USERS}/:userId/edit`} component={UserProfileForm} />
+                        <Route path={`${ROUTES.USERS}/:userId/edit`}>
+                            <UserProfileForm ocasion={OCASIONS.EDIT} />
+                        </Route>
                         <Route path={`${ROUTES.USERS}/:userId`} component={SelectedUser} />
                         <Route path={ROUTES.PROFILE} component={SelectedUser} />
-                        <Route path={ROUTES.NEW_USER} component={UserProfileForm} />
+                        <Route path={ROUTES.NEW_USER}>
+                            <UserProfileForm ocasion={OCASIONS.CREATE} />
+                        </Route>
                         <Route path={ROUTES.USERS} component={UsersList} />
-                        <Route path={ROUTES.SIGNUP} component={UserProfileForm} />
+                        <Route path={ROUTES.SIGNUP}>
+                            <UserProfileForm ocasion={OCASIONS.SIGNUP} />
+                        </Route>
                         <Route path={ROUTES.LOGIN} component={Login} />
                         <Route path="/" component={HomePage} />
                     </Switch>

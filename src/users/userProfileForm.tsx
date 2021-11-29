@@ -8,12 +8,23 @@ import UserInfo from '../common/userInfo'
 import { createUser, fetchUser, updateUser } from '../actions/userActions'
 import { getLoggedInUser } from '../login/loginHelpers'
 
-const UserProfileForm = function (): JSX.Element {
+export const OCASIONS = {
+    SIGNUP: 'SIGNUP',
+    CREATE: 'CREATE',
+    EDIT: 'EDIT'
+} as const
+
+type IOcasions = typeof OCASIONS
+interface IProps {
+    ocasion: keyof IOcasions
+}
+const UserProfileForm = function ({ ocasion }: IProps): JSX.Element {
     const { selectedUser } = useSelector((state: { selectedUser?: IStorageResult }) => state)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [firstName, setFirstName] = useState(selectedUser?.firstName || ``)
     const [lastName, setLastName] = useState(selectedUser?.lastName || ``)
     const [email, setEmail] = useState(selectedUser?.email || ``)
+    const [isManager, setIsManager] = useState(selectedUser?.isManager || false)
     const [password, setPassword] = useState(``)
 
     const dispatch = useDispatch()
@@ -22,7 +33,7 @@ const UserProfileForm = function (): JSX.Element {
 
     function handleSubmit(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault()
-        const postParams = { firstName, lastName, email, password }
+        const postParams = { firstName, lastName, email, password, isManager }
         if (selectedUser) {
             dispatch(updateUser({ ...postParams, userId: selectedUser._id }, history))
         } else {
@@ -52,9 +63,15 @@ const UserProfileForm = function (): JSX.Element {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedUser])
 
+    const pageName = {
+        [OCASIONS.SIGNUP]: 'Signup',
+        [OCASIONS.CREATE]: 'Add new user',
+        [OCASIONS.EDIT]: 'Edit user'
+    }
+
     return (
         <StyledSignup>
-            <PageHeader pageName="Cadastro" />
+            <PageHeader pageName={pageName[ocasion]} />
             <StyledForm action="" onSubmit={event => handleSubmit(event)}>
                 <fieldset className="userInfo">
                     <StyledLabel className="column">
@@ -82,6 +99,16 @@ const UserProfileForm = function (): JSX.Element {
                         setPassword={setPassword}
                         newPassword={!!selectedUser}
                     />
+                    {ocasion === OCASIONS.CREATE || ocasion === OCASIONS.EDIT ? (
+                        <StyledLabel>
+                            Allow manager permissions:
+                            <StyledInput
+                                type="checkbox"
+                                checked={isManager}
+                                onChange={() => setIsManager(!isManager)}
+                            />
+                        </StyledLabel>
+                    ) : null}
                 </fieldset>
 
                 <StyledButton>

@@ -40,6 +40,11 @@ export const StyledInput = styled.input`
         margin-right: 10px;
         align-self: center;
     }
+    &[type='checkbox'] {
+        margin: 0 10px;
+        height: 20px;
+        width: 20px;
+    }
 `
 export const StyledForm = styled.form`
     display: flex;

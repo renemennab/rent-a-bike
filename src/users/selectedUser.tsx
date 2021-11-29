@@ -49,7 +49,7 @@ const SelectedUser = function (): JSX.Element {
                 <strong>email: </strong> {user.email}
             </span>
             <span className="selectedUser--managerStatus">
-                <strong>Manager: </strong> {user.isManager ? 'yes' : 'no'}
+                <strong>Manager: </strong> {user.isManager ? 'Yes' : 'No'}
             </span>
             {selectedUser ? (
                 <>
