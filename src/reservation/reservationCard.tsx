@@ -14,6 +14,7 @@ const ReservationCard = function ({ linkUrl, reservationInfo }: IProps): JSX.Ele
                 <CardHeading className="user--reservationCard__container--id">
                     {reservationInfo.bikeInfo[0].model}
                 </CardHeading>
+                <CardSpan>Location: {reservationInfo.bikeInfo[0].location}</CardSpan>
                 <CardSpan>From: {new Date(reservationInfo.startTimestamp).toLocaleString()}</CardSpan>
                 <CardSpan>To: {new Date(reservationInfo.endTimestamp).toLocaleString()}</CardSpan>
             </CardLink>
