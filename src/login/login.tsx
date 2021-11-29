@@ -30,7 +30,7 @@ const Login = function (): JSX.Element {
             </StyledForm>
 
             {userNotFound ? <span className="login--userNotFound">USER NOT FOUND</span> : null}
-            <Link to={ROUTES.SIGNUP} className="login--signInLink">
+            <Link to={ROUTES.SIGNUP} className="login--signupLink">
                 Need to create an account? Sign up here!
             </Link>
         </StyledLogin>
@@ -43,7 +43,7 @@ const StyledLogin = styled.div`
     display: flex;
     flex-direction: column;
     .login {
-        &--signInLink {
+        &--signupLink {
             align-self: center;
             text-decoration: none;
             color: var(--dark-blue);

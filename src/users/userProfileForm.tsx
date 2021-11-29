@@ -53,7 +53,7 @@ const UserProfileForm = function (): JSX.Element {
     }, [selectedUser])
 
     return (
-        <StyledSignIn>
+        <StyledSignup>
             <PageHeader pageName="Cadastro" />
             <StyledForm action="" onSubmit={event => handleSubmit(event)}>
                 <fieldset className="userInfo">
@@ -88,11 +88,11 @@ const UserProfileForm = function (): JSX.Element {
                     Save <i className="fa fa-save" />
                 </StyledButton>
             </StyledForm>
-        </StyledSignIn>
+        </StyledSignup>
     )
 }
 export default UserProfileForm
-const StyledSignIn = styled.div`
+const StyledSignup = styled.div`
     padding: var(--padding);
     fieldset {
         border: none;
