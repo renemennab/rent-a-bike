@@ -10,6 +10,7 @@ import { CardHeading, CardLink, CardSpan, ListCard } from '../common/listCard'
 import { FilterInput } from '../common/styled'
 import DateSelector from '../reservation/dateSelector'
 import { RATING_OPTIONS, SEARCH_FILTERS_REDUCER_OPTIONS } from '../reducers/searchFiltersReducer'
+import { checkIfFilterMatchesBike } from '../common/utils'
 
 const BikesList = function (): JSX.Element {
     const { bikes, bikesByDates } = useSelector((state: { bikes: IBike[]; bikesByDates: IBike[] }) => state)
@@ -49,16 +50,6 @@ const BikesList = function (): JSX.Element {
 
     const handleRatingFilterClick = (value: string): void => {
         dispatch(setBikeRatingFilter(Number(value)))
-    }
-
-    const checkIfFilterMatchesBike = (bike: IBike, searchFilter: string): boolean => {
-        if (!filter) return true
-        const { model, color, location } = bike
-        const matchingValues = [model, color, location].filter(value =>
-            value?.toString().toLowerCase().includes(searchFilter.toLowerCase())
-        )
-        if (matchingValues.length) return true
-        return false
     }
 
     return (
