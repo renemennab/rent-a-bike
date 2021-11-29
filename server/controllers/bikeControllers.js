@@ -31,7 +31,7 @@ export async function getBikesByDates(req, res) {
 
 export async function getBikes(req, res) {
     try {
-        const bikes = await BikeModel.find()
+        const bikes = await BikeModel.aggregate([{ $addFields: { rateAverage: { $avg: '$ratings.rating' } } }])
         console.log(bikes)
 
         return res.status(200).json(bikes)
