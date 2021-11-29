@@ -82,6 +82,46 @@ export async function updateBike(req, res) {
     return res.json(updateResponse)
 }
 
+export async function rateBike(req, res) {
+    const { id: _id } = req.params
+    const { rating } = req.body
+    const { userId } = req
+
+    if (!userId) return res.json({ message: 'Unauthenticated' })
+
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No bike with that id')
+
+    const updateResponse = await BikeModel.updateOne({ _id }, [
+        {
+            $set: {
+                ratings: {
+                    $cond: [
+                        { $in: [userId, '$ratings.userId'] },
+                        {
+                            $map: {
+                                input: '$ratings',
+                                in: {
+                                    $cond: [
+                                        { $eq: ['$$this.userId', userId] },
+                                        {
+                                            userId: '$$this.userId',
+                                            rating: { $add: rating }
+                                        },
+                                        '$$this'
+                                    ]
+                                }
+                            }
+                        },
+                        { $concatArrays: ['$ratings', [{ userId, rating }]] }
+                    ]
+                }
+            }
+        }
+    ])
+
+    return res.json(updateResponse)
+}
+
 export async function deleteBike(req, res) {
     const { id: _id } = req.params
 

@@ -4,5 +4,6 @@ export default {
     USER: 'user',
     LOGIN: 'login',
     SIGNUP: 'signup',
-    BIKES_BY_DATES: 'bikesByDates'
+    BIKES_BY_DATES: 'bikesByDates',
+    RATING: 'rating'
 }

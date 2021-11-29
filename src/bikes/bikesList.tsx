@@ -64,7 +64,7 @@ const BikesList = function (): JSX.Element {
                         <CardHeading className="bikes--card__link--model">{data.model}</CardHeading>
                         <CardSpan className="bikes--card__link--color">{data.color}</CardSpan>
                         <CardSpan className="bikes--card__link--location">{data.location}</CardSpan>
-                        <CardSpan className="bikes--card__link--rating">{data.rating}</CardSpan>
+                        <CardSpan className="bikes--card__link--rating">{data.rateAverage}</CardSpan>
                     </CardLink>
                 </ListCard>
             ))}

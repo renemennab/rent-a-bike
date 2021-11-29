@@ -6,7 +6,8 @@ import {
     getBike,
     updateBike,
     deleteBike,
-    getBikesByDates
+    getBikesByDates,
+    rateBike
 } from '../controllers/bikeControllers.js'
 import middlewareAuth from '../middleware/middlewareAuth.js'
 
@@ -17,6 +18,7 @@ bikeRouter.get('/', getBikes)
 bikeRouter.get(`/${pathConstants.BIKES_BY_DATES}/:datesString`, getBikesByDates)
 bikeRouter.post('/', middlewareAuth, createBike)
 bikeRouter.patch('/:id', middlewareAuth, updateBike)
+bikeRouter.patch(`/:id/${pathConstants.RATING}`, middlewareAuth, rateBike)
 bikeRouter.delete('/:id', middlewareAuth, deleteBike)
 
 export default bikeRouter

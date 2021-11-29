@@ -15,7 +15,6 @@ const BikeForm = function (): JSX.Element {
     const [model, setModel] = useState(selectedBike?.model || ``)
     const [color, setColor] = useState(selectedBike?.color || ``)
     const [location, setLocation] = useState(selectedBike?.location || ``)
-    const [rating, setRating] = useState(selectedBike?.rating || '')
 
     const history = useHistory()
     const params = useParams() as { bikeId: string }
@@ -32,14 +31,13 @@ const BikeForm = function (): JSX.Element {
             setModel(selectedBike.model)
             setColor(selectedBike.color)
             setLocation(selectedBike.location)
-            setRating(selectedBike.rating)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedBike])
 
     function handleBikeSubmit(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault()
-        const bikeData: PostBike = { isAvailable: true, color, location, model, rating }
+        const bikeData: PostBike = { isAvailable: true, color, location, model }
         if (params.bikeId && selectedBike) {
             dispatch(updateBike(selectedBike._id, bikeData))
         } else {
@@ -68,15 +66,6 @@ const BikeForm = function (): JSX.Element {
                         type="text"
                         value={location}
                         onChange={event => setLocation(event.target.value)}
-                    />
-                </StyledLabel>
-                <StyledLabel className="column">
-                    rating
-                    <StyledInput
-                        required
-                        type="text"
-                        value={rating}
-                        onChange={event => setRating(event.target.value)}
                     />
                 </StyledLabel>
 

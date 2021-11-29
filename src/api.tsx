@@ -26,7 +26,8 @@ export const createBike = (newBike: PostBike): Promise<IBikeResponse> => API.pos
 export const updateBike = (bikeId: string, updatedbike: PostBike): Promise<IBikeResponse> =>
     API.patch(`${API_PATHS.BIKES}/${bikeId}`, updatedbike)
 export const deleteBike = (bikeId: string): Promise<Response> => API.delete(`${API_PATHS.BIKES}/${bikeId}`)
-
+export const rateBike = (bikeId: string, rating: number): Promise<IBikeResponse> =>
+    API.patch(`${API_PATHS.BIKES}/${bikeId}/${API_PATHS.RATING}`, { rating })
 interface IReservationResponse {
     data: IReservation
 }

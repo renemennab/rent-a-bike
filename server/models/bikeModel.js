@@ -3,10 +3,10 @@ import mongoose from 'mongoose'
 const { Schema } = mongoose
 
 const bikeSchema = new Schema({
-    model: String,
-    color: String,
-    location: String,
-    rating: Number,
+    model: { type: String, required: true },
+    color: { type: String, required: true },
+    location: { type: String, required: true },
+    ratings: { type: [{ userId: String, rating: Number }], default: [] },
     isAvailable: Boolean,
     creator: String,
     createdAt: { type: Number, default: new Date().getTime() }

@@ -4,8 +4,10 @@ import { useHistory, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { deleteBike, getBike } from '../actions/bikeActions'
 import { createReservation } from '../actions/reservationActions'
+import { rateBike } from '../api'
 import PageHeader from '../common/pageHeader'
 import SelectedAssetButtons from '../common/selectedAssetButtons'
+import { getLoggedInUser } from '../login/loginHelpers'
 import DateSelector from '../reservation/dateSelector'
 import { ROUTES } from '../utils'
 
@@ -16,6 +18,10 @@ const SelectedBike = function (): JSX.Element {
     const params = useParams() as { bikeId: string }
     const history = useHistory()
     const dispatch = useDispatch()
+    const userRating = selectedBike?.ratings.reduce((acc, ratingObj) => {
+        if (ratingObj.userId === getLoggedInUser().result._id) return ratingObj.rating
+        return acc
+    }, 0)
     useEffect(() => {
         if (!selectedBike && params.bikeId) {
             dispatch(getBike(params.bikeId))
@@ -37,21 +43,41 @@ const SelectedBike = function (): JSX.Element {
         dispatch(createReservation(reservationParams, history))
     }
 
+    const handleRatingClick = (event: React.MouseEvent<HTMLElement>): void => {
+        event.preventDefault()
+
+        const rating = (event.target as HTMLButtonElement).textContent as string
+        rateBike(selectedBike._id, Number(rating)).then(() => dispatch(getBike(params.bikeId)))
+    }
+    const ratingOptions = [1, 2, 3, 4, 5]
     return selectedBike ? (
         <StyledSelectedBike className="selectedBike">
             <PageHeader pageName={selectedBike.model} />
             <SelectedAssetButtons onDelete={onDelete} />
-            <span className="selectedBike--buildingNum">
+            <span className="selectedBike--color">
                 <strong>Color: </strong> {selectedBike.color}
             </span>
-            <span className="selectedBike--cep">
+            <span className="selectedBike--location">
                 <strong>Location: </strong> {selectedBike.location}
             </span>
-            <span className="selectedBike--description">
+            <span className="selectedBike--isAvailable">
                 <strong>IsAvailable: </strong> {selectedBike.isAvailable}
             </span>
-            <span className="selectedBike--latitude">
-                <strong>Rating: </strong> {selectedBike.rating}
+            <span className="selectedBike--rating">
+                <h3 className="selectedBike--rating__title">Rate Bike: </h3>
+                <div className="selectedBike--rating__buttons">
+                    {ratingOptions.map(ratingValue => (
+                        <button
+                            className={userRating === ratingValue ? 'selectedRating' : ''}
+                            type="button"
+                            onClick={handleRatingClick}
+                            key={ratingValue}
+                        >
+                            {ratingValue}
+                        </button>
+                    ))}
+                </div>
+                {selectedBike.rateAverage}
             </span>
             <DateSelector />
             <button type="button" className="dateSelector--buttons__clearFilter" onClick={handleBikeBooking}>
@@ -71,16 +97,9 @@ const StyledSelectedBike = styled.div`
     flex-direction: column;
     position: relative;
     .selectedBike {
-        &--acceptableItems,
-        &--buildingNum,
-        &--cep,
-        &--description,
-        &--latitude,
-        &--longitude,
-        &--phone,
-        &--workingDays,
-        &--workingHoursFrom,
-        &--workingHoursTo {
+        &--color,
+        &--location,
+        &--isAvailable {
             margin-bottom: 40px;
 
             strong {
@@ -88,48 +107,11 @@ const StyledSelectedBike = styled.div`
                 text-transform: uppercase;
             }
         }
-
-        &--events {
-            &__card {
-                padding: 20px;
-                margin-bottom: 10px;
-                display: flex;
-                flex-direction: column;
-                border-radius: 3px;
-                box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.22);
-                &--link {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    &--name,
-                    &--date,
-                    &--time {
-                        font-size: 14px;
-                        margin-bottom: 15px;
-                    }
-                    &--name {
-                        color: var(--dark-blue);
-                        text-transform: capitalize;
-                        font-weight: 700;
-                        font-size: 18px;
-                    }
+        &--rating {
+            &__buttons {
+                button.selectedRating {
+                    color: var(--red);
                 }
-            }
-        }
-
-        &--message {
-            color: white;
-            border: none;
-            background: #25d366;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            i {
-                margin-left: 8px;
             }
         }
     }

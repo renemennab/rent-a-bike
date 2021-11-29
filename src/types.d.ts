@@ -1,12 +1,13 @@
 interface IBike extends PostBike {
     _id: string
+    rateAverage: number
+    ratings: { userId: string; rating: number }[]
 }
 
 interface PostBike {
     model: string
     color: string
     location: string
-    rating: string
     isAvailable: boolean
 }
 interface IReservation extends PostReservation {
