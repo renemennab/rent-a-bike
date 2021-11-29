@@ -22,9 +22,7 @@ const UsersList = function (): JSX.Element {
     useEffect(() => {
         dispatch({ type: SELECTED_USER_REDUCER_OPTIONS.SET_SELECTED_USER, payload: null })
 
-        if (!usersData.length) {
-            dispatch(fetchUsers())
-        }
+        dispatch(fetchUsers())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
