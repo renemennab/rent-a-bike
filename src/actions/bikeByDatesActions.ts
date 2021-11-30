@@ -1,5 +1,7 @@
+import { AxiosError } from "axios";
 import { Dispatch } from "redux";
 import * as api from "../api";
+import { handleErrors } from "../common/utils";
 import { BIKES_BY_DATES_REDUCER_OPTIONS } from "../reducers/bikesByDatesReducer";
 
 export const getBikesByDates =
@@ -12,7 +14,7 @@ export const getBikesByDates =
         payload: data,
       });
     } catch (error) {
-      console.log(error);
+      handleErrors(dispatch, error as AxiosError);
     }
   };
 

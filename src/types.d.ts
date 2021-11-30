@@ -69,3 +69,9 @@ interface ISearchFilters {
 }
 
 type AssetType = "user" | "bike";
+
+type GlobalNotificationType = "error" | "success";
+interface IGlobalNotification {
+  message: string;
+  type: GlobalNotificationType;
+}

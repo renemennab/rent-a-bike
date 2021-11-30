@@ -1,8 +1,11 @@
+import { AxiosError } from "axios";
 import { Dispatch } from "redux";
 import * as api from "../api";
+import { handleErrors } from "../common/utils";
 import { BIKE_REDUCER_OPTIONS } from "../reducers/bikesReducer";
 import { SEARCH_FILTERS_REDUCER_OPTIONS } from "../reducers/searchFiltersReducer";
 import { SELECTED_BIKE_REDUCER_OPTIONS } from "../reducers/selectedBikeReducer";
+import setGlobalNotification from "./globalNotificationActions";
 
 export const getBikes =
   () =>
@@ -11,7 +14,7 @@ export const getBikes =
       const { data } = await api.fetchBikes();
       dispatch({ type: BIKE_REDUCER_OPTIONS.FETCH_ALL, payload: data });
     } catch (error) {
-      console.log(error);
+      handleErrors(dispatch, error as AxiosError);
     }
   };
 
@@ -25,7 +28,7 @@ export const getBike =
         payload: data[0] as IBike,
       });
     } catch (error) {
-      console.log(error);
+      handleErrors(dispatch, error as AxiosError);
     }
   };
 
@@ -35,8 +38,9 @@ export const createBike =
     try {
       const { data } = await api.createBike(newBike);
       dispatch({ type: BIKE_REDUCER_OPTIONS.CREATE, payload: [data] });
+      setGlobalNotification(dispatch, `Bike created sucessfuly`, "success");
     } catch (error) {
-      console.log(error);
+      handleErrors(dispatch, error as AxiosError);
     }
   };
 
@@ -46,8 +50,9 @@ export const updateBike =
     try {
       const { data } = await api.updateBike(bikeId, updatedBike);
       dispatch({ type: BIKE_REDUCER_OPTIONS.UPDATE, payload: [data] });
+      setGlobalNotification(dispatch, `Bike updated sucessfuly`, "success");
     } catch (error) {
-      console.log(error);
+      handleErrors(dispatch, error as AxiosError);
     }
   };
 
@@ -57,8 +62,9 @@ export const deleteBike =
     try {
       await api.deleteBike(deletedBike._id);
       dispatch({ type: BIKE_REDUCER_OPTIONS.DELETE, payload: [deletedBike] });
+      setGlobalNotification(dispatch, `Bike deleted sucessfuly`, "success");
     } catch (error) {
-      console.log(error);
+      handleErrors(dispatch, error as AxiosError);
     }
   };
 

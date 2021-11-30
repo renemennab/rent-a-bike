@@ -1,11 +1,14 @@
 import { Dispatch } from "redux";
 import { RouteComponentProps } from "react-router-dom";
+import { AxiosError } from "axios";
 import * as api from "../api";
 import { LOGGED_USER_REDUCER_OPTIONS } from "../reducers/loggedUser";
 import { ROUTES } from "../utils";
 import { USERS_REDUCER_OPTIONS } from "../reducers/usersReducer";
 import { SELECTED_USER_REDUCER_OPTIONS } from "../reducers/selectedUserReducer";
 import { SEARCH_FILTERS_REDUCER_OPTIONS } from "../reducers/searchFiltersReducer";
+import setGlobalNotification from "./globalNotificationActions";
+import { handleErrors } from "../common/utils";
 
 export const loginUser =
   (
@@ -17,10 +20,14 @@ export const loginUser =
     try {
       const { data } = await api.loginUser(params);
       dispatch({ type: LOGGED_USER_REDUCER_OPTIONS.LOGIN_USER, payload: data });
+      setGlobalNotification(
+        dispatch,
+        `Hello, ${data.result.firstName}`,
+        "success"
+      );
       history.push("/");
     } catch (error) {
       setUserNotFound(true);
-      console.log(error);
     }
   };
 
@@ -40,11 +47,17 @@ export const createUser =
           payload: data,
         });
         history.push("/");
+        setGlobalNotification(
+          dispatch,
+          `Welcome ${data.result.firstName}`,
+          "success"
+        );
       } else {
         history.push(ROUTES.USERS);
+        setGlobalNotification(dispatch, `User created sucessfuly`, "success");
       }
     } catch (error) {
-      console.log(error);
+      handleErrors(dispatch, error as AxiosError);
     }
   };
 
@@ -55,7 +68,7 @@ export const fetchUsers =
       const { data } = await api.fetchUsers();
       dispatch({ type: USERS_REDUCER_OPTIONS.FETCH_ALL, payload: data });
     } catch (error) {
-      console.log(error);
+      handleErrors(dispatch, error as AxiosError);
     }
   };
 
@@ -69,7 +82,7 @@ export const fetchUser =
         payload: data,
       });
     } catch (error) {
-      console.log(error);
+      handleErrors(dispatch, error as AxiosError);
     }
   };
 
@@ -84,8 +97,9 @@ export const updateUser =
         payload: data,
       });
       history.push(`${ROUTES.USERS}/${updatedUser.userId}`);
+      setGlobalNotification(dispatch, `User updated sucessfuly`, "success");
     } catch (error) {
-      console.log(error);
+      handleErrors(dispatch, error as AxiosError);
     }
   };
 
@@ -95,8 +109,9 @@ export const deleteUser =
     try {
       await api.deleteUser(user._id);
       dispatch({ type: USERS_REDUCER_OPTIONS.DELETE, payload: [user] });
+      setGlobalNotification(dispatch, `User deleted sucessfuly`, "success");
     } catch (error) {
-      console.log(error);
+      handleErrors(dispatch, error as AxiosError);
     }
   };
 

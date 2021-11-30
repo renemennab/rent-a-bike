@@ -37,6 +37,7 @@ export async function signup(req, res) {
   const { email, password, firstName, lastName, isManager } = req.body;
   try {
     const existingUser = await UserModel.findOne({ email });
+    if (password.length < 8) return res.status(500).json("password to short");
     if (existingUser) return res.status(400).json("User already exist");
     const hashedPassword = await bcrypt.hash(password, 12);
 

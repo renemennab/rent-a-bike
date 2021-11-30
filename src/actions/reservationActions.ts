@@ -1,9 +1,12 @@
+import { AxiosError } from "axios";
 import { RouteComponentProps } from "react-router-dom";
 import { Dispatch } from "redux";
 import * as api from "../api";
+import { handleErrors } from "../common/utils";
 import { RESERVATION_REDUCER_OPTIONS } from "../reducers/reservationsReducer";
 import { SELECTED_RESERVATION_REDUCER_OPTIONS } from "../reducers/selectedReservationReducer";
 import { ROUTES } from "../utils";
+import setGlobalNotification from "./globalNotificationActions";
 
 export const getReservations =
   () =>
@@ -12,7 +15,7 @@ export const getReservations =
       const { data } = await api.fetchReservations();
       dispatch({ type: RESERVATION_REDUCER_OPTIONS.FETCH_ALL, payload: data });
     } catch (error) {
-      console.log(error);
+      handleErrors(dispatch, error as AxiosError);
     }
   };
 export const getUserReservations =
@@ -22,7 +25,7 @@ export const getUserReservations =
       const { data } = await api.fetchUserReservations(userId);
       dispatch({ type: RESERVATION_REDUCER_OPTIONS.FETCH_ALL, payload: data });
     } catch (error) {
-      console.log(error);
+      handleErrors(dispatch, error as AxiosError);
     }
   };
 
@@ -36,7 +39,7 @@ export const getReservation =
         payload: data,
       });
     } catch (error) {
-      console.log(error);
+      handleErrors(dispatch, error as AxiosError);
     }
   };
 
@@ -47,8 +50,13 @@ export const createReservation =
       const { data } = await api.createReservation(newReservation);
       dispatch({ type: RESERVATION_REDUCER_OPTIONS.CREATE, payload: [data] });
       history.push(ROUTES.RESERVATIONS);
+      setGlobalNotification(
+        dispatch,
+        `Reservation created sucessfuly`,
+        "success"
+      );
     } catch (error) {
-      console.log(error);
+      handleErrors(dispatch, error as AxiosError);
     }
   };
 
@@ -61,8 +69,13 @@ export const updateReservation =
         updatedReservation
       );
       dispatch({ type: RESERVATION_REDUCER_OPTIONS.UPDATE, payload: [data] });
+      setGlobalNotification(
+        dispatch,
+        `Reservation updated sucessfuly`,
+        "success"
+      );
     } catch (error) {
-      console.log(error);
+      handleErrors(dispatch, error as AxiosError);
     }
   };
 
@@ -75,7 +88,12 @@ export const deleteReservation =
         type: RESERVATION_REDUCER_OPTIONS.DELETE,
         payload: [deletedReservation],
       });
+      setGlobalNotification(
+        dispatch,
+        `Reservation canceled sucessfuly`,
+        "success"
+      );
     } catch (error) {
-      console.log(error);
+      handleErrors(dispatch, error as AxiosError);
     }
   };

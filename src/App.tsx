@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { ROUTES } from "./utils";
 import BikesList from "./bikes/bikesList";
 import SelectedBike from "./bikes/selectedBike";
@@ -12,12 +13,18 @@ import UsersList from "./users/usersList";
 import SelectedUser from "./users/selectedUser";
 import ReservationsList from "./reservation/reservationsList";
 import SelectedReservation from "./reservation/selectedReservation";
+import GlobalNotification from "./common/globalNotification";
 
 const App = function (): JSX.Element {
+  const { message, type } = useSelector(
+    (state: { globalNotification: IGlobalNotification }) =>
+      state.globalNotification
+  );
   return (
     <Router>
       <AppStyles className="App">
         <main>
+          <GlobalNotification message={message} type={type} />
           <Switch>
             <Route path={`${ROUTES.NEW_BIKE}`} component={BikeForm} />
             <Route path={`${ROUTES.BIKES}/:bikeId/edit`} component={BikeForm} />

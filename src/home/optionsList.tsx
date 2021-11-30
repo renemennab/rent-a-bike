@@ -48,7 +48,6 @@ const OptionsList = function ({ isNav }: IProps): JSX.Element {
     setUserIsLogged?.(false);
     setShowDialog(false);
   }
-
   return (
     <>
       <StyledOptionsList className={`optionsList ${isNav ? "isNav" : ""}`}>

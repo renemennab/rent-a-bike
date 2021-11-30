@@ -1,4 +1,7 @@
+import { AxiosError } from "axios";
 import { RouteComponentProps } from "react-router-dom";
+import { Dispatch } from "redux";
+import setGlobalNotification from "../actions/globalNotificationActions";
 
 export function handleGoBack(history: RouteComponentProps["history"]): void {
   const currentUrl = history.location.pathname;
@@ -20,3 +23,12 @@ export const checkIfFilterMatchesBike = (
   if (matchingValues.length) return true;
   return false;
 };
+
+export function handleErrors(dispatch: Dispatch, error: AxiosError): void {
+  if (error.response) {
+    const { data, status } = error.response;
+    setGlobalNotification(dispatch, `${status}: ${data}`, "error");
+  } else {
+    setGlobalNotification(dispatch, error.message, "error");
+  }
+}

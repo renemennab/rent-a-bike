@@ -9,6 +9,7 @@ import selectedTimestampsReducer from "./selectedTimestamps";
 import selectedUserReducer from "./selectedUserReducer";
 import usersReducer from "./usersReducer";
 import searchFiltersReducer from "./searchFiltersReducer";
+import globalNotificationReducer from "./globalNotificationReducer";
 
 export default combineReducers({
   bikes: bikeReducer,
@@ -21,4 +22,5 @@ export default combineReducers({
   users: usersReducer,
   bikesByDates: bikesByDatesReducer,
   searchFilters: searchFiltersReducer,
+  globalNotification: globalNotificationReducer,
 });
