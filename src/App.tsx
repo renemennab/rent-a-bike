@@ -14,6 +14,7 @@ import SelectedUser from "./users/selectedUser";
 import ReservationsList from "./reservation/reservationsList";
 import SelectedReservation from "./reservation/selectedReservation";
 import GlobalNotification from "./common/globalNotification";
+import PrivateRoute from "./privateRoute";
 
 const App = function (): JSX.Element {
   const { message, type } = useSelector(
@@ -26,32 +27,51 @@ const App = function (): JSX.Element {
         <main>
           <GlobalNotification message={message} type={type} />
           <Switch>
-            <Route path={`${ROUTES.NEW_BIKE}`} component={BikeForm} />
-            <Route path={`${ROUTES.BIKES}/:bikeId/edit`} component={BikeForm} />
-            <Route path={`${ROUTES.BIKES}/:bikeId`} component={SelectedBike} />
-            <Route path={ROUTES.BIKES} component={BikesList} />
-            <Route
-              path={`${ROUTES.RESERVATIONS}/:reservationId`}
-              component={SelectedReservation}
-            />
-            <Route path={ROUTES.RESERVATIONS} component={ReservationsList} />
-            <Route
+            <PrivateRoute path={`${ROUTES.NEW_BIKE}`}>
+              <BikeForm />
+            </PrivateRoute>
+            <PrivateRoute path={`${ROUTES.BIKES}/:bikeId/edit`}>
+              <BikeForm />
+            </PrivateRoute>
+            <PrivateRoute path={`${ROUTES.BIKES}/:bikeId`}>
+              <SelectedBike />
+            </PrivateRoute>
+            <PrivateRoute path={ROUTES.BIKES}>
+              <BikesList />
+            </PrivateRoute>
+
+            <PrivateRoute path={`${ROUTES.RESERVATIONS}/:reservationId`}>
+              <SelectedReservation />
+            </PrivateRoute>
+            <PrivateRoute path={ROUTES.RESERVATIONS}>
+              <ReservationsList />
+            </PrivateRoute>
+            <PrivateRoute
               path={`${ROUTES.USERS}/:userId${ROUTES.RESERVATIONS}/:reservationId`}
-              component={SelectedReservation}
-            />
-            <Route
+            >
+              <SelectedReservation />
+            </PrivateRoute>
+            <PrivateRoute
               path={`${ROUTES.USERS}/:userId${ROUTES.RESERVATIONS}`}
-              component={ReservationsList}
-            />
-            <Route path={`${ROUTES.USERS}/:userId/edit`}>
+            >
+              <ReservationsList />
+            </PrivateRoute>
+            <PrivateRoute path={`${ROUTES.USERS}/:userId/edit`}>
               <UserProfileForm ocasion={OCASIONS.EDIT} />
-            </Route>
-            <Route path={`${ROUTES.USERS}/:userId`} component={SelectedUser} />
-            <Route path={ROUTES.PROFILE} component={SelectedUser} />
-            <Route path={ROUTES.NEW_USER}>
+            </PrivateRoute>
+            <PrivateRoute path={`${ROUTES.USERS}/:userId`}>
+              <SelectedUser />
+            </PrivateRoute>
+            <PrivateRoute path={ROUTES.PROFILE}>
+              <SelectedUser />
+            </PrivateRoute>
+            <PrivateRoute path={ROUTES.NEW_USER}>
               <UserProfileForm ocasion={OCASIONS.CREATE} />
-            </Route>
-            <Route path={ROUTES.USERS} component={UsersList} />
+            </PrivateRoute>
+            <PrivateRoute path={ROUTES.USERS}>
+              <UsersList />
+            </PrivateRoute>
+
             <Route path={ROUTES.SIGNUP}>
               <UserProfileForm ocasion={OCASIONS.SIGNUP} />
             </Route>
