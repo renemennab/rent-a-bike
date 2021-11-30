@@ -62,7 +62,8 @@ export async function getUsers(req, res) {
                     foreignField: 'userId',
                     as: 'reservations'
                 }
-            }
+            },
+            { $sort: { firstName: 1, lastName: 1, email: 1 } }
         ])
 
         return res.status(200).json(users)
