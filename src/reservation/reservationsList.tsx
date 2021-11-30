@@ -30,7 +30,7 @@ const ReservationsList = function (): JSX.Element {
 
     useEffect(() => {
         const filtered = reservationsData?.reduce((acc: IReservation[], reservation: IReservation) => {
-            if (checkIfFilterMatchesBike(reservation.bikeInfo[0], filter)) return [...acc, reservation]
+            if (checkIfFilterMatchesBike(reservation.bikeInfo, filter)) return [...acc, reservation]
             return acc
         }, [])
 

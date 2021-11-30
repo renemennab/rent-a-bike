@@ -102,7 +102,8 @@ export async function getUserReservations(req, res) {
                     foreignField: '_id',
                     as: 'bikeInfo'
                 }
-            }
+            },
+            { $addFields: { bikeInfo: { $first: '$bikeInfo' } } }
         ])
 
         return res.status(200).json(reservations)
