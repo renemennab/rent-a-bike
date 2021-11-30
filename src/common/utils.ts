@@ -34,17 +34,17 @@ export function handleErrors(dispatch: Dispatch, error: AxiosError): void {
   }
 }
 
-const baseUrl = "/rent-a-bike";
+const baseUrl = "/";
 
 export const ROUTES = {
-  LOGIN: `${baseUrl}/login`,
-  SIGNUP: `${baseUrl}/signup`,
-  PROFILE: `${baseUrl}/profile`,
-  NEW_BIKE: `${baseUrl}/newBike`,
-  NEW_USER: `${baseUrl}/newUser`,
-  BIKES: `${baseUrl}/bikes`,
-  USERS: `${baseUrl}/users`,
-  RESERVATIONS: `${baseUrl}/reservations`,
+  LOGIN: `${baseUrl}login`,
+  SIGNUP: `${baseUrl}signup`,
+  PROFILE: `${baseUrl}profile`,
+  NEW_BIKE: `${baseUrl}newBike`,
+  NEW_USER: `${baseUrl}newUser`,
+  BIKES: `${baseUrl}bikes`,
+  USERS: `${baseUrl}users`,
+  RESERVATIONS: `${baseUrl}reservations`,
 };
 
 export const SESSION_DATA = {
