@@ -18,14 +18,17 @@ const BikesList = function (): JSX.Element {
     const { bikes, bikesByDates } = useSelector((state: { bikes: IBike[]; bikesByDates: IBike[] }) => state)
     const { bikeRating } = useSelector((state: { searchFilters: ISearchFilters }) => state.searchFilters)
 
-    const bikesData = bikesByDates || bikes
+    const { isManager } = getLoggedInUser().result
+    const bikesData = isManager ? bikesByDates || bikes : bikesByDates
     const [filter, setFilter] = useState('')
     const [filteredList, setFilteredList] = useState(bikesData)
     const history = useHistory()
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getBikes())
+        if (isManager) {
+            dispatch(getBikes())
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -53,8 +56,6 @@ const BikesList = function (): JSX.Element {
     const handleRatingFilterClick = (value: string): void => {
         dispatch(setBikeRatingFilter(Number(value)))
     }
-
-    const { isManager } = getLoggedInUser().result
 
     return (
         <StyledBikesList className="bikesList">

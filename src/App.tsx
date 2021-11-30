@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { getBikes } from './actions/bikeActions'
 import { ROUTES } from './utils'
 import BikesList from './bikes/bikesList'
 import SelectedBike from './bikes/selectedBike'
@@ -16,12 +14,6 @@ import ReservationsList from './reservation/reservationsList'
 import SelectedReservation from './reservation/selectedReservation'
 
 const App = function (): JSX.Element {
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(getBikes)
-    }, [])
-
     return (
         <Router>
             <AppStyles className="App">
