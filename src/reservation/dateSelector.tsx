@@ -8,15 +8,11 @@ import { getBikesByDates } from "../actions/bikeByDatesActions";
 import { BIKES_BY_DATES_REDUCER_OPTIONS } from "../reducers/bikesByDatesReducer";
 import { SELECTED_TIMESTAMPS_REDUCER_OPTIONS } from "../reducers/selectedTimestamps";
 
-// CSS Modules, react-datepicker-cssmodules.css
-// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-
 const DateSelector = function (): JSX.Element {
   const dispatch = useDispatch();
   const { selectedTimestamps } = useSelector(
     (state: { selectedTimestamps: ITimestamps }) => state
   );
-
   const applyDatesFilter = (): void => {
     dispatch(getBikesByDates(selectedTimestamps));
   };
@@ -25,6 +21,9 @@ const DateSelector = function (): JSX.Element {
     dispatch({
       type: BIKES_BY_DATES_REDUCER_OPTIONS.SET_BIKES_BY_DATES,
       payload: null,
+    });
+    dispatch({
+      type: SELECTED_TIMESTAMPS_REDUCER_OPTIONS.RESET_TIMESTAMPS,
     });
   };
 

@@ -13,9 +13,12 @@ interface IAction {
 
 const defaultAction = { type: "", payload: 0 };
 const halfHourInMilisseconds = 30 * 60 * 1000;
+const now = new Date().getTime();
+const nextExactTime =
+  now + halfHourInMilisseconds - (now % halfHourInMilisseconds);
 const defaultTimestamps = {
-  start: new Date().getTime(),
-  end: new Date().getTime() + halfHourInMilisseconds,
+  start: nextExactTime,
+  end: nextExactTime + halfHourInMilisseconds,
 };
 
 const selectedTimestampsReducer = (
