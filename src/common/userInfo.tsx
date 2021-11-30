@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import styled from "styled-components";
 import { StyledInput, StyledLabel } from "./styled";
 
 interface IProps {
@@ -7,6 +8,7 @@ interface IProps {
   password: string;
   setPassword: Dispatch<SetStateAction<string>>;
   newPassword?: boolean;
+  isLogin?: boolean;
 }
 
 const UserInfo = function ({
@@ -15,7 +17,10 @@ const UserInfo = function ({
   password,
   setPassword,
   newPassword,
+  isLogin,
 }: IProps): JSX.Element {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <>
       <StyledLabel className="column">
@@ -28,13 +33,20 @@ const UserInfo = function ({
         />
       </StyledLabel>
       <StyledLabel className="column">
-        {newPassword ? "New" : ""} Password
-        <StyledInput
-          required={!newPassword}
-          type="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
+        {newPassword ? "New" : ""} Password{" "}
+        {isLogin ? "" : "(8 characters minimum)"}
+        <PasswordContainer>
+          <StyledInput
+            required={!newPassword}
+            type={showPassword ? "text" : "password"}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            minLength={8}
+          />
+          <button type="button" onClick={() => setShowPassword(!showPassword)}>
+            <i className={`fas fa-eye${showPassword ? "-slash" : ""}`} />
+          </button>
+        </PasswordContainer>
       </StyledLabel>
     </>
   );
@@ -42,5 +54,23 @@ const UserInfo = function ({
 
 UserInfo.defaultProps = {
   newPassword: false,
+  isLogin: false,
 };
 export default UserInfo;
+
+const PasswordContainer = styled.div`
+  position: relative;
+  input {
+    width: 100%;
+  }
+  button {
+    position: absolute;
+    top: 60%;
+    right: 10px;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    color: var(--dark-gray);
+    transform: translateY(-50%);
+  }
+`;

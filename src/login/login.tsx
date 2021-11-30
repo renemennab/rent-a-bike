@@ -28,6 +28,7 @@ const Login = function (): JSX.Element {
           setEmail={setEmail}
           password={password}
           setPassword={setPassword}
+          isLogin
         />
         <StyledButton>
           Login <i className="fas fa-sign-in-alt" />
