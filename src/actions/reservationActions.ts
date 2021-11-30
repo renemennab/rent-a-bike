@@ -2,10 +2,9 @@ import { AxiosError } from "axios";
 import { RouteComponentProps } from "react-router-dom";
 import { Dispatch } from "redux";
 import * as api from "../api";
-import { handleErrors } from "../common/utils";
+import { handleErrors, ROUTES } from "../common/utils";
 import { RESERVATION_REDUCER_OPTIONS } from "../reducers/reservationsReducer";
 import { SELECTED_RESERVATION_REDUCER_OPTIONS } from "../reducers/selectedReservationReducer";
-import { ROUTES } from "../utils";
 import setGlobalNotification from "./globalNotificationActions";
 
 export const getReservations =

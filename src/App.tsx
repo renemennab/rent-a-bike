@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { ROUTES } from "./utils";
+import { ROUTES } from "./common/utils";
 import BikesList from "./bikes/bikesList";
 import SelectedBike from "./bikes/selectedBike";
 import BikeForm from "./bikes/bikeForm";

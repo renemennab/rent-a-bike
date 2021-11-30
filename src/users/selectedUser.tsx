@@ -9,7 +9,7 @@ import PageHeader from "../common/pageHeader";
 import SelectedAssetButtons from "../common/selectedAssetButtons";
 import { getLoggedInUser } from "../login/loginHelpers";
 import ReservationCard from "../reservation/reservationCard";
-import { ROUTES } from "../utils";
+import { ROUTES } from "../common/utils";
 
 const SelectedUser = function (): JSX.Element {
   const loggedInUser = getLoggedInUser().result;

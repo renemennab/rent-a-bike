@@ -6,7 +6,7 @@ import { loginUser } from "../actions/userActions";
 import PageHeader from "../common/pageHeader";
 import { StyledButton, StyledForm } from "../common/styled";
 import UserInfo from "../common/userInfo";
-import { ROUTES } from "../utils";
+import { ROUTES } from "../common/utils";
 
 const Login = function (): JSX.Element {
   const [email, setEmail] = useState(``);

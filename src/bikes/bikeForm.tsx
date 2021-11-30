@@ -10,7 +10,7 @@ import {
   StyledInput,
   StyledLabel,
 } from "../common/styled";
-import { ROUTES } from "../utils";
+import { ROUTES } from "../common/utils";
 import { SELECTED_BIKE_REDUCER_OPTIONS } from "../reducers/selectedBikeReducer";
 
 const BikeForm = function (): JSX.Element {

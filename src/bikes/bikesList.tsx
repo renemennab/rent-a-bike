@@ -20,8 +20,7 @@ import {
   RATING_OPTIONS,
   SEARCH_FILTERS_REDUCER_OPTIONS,
 } from "../reducers/searchFiltersReducer";
-import { checkIfFilterMatchesBike } from "../common/utils";
-import { ROUTES } from "../utils";
+import { checkIfFilterMatchesBike, ROUTES } from "../common/utils";
 import { getLoggedInUser } from "../login/loginHelpers";
 
 const BikesList = function (): JSX.Element {

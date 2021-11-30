@@ -8,7 +8,7 @@ import {
 } from "../actions/reservationActions";
 import ConfirmationDialog from "../common/confirmationDialog";
 import PageHeader from "../common/pageHeader";
-import { ROUTES } from "../utils";
+import { ROUTES } from "../common/utils";
 
 const SelectedReservation = function (): JSX.Element {
   const [showModal, setShowModal] = useState(false);

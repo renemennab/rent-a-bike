@@ -3,12 +3,11 @@ import { RouteComponentProps } from "react-router-dom";
 import { AxiosError } from "axios";
 import * as api from "../api";
 import { LOGGED_USER_REDUCER_OPTIONS } from "../reducers/loggedUser";
-import { ROUTES } from "../utils";
 import { USERS_REDUCER_OPTIONS } from "../reducers/usersReducer";
 import { SELECTED_USER_REDUCER_OPTIONS } from "../reducers/selectedUserReducer";
 import { SEARCH_FILTERS_REDUCER_OPTIONS } from "../reducers/searchFiltersReducer";
 import setGlobalNotification from "./globalNotificationActions";
-import { handleErrors } from "../common/utils";
+import { handleErrors, ROUTES } from "../common/utils";
 
 export const loginUser =
   (

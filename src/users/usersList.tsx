@@ -13,7 +13,7 @@ import {
 } from "../actions/userActions";
 import { getLoggedInUser } from "../login/loginHelpers";
 import { SEARCH_FILTERS_REDUCER_OPTIONS } from "../reducers/searchFiltersReducer";
-import { ROUTES } from "../utils";
+import { ROUTES } from "../common/utils";
 
 const UsersList = function (): JSX.Element {
   const usersData = useSelector(

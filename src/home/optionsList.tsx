@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { getLoggedInUser } from "../login/loginHelpers";
 import ConfirmationDialog from "../common/confirmationDialog";
-import { checkIfTokenIsExpired, ROUTES } from "../utils";
+import { checkIfTokenIsExpired, ROUTES } from "../common/utils";
 import { SELECTED_BIKE_REDUCER_OPTIONS } from "../reducers/selectedBikeReducer";
 import { LOGGED_USER_REDUCER_OPTIONS } from "../reducers/loggedUser";
 import { SELECTED_USER_REDUCER_OPTIONS } from "../reducers/selectedUserReducer";
