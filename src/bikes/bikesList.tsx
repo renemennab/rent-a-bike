@@ -10,7 +10,7 @@ import { CardAvailability, CardHeading, CardLink, CardRating, CardSpan, ListCard
 import { FilterInput } from '../common/styled'
 import DateSelector from '../reservation/dateSelector'
 import { RATING_OPTIONS, SEARCH_FILTERS_REDUCER_OPTIONS } from '../reducers/searchFiltersReducer'
-import { checkIfBikeIsAvailable, checkIfFilterMatchesBike } from '../common/utils'
+import { checkIfFilterMatchesBike } from '../common/utils'
 import { ROUTES } from '../utils'
 import { getLoggedInUser } from '../login/loginHelpers'
 
@@ -95,9 +95,8 @@ const BikesList = function (): JSX.Element {
             <DateSelector />
             {filteredList.map((data: IBike) => {
                 if (data.rateAverage < bikeRating) return null
-                const isAvailable = checkIfBikeIsAvailable(data)
                 return (
-                    <ListCard className={`bikesList--card ${isAvailable ? '' : 'unavailable'}`} key={data._id}>
+                    <ListCard className={`bikesList--card ${data.isAvailable ? '' : 'unavailable'}`} key={data._id}>
                         <CardLink
                             className="bikesList--card__link"
                             to={`${placeLink}/${data._id}`}
@@ -113,8 +112,8 @@ const BikesList = function (): JSX.Element {
                             >
                                 {data.rateAverage}
                             </CardRating>
-                            <CardAvailability className={isAvailable ? '' : 'unavailable'}>
-                                {isAvailable ? (
+                            <CardAvailability className={data.isAvailable ? '' : 'unavailable'}>
+                                {data.isAvailable ? (
                                     <>
                                         <i className="fas fa-check" /> Available
                                     </>

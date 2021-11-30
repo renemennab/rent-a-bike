@@ -8,7 +8,6 @@ import { rateBike } from '../api'
 import { CardRating } from '../common/listCard'
 import PageHeader from '../common/pageHeader'
 import SelectedAssetButtons from '../common/selectedAssetButtons'
-import { checkIfBikeIsAvailable } from '../common/utils'
 import { getLoggedInUser } from '../login/loginHelpers'
 import { RATING_OPTIONS } from '../reducers/searchFiltersReducer'
 import { ROUTES } from '../utils'
@@ -48,7 +47,6 @@ const SelectedBike = function (): JSX.Element {
 
         rateBike(selectedBike._id, value).then(() => dispatch(getBike(params.bikeId)))
     }
-    const isAvailable = checkIfBikeIsAvailable(selectedBike)
     const { isManager } = getLoggedInUser().result
 
     return selectedBike ? (
@@ -84,11 +82,11 @@ const SelectedBike = function (): JSX.Element {
             {isManager ? null : (
                 <button
                     type="button"
-                    disabled={!isAvailable}
+                    disabled={!selectedBike.isAvailable}
                     className="selectedBike--bookingBtn"
                     onClick={handleBikeBooking}
                 >
-                    {isAvailable ? 'Book Bike' : 'Bike Unavailable'}
+                    {selectedBike.isAvailable ? 'Book Bike' : 'Bike Unavailable'}
                 </button>
             )}
         </StyledSelectedBike>

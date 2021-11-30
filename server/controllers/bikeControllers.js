@@ -7,7 +7,7 @@ export async function getBikesByDates(req, res) {
     const datesObj = JSON.parse(datesString)
 
     try {
-        const reservations = await BikeModel.aggregate([
+        const bikesByDates = await BikeModel.aggregate([
             {
                 $lookup: {
                     from: 'reservations',
@@ -46,10 +46,16 @@ export async function getBikesByDates(req, res) {
                     as: 'reservations'
                 }
             },
-            ...getBikeAgregationModel(req.userId)
+            {
+                $set: {
+                    isAvailable: { $cond: { if: { $gt: [{ $size: '$reservations' }, 0] }, then: false, else: true } }
+                }
+            },
+            ...getBikeAgregationModel(req.userId),
+            { $sort: { isAvailable: -1, rateAverage: -1, model: 1 } }
         ])
 
-        return res.status(200).json(reservations)
+        return res.status(200).json(bikesByDates)
     } catch (error) {
         return res.status(404).json({ message: error.message })
     }
@@ -58,7 +64,7 @@ export async function getBikesByDates(req, res) {
 export async function getBikes(req, res) {
     const { userId } = req
     try {
-        const bikes = await BikeModel.aggregate(getBikeAgregationModel(userId))
+        const bikes = await BikeModel.aggregate([...getBikeAgregationModel(userId), { $sort: { model: 1 } }])
 
         return res.status(200).json(bikes)
     } catch (error) {
