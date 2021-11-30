@@ -71,7 +71,7 @@ const BikeForm = function (): JSX.Element {
           />
         </StyledLabel>
         <StyledLabel className="column">
-          color
+          Color
           <StyledInput
             required
             type="text"
@@ -80,7 +80,7 @@ const BikeForm = function (): JSX.Element {
           />
         </StyledLabel>
         <StyledLabel className="column">
-          location
+          Location
           <StyledInput
             required
             type="text"
