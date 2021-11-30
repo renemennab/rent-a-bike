@@ -39,7 +39,7 @@ const OptionsList = function ({ isNav }: IProps): JSX.Element {
     if (user) {
       setUserIsLogged(true);
       if (user.result.isManager) setUserIsManager(true);
-      if (checkIfTokenIsExpired(user.token)) {
+      if (checkIfTokenIsExpired()) {
         handleLogOut();
       }
     }

@@ -45,17 +45,6 @@ export const ROUTES = {
   RESERVATIONS: `/reservations`,
 };
 
-interface IDecodedToken {
-  name: string;
-  exp: number;
-}
-
-export function checkIfTokenIsExpired(token: string): boolean {
-  const decodedToken = jwtDecode<IDecodedToken>(token);
-  if (decodedToken.exp * 1000 < new Date().getTime()) return true;
-  return false;
-}
-
 export const SESSION_DATA = {
   FIRST_NAME: "firstName",
   LAST_NAME: "lastName",
@@ -71,4 +60,20 @@ export function getLoggedInUser(): IlocalStorageProfile {
   const profileString = window.localStorage.getItem(SESSION_DATA.PROFILE);
   const profile = profileString ? JSON.parse(profileString) : null;
   return profile;
+}
+
+interface IDecodedToken {
+  name: string;
+  exp: number;
+}
+
+export function checkIfTokenIsExpired(): boolean {
+  const token = getLoggedInUser()?.token;
+  if (!token) return true;
+
+  const decodedToken = jwtDecode<IDecodedToken>(token);
+  const timeNowInMilisseconds = new Date().getTime();
+  const tokenExpireDateInMilisseconds = decodedToken.exp * 1000;
+  if (tokenExpireDateInMilisseconds < timeNowInMilisseconds) return true;
+  return false;
 }
