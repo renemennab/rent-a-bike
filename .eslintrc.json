@@ -1,15 +1,4 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 12,
-        "sourceType": "module"
-    },
     "overrides": [
         {
             // enable the rule specifically for TypeScript files
@@ -17,92 +6,53 @@
                 "*.ts",
                 "*.tsx"
             ],
-            "parser": "@typescript-eslint/parser",
+            "env": {
+                "browser": true,
+                "es6": true
+            },
+            "extends": ["airbnb", "airbnb/hooks", "airbnb-typescript", "prettier" ],
             "parserOptions": {
+                "ecmaFeatures": {
+                    "experimentalObjectRestSpread": true,
+                    "jsx": true
+                },
+                "sourceType": "module",
                 "project": "./tsconfig.json"
             },
-            "plugins": [
-                "react",
-                "react-hooks",
-                "@typescript-eslint",
-                "jest",
-                "prettier",
-                "standard"
-            ],
-            "extends": [
-                "standard",
-                "airbnb",
-                "airbnb-typescript",
-                "plugin:@typescript-eslint/recommended",
-                "plugin:react/recommended",
-                "plugin:jest/recommended",
-                "plugin:prettier/recommended",
-                "prettier/@typescript-eslint",
-                "prettier/react",
-                "prettier/standard"
-            ],
+            "plugins": ["react", "prettier"],
             "rules": {
-                "no-use-before-define": "off",
+                "@typescript-eslint/no-use-before-define": "off",
                 "func-names": "off",
+                "prettier/prettier": ["error"],
                 "no-underscore-dangle": [
                     "error",
                     {
                         "allow": [
                             "_id"
                         ]
-                    }
-                ],
-                "@typescript-eslint/no-use-before-define": "off",
-                "@typescript-eslint/explicit-module-boundary-types": [
-                    "error"
-                ],
-                "@typescript-eslint/explicit-function-return-type": [
-                    "warn",
-                    {
-                        "allowExpressions": true
-                    }
-                ],
-                "no-unused-expressions": "off",
-                "@typescript-eslint/no-unused-expressions": [
-                    "error",
-                    {
-                        "allowShortCircuit": true,
-                        "allowTernary": true,
-                        "allowTaggedTemplates": true
                     }
                 ]
             }
         },
         {
             "files": [
-                "*.spec.*",
-                "cypress/**"
-            ],
-            "rules": {
-                "jest/expect-expect": "off",
-                "jest/valid-expect-in-promise": "off",
-                "jest/valid-expect": "off",
-                "@typescript-eslint/no-unused-expressions": "off",
-                "jest/no-standalone-expect": "off"
-            }
-        },
-        {
-            "files": [
                 "server/**"
             ],
-            "extends": [
-                "standard",
-                "airbnb",
-                "plugin:jest/recommended",
-                "plugin:prettier/recommended",
-                "prettier/standard"
-            ],
-            "plugins": [
-                "jest",
-                "prettier",
-                "standard"
-            ],
+            "env": {
+                "node": true,
+                "es6": true
+            },
+            "extends": ["airbnb", "prettier" ],
+            "parserOptions": {
+                "ecmaFeatures": {
+                    "experimentalObjectRestSpread": true
+                },
+                "sourceType": "module"
+            },
+            "plugins": ["prettier"],
             "rules": {
+                "prettier/prettier": ["error"],
+                "import/extensions": ["error", "always"],
                 "no-underscore-dangle": [
                     "error",
                     {
@@ -110,24 +60,6 @@
                             "_id"
                         ]
                     }
-                ],
-                "no-return-assign": "off",
-                "func-names": "off",
-                "next-line space-infix-ops": "off",
-                "eqeqeq": [
-                    "warn",
-                    "smart"
-                ],
-                "curly": [
-                    "warn",
-                    "multi-line",
-                    "consistent"
-                ],
-                "newline-before-return": "warn",
-                "prettier/prettier": "warn",
-                "import/extensions": [
-                    0,
-                    "never"
                 ]
             }
         }
