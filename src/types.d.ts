@@ -1,71 +1,71 @@
 interface IBike extends PostBike {
-    _id: string
-    rateAverage: number
-    userRatingValue: number
-    reservations?: IReservation[]
+  _id: string;
+  rateAverage: number;
+  userRatingValue: number;
+  reservations?: IReservation[];
 }
 
 interface PostBike {
-    model: string
-    color: string
-    location: string
-    isAvailable: boolean
+  model: string;
+  color: string;
+  location: string;
+  isAvailable: boolean;
 }
 interface IReservation extends PostReservation {
-    _id: string
-    userId: string
-    creator: string
-    createdAt: number
-    bikeInfo: IBike
+  _id: string;
+  userId: string;
+  creator: string;
+  createdAt: number;
+  bikeInfo: IBike;
 }
 
 interface PostReservation {
-    bikeId: string
-    startTimestamp: number
-    endTimestamp: number
+  bikeId: string;
+  startTimestamp: number;
+  endTimestamp: number;
 }
 interface IUpdateUserParams extends ISignupParams {
-    userId: string
+  userId: string;
 }
 
 interface LoginParams {
-    email: string
-    password: string
+  email: string;
+  password: string;
 }
 interface LogInResponse {
-    name: string
-    id: string
-    email: string
+  name: string;
+  id: string;
+  email: string;
 }
 interface ILoginParams {
-    email: string
-    password: string
+  email: string;
+  password: string;
 }
 
 interface ISignupParams extends ILoginParams {
-    firstName: string
-    lastName: string
+  firstName: string;
+  lastName: string;
 }
 
 interface IlocalStorageProfile {
-    result: IStorageResult
-    token: string
+  result: IStorageResult;
+  token: string;
 }
 
 interface IStorageResult extends ISignupParams {
-    isManager: false
-    reservations: IReservation[]
-    _id: string
+  isManager: false;
+  reservations: IReservation[];
+  _id: string;
 }
 
 interface ITimestamps {
-    start: number
-    end: number
+  start: number;
+  end: number;
 }
 
 interface ISearchFilters {
-    showUserWithReservation?: boolean
-    bikeRating: number
+  showUserWithReservation?: boolean;
+  bikeRating: number;
 }
 
-type AssetType = 'user' | 'bike'
+type AssetType = "user" | "bike";

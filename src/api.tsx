@@ -1,67 +1,97 @@
-import axios, { AxiosRequestConfig } from 'axios'
-import { set } from 'lodash'
-import API_PATHS from './pathConstants'
+import axios, { AxiosRequestConfig } from "axios";
+import { set } from "lodash";
+import API_PATHS from "./pathConstants";
 
-const isDev = process.env.NODE_ENV === 'development'
-const API = axios.create({ baseURL: isDev ? 'http://localhost:5000/' : 'https://bike-rental-manager.herokuapp.com/' })
+const isDev = process.env.NODE_ENV === "development";
+const API = axios.create({
+  baseURL: isDev
+    ? "http://localhost:5000/"
+    : "https://bike-rental-manager.herokuapp.com/",
+});
 
 API.interceptors.request.use((req: AxiosRequestConfig) => {
-    const profile = localStorage.getItem('profile')
-    if (profile) {
-        set(req, 'headers.Authorization', `Bearer ${JSON.parse(profile).token}`)
-    }
+  const profile = localStorage.getItem("profile");
+  if (profile) {
+    set(req, "headers.Authorization", `Bearer ${JSON.parse(profile).token}`);
+  }
 
-    return req
-})
+  return req;
+});
 
 interface IBikeResponse {
-    data: IBike[]
+  data: IBike[];
 }
 
 export const fetchBikesByDates = (dates: ITimestamps): Promise<IBikeResponse> =>
-    API.get(`${API_PATHS.BIKES}/bikesByDates/${JSON.stringify(dates)}`)
-export const fetchBikes = (): Promise<IBikeResponse> => API.get(API_PATHS.BIKES)
-export const fetchBike = (bikeId: string): Promise<IBikeResponse> => API.get(`${API_PATHS.BIKES}/${bikeId}`)
-export const createBike = (newBike: PostBike): Promise<IBikeResponse> => API.post(API_PATHS.BIKES, newBike)
-export const updateBike = (bikeId: string, updatedbike: PostBike): Promise<IBikeResponse> =>
-    API.patch(`${API_PATHS.BIKES}/${bikeId}`, updatedbike)
-export const deleteBike = (bikeId: string): Promise<Response> => API.delete(`${API_PATHS.BIKES}/${bikeId}`)
-export const rateBike = (bikeId: string, rating: number): Promise<IBikeResponse> =>
-    API.patch(`${API_PATHS.BIKES}/${bikeId}/${API_PATHS.RATING}`, { rating })
+  API.get(`${API_PATHS.BIKES}/bikesByDates/${JSON.stringify(dates)}`);
+export const fetchBikes = (): Promise<IBikeResponse> =>
+  API.get(API_PATHS.BIKES);
+export const fetchBike = (bikeId: string): Promise<IBikeResponse> =>
+  API.get(`${API_PATHS.BIKES}/${bikeId}`);
+export const createBike = (newBike: PostBike): Promise<IBikeResponse> =>
+  API.post(API_PATHS.BIKES, newBike);
+export const updateBike = (
+  bikeId: string,
+  updatedbike: PostBike
+): Promise<IBikeResponse> =>
+  API.patch(`${API_PATHS.BIKES}/${bikeId}`, updatedbike);
+export const deleteBike = (bikeId: string): Promise<Response> =>
+  API.delete(`${API_PATHS.BIKES}/${bikeId}`);
+export const rateBike = (
+  bikeId: string,
+  rating: number
+): Promise<IBikeResponse> =>
+  API.patch(`${API_PATHS.BIKES}/${bikeId}/${API_PATHS.RATING}`, { rating });
 interface IReservationResponse {
-    data: IReservation
+  data: IReservation;
 }
 
-export const fetchReservations = (): Promise<IReservationResponse> => API.get(API_PATHS.RESERVATIONS)
+export const fetchReservations = (): Promise<IReservationResponse> =>
+  API.get(API_PATHS.RESERVATIONS);
 
-export const fetchReservation = (reservationId: string): Promise<IReservationResponse> =>
-    API.get(`${API_PATHS.RESERVATIONS}/${reservationId}`)
+export const fetchReservation = (
+  reservationId: string
+): Promise<IReservationResponse> =>
+  API.get(`${API_PATHS.RESERVATIONS}/${reservationId}`);
 
-export function fetchUserReservations(userId: string): Promise<{ data: IReservation[] }> {
-    return API.get(`${API_PATHS.RESERVATIONS}/${API_PATHS.USER}/${userId}`)
+export function fetchUserReservations(
+  userId: string
+): Promise<{ data: IReservation[] }> {
+  return API.get(`${API_PATHS.RESERVATIONS}/${API_PATHS.USER}/${userId}`);
 }
 
-export const createReservation = (newReservation: PostReservation): Promise<IReservationResponse> =>
-    API.post(API_PATHS.RESERVATIONS, newReservation)
+export const createReservation = (
+  newReservation: PostReservation
+): Promise<IReservationResponse> =>
+  API.post(API_PATHS.RESERVATIONS, newReservation);
 
 export const updateReservation = (
-    reservationId: string,
-    updatedreservation: PostReservation
-): Promise<IReservationResponse> => API.patch(`${API_PATHS.RESERVATIONS}/${reservationId}`, updatedreservation)
+  reservationId: string,
+  updatedreservation: PostReservation
+): Promise<IReservationResponse> =>
+  API.patch(`${API_PATHS.RESERVATIONS}/${reservationId}`, updatedreservation);
 
 export const deleteReservation = (reservationId: string): Promise<Response> =>
-    API.delete(`${API_PATHS.RESERVATIONS}/${reservationId}`)
+  API.delete(`${API_PATHS.RESERVATIONS}/${reservationId}`);
 
 interface IUserResponse {
-    data: IStorageResult
+  data: IStorageResult;
 }
 
-export const fetchUsers = (): Promise<IUserResponse> => API.get(API_PATHS.USER)
-export const fetchUser = (userId: string): Promise<IUserResponse> => API.get(`${API_PATHS.USER}/${userId}`)
-export const createUser = (newUser: ISignupParams): Promise<{ data: IlocalStorageProfile }> =>
-    API.post(`${API_PATHS.USER}/${API_PATHS.SIGNUP}`, newUser)
-export const loginUser = (user: ILoginParams): Promise<{ data: IlocalStorageProfile }> =>
-    API.post(`${API_PATHS.USER}/${API_PATHS.LOGIN}`, user)
-export const updateUser = (updateduser: IUpdateUserParams): Promise<IUserResponse> =>
-    API.patch(`${API_PATHS.USER}/${updateduser.userId}`, updateduser)
-export const deleteUser = (userId: string): Promise<Response> => API.delete(`${API_PATHS.USER}/${userId}`)
+export const fetchUsers = (): Promise<IUserResponse> => API.get(API_PATHS.USER);
+export const fetchUser = (userId: string): Promise<IUserResponse> =>
+  API.get(`${API_PATHS.USER}/${userId}`);
+export const createUser = (
+  newUser: ISignupParams
+): Promise<{ data: IlocalStorageProfile }> =>
+  API.post(`${API_PATHS.USER}/${API_PATHS.SIGNUP}`, newUser);
+export const loginUser = (
+  user: ILoginParams
+): Promise<{ data: IlocalStorageProfile }> =>
+  API.post(`${API_PATHS.USER}/${API_PATHS.LOGIN}`, user);
+export const updateUser = (
+  updateduser: IUpdateUserParams
+): Promise<IUserResponse> =>
+  API.patch(`${API_PATHS.USER}/${updateduser.userId}`, updateduser);
+export const deleteUser = (userId: string): Promise<Response> =>
+  API.delete(`${API_PATHS.USER}/${userId}`);

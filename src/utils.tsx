@@ -1,23 +1,23 @@
-import jwtDecode from 'jwt-decode'
+import jwtDecode from "jwt-decode";
 
 export const ROUTES = {
-    LOGIN: `/login`,
-    SIGNUP: `/signup`,
-    PROFILE: `/profile`,
-    NEW_BIKE: `/newBike`,
-    NEW_USER: `/newUser`,
-    BIKES: `/bikes`,
-    USERS: `/users`,
-    RESERVATIONS: `/reservations`
-}
+  LOGIN: `/login`,
+  SIGNUP: `/signup`,
+  PROFILE: `/profile`,
+  NEW_BIKE: `/newBike`,
+  NEW_USER: `/newUser`,
+  BIKES: `/bikes`,
+  USERS: `/users`,
+  RESERVATIONS: `/reservations`,
+};
 
 interface IDecodedToken {
-    name: string
-    exp: number
+  name: string;
+  exp: number;
 }
 
 export function checkIfTokenIsExpired(token: string): boolean {
-    const decodedToken = jwtDecode<IDecodedToken>(token)
-    if (decodedToken.exp * 1000 < new Date().getTime()) return true
-    return false
+  const decodedToken = jwtDecode<IDecodedToken>(token);
+  if (decodedToken.exp * 1000 < new Date().getTime()) return true;
+  return false;
 }
