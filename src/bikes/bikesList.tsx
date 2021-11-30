@@ -21,7 +21,7 @@ import {
   SEARCH_FILTERS_REDUCER_OPTIONS,
 } from "../reducers/searchFiltersReducer";
 import { checkIfFilterMatchesBike, ROUTES } from "../common/utils";
-import { getLoggedInUser } from "../login/loginHelpers";
+import { getLoggedInUser } from "../common/loginHelpers";
 
 const BikesList = function (): JSX.Element {
   const { bikes, bikesByDates } = useSelector(

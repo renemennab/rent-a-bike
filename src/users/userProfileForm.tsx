@@ -11,7 +11,7 @@ import {
 } from "../common/styled";
 import UserInfo from "../common/userInfo";
 import { createUser, fetchUser, updateUser } from "../actions/userActions";
-import { getLoggedInUser } from "../login/loginHelpers";
+import { getLoggedInUser } from "../common/loginHelpers";
 
 export const OCASIONS = {
   SIGNUP: "SIGNUP",

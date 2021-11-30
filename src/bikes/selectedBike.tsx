@@ -8,7 +8,7 @@ import { rateBike } from "../api";
 import { CardRating } from "../common/listCard";
 import PageHeader from "../common/pageHeader";
 import SelectedAssetButtons from "../common/selectedAssetButtons";
-import { getLoggedInUser } from "../login/loginHelpers";
+import { getLoggedInUser } from "../common/loginHelpers";
 import { RATING_OPTIONS } from "../reducers/searchFiltersReducer";
 import { ROUTES } from "../common/utils";
 

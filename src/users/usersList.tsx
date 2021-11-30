@@ -11,7 +11,7 @@ import {
   fetchUsers,
   setShowUsersWithReservations,
 } from "../actions/userActions";
-import { getLoggedInUser } from "../login/loginHelpers";
+import { getLoggedInUser } from "../common/loginHelpers";
 import { SEARCH_FILTERS_REDUCER_OPTIONS } from "../reducers/searchFiltersReducer";
 import { ROUTES } from "../common/utils";
 

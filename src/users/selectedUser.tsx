@@ -7,7 +7,7 @@ import { fetchUserReservations } from "../api";
 import { ListOfCards } from "../common/listCard";
 import PageHeader from "../common/pageHeader";
 import SelectedAssetButtons from "../common/selectedAssetButtons";
-import { getLoggedInUser } from "../login/loginHelpers";
+import { getLoggedInUser } from "../common/loginHelpers";
 import ReservationCard from "../reservation/reservationCard";
 import { ROUTES } from "../common/utils";
 
