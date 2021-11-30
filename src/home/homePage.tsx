@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { getLoggedInUser } from '../login/loginHelpers'
-import OptionsList from '../navBar/optionsList'
+import OptionsList from './optionsList'
 import Lamp from './lamp'
 import Logo from './logo'
 import TimeMoney from './timeMoney'
