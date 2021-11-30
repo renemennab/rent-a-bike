@@ -1,2 +1,2 @@
-const secretString = 'secretString'
-export default secretString
+const secretString = "secretString";
+export default secretString;
