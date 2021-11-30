@@ -129,7 +129,7 @@ const OptionsList = function ({ isNav }: IProps): JSX.Element {
         <ConfirmationDialog
           onCancel={() => setShowDialog(false)}
           onDelete={() => handleLogOut()}
-          text="sair"
+          text="logout"
         />
       ) : null}
     </>
