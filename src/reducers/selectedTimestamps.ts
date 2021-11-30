@@ -1,38 +1,39 @@
 export const SELECTED_TIMESTAMPS_REDUCER_OPTIONS = {
-    SET_SELECTED_START: 'SET_SELECTED_START',
-    SET_SELECTED_END: 'SET_SELECTED_END',
-    RESET_TIMESTAMPS: 'RESET_TIMESTAMPS'
-}
+  SET_SELECTED_START: "SET_SELECTED_START",
+  SET_SELECTED_END: "SET_SELECTED_END",
+  RESET_TIMESTAMPS: "RESET_TIMESTAMPS",
+};
 
-const optionValues = Object.values(SELECTED_TIMESTAMPS_REDUCER_OPTIONS)
+const optionValues = Object.values(SELECTED_TIMESTAMPS_REDUCER_OPTIONS);
 
 interface IAction {
-    payload: number
-    type: typeof optionValues[number]
+  payload: number;
+  type: typeof optionValues[number];
 }
 
-const defaultAction = { type: '', payload: 0 }
-const halfHourInMilisseconds = 30 * 60 * 1000
+const defaultAction = { type: "", payload: 0 };
+const halfHourInMilisseconds = 30 * 60 * 1000;
 const defaultTimestamps = {
-    start: new Date().getTime(),
-    end: new Date().getTime() + halfHourInMilisseconds
-}
+  start: new Date().getTime(),
+  end: new Date().getTime() + halfHourInMilisseconds,
+};
 
 const selectedTimestampsReducer = (
-    selectedTimestamps: ITimestamps = defaultTimestamps,
-    action: IAction = defaultAction
+  selectedTimestamps: ITimestamps = defaultTimestamps,
+  action: IAction = defaultAction
 ): ITimestamps | null => {
-    const { SET_SELECTED_START, SET_SELECTED_END, RESET_TIMESTAMPS } = SELECTED_TIMESTAMPS_REDUCER_OPTIONS
-    switch (action.type) {
-        case SET_SELECTED_START:
-            return { ...selectedTimestamps, start: action.payload }
-        case SET_SELECTED_END:
-            return { ...selectedTimestamps, end: action.payload }
-        case RESET_TIMESTAMPS:
-            return defaultTimestamps
-        default:
-            return selectedTimestamps
-    }
-}
+  const { SET_SELECTED_START, SET_SELECTED_END, RESET_TIMESTAMPS } =
+    SELECTED_TIMESTAMPS_REDUCER_OPTIONS;
+  switch (action.type) {
+    case SET_SELECTED_START:
+      return { ...selectedTimestamps, start: action.payload };
+    case SET_SELECTED_END:
+      return { ...selectedTimestamps, end: action.payload };
+    case RESET_TIMESTAMPS:
+      return defaultTimestamps;
+    default:
+      return selectedTimestamps;
+  }
+};
 
-export default selectedTimestampsReducer
+export default selectedTimestampsReducer;
