@@ -8,9 +8,8 @@ import { rateBike } from "../api";
 import { CardRating } from "../common/listCard";
 import PageHeader from "../common/pageHeader";
 import SelectedAssetButtons from "../common/selectedAssetButtons";
-import { getLoggedInUser } from "../common/loginHelpers";
+import { getLoggedInUser, ROUTES } from "../common/utils";
 import { RATING_OPTIONS } from "../reducers/searchFiltersReducer";
-import { ROUTES } from "../common/utils";
 
 const SelectedBike = function (): JSX.Element {
   const { selectedBike, selectedTimestamps } = useSelector(

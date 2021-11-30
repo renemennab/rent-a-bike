@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { getLoggedInUser } from "../common/loginHelpers";
+import { getLoggedInUser } from "../common/utils";
 import OptionsList from "./optionsList";
 import Lamp from "./lamp";
 import Logo from "./logo";

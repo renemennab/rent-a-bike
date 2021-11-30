@@ -7,9 +7,8 @@ import { fetchUserReservations } from "../api";
 import { ListOfCards } from "../common/listCard";
 import PageHeader from "../common/pageHeader";
 import SelectedAssetButtons from "../common/selectedAssetButtons";
-import { getLoggedInUser } from "../common/loginHelpers";
+import { getLoggedInUser, ROUTES } from "../common/utils";
 import ReservationCard from "../reservation/reservationCard";
-import { ROUTES } from "../common/utils";
 
 const SelectedUser = function (): JSX.Element {
   const loggedInUser = getLoggedInUser().result;

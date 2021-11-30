@@ -20,8 +20,11 @@ import {
   RATING_OPTIONS,
   SEARCH_FILTERS_REDUCER_OPTIONS,
 } from "../reducers/searchFiltersReducer";
-import { checkIfFilterMatchesBike, ROUTES } from "../common/utils";
-import { getLoggedInUser } from "../common/loginHelpers";
+import {
+  checkIfFilterMatchesBike,
+  ROUTES,
+  getLoggedInUser,
+} from "../common/utils";
 
 const BikesList = function (): JSX.Element {
   const { bikes, bikesByDates } = useSelector(

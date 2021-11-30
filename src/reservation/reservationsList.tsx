@@ -5,8 +5,11 @@ import styled from "styled-components";
 import { getUserReservations } from "../actions/reservationActions";
 import PageHeader from "../common/pageHeader";
 import { FilterInput } from "../common/styled";
-import { getLoggedInUser } from "../common/loginHelpers";
-import { checkIfFilterMatchesBike, handleGoBack } from "../common/utils";
+import {
+  getLoggedInUser,
+  checkIfFilterMatchesBike,
+  handleGoBack,
+} from "../common/utils";
 import ReservationCard from "./reservationCard";
 
 const ReservationsList = function (): JSX.Element {

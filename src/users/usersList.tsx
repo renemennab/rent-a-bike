@@ -11,9 +11,8 @@ import {
   fetchUsers,
   setShowUsersWithReservations,
 } from "../actions/userActions";
-import { getLoggedInUser } from "../common/loginHelpers";
+import { getLoggedInUser, ROUTES } from "../common/utils";
 import { SEARCH_FILTERS_REDUCER_OPTIONS } from "../reducers/searchFiltersReducer";
-import { ROUTES } from "../common/utils";
 
 const UsersList = function (): JSX.Element {
   const usersData = useSelector(
