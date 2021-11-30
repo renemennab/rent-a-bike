@@ -21,6 +21,10 @@ const UserInfo = function ({
 }: IProps): JSX.Element {
   const [showPassword, setShowPassword] = useState(false);
 
+  const handleShowPassword = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    setShowPassword(!showPassword);
+  };
   return (
     <>
       <StyledLabel className="column">
@@ -43,7 +47,7 @@ const UserInfo = function ({
             onChange={(event) => setPassword(event.target.value)}
             minLength={8}
           />
-          <button type="button" onClick={() => setShowPassword(!showPassword)}>
+          <button type="button" onClick={handleShowPassword}>
             <i className={`fas fa-eye${showPassword ? "-slash" : ""}`} />
           </button>
         </PasswordContainer>
