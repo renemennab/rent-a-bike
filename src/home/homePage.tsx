@@ -1,28 +1,16 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react'
 import styled from 'styled-components'
 import { getLoggedInUser } from '../login/loginHelpers'
-import MenuOptions from '../navBar/menuOptions'
 import OptionsList from '../navBar/optionsList'
-import { ROUTES } from '../utils'
 import Lamp from './lamp'
 import Logo from './logo'
 import TimeMoney from './timeMoney'
 
 const HomePage = function (): JSX.Element {
-    const [showOptions, setShowOptions] = useState(false)
     const isUserLoggedIn = getLoggedInUser()
 
     return (
         <StyledHomePage>
-            <button
-                className="homePage--menuBtn"
-                type="button"
-                aria-label="open menu"
-                onClick={() => setShowOptions(true)}
-            >
-                <i className="fas fa-bars" />
-            </button>
             <div className="homePage--banner">
                 <div className="homePage--banner__background" />
                 <div className="homePage--banner__logo">
@@ -47,8 +35,6 @@ const HomePage = function (): JSX.Element {
             )}
 
             <OptionsList />
-
-            <MenuOptions selectedView={showOptions} setSelectedView={setShowOptions} />
         </StyledHomePage>
     )
 }
