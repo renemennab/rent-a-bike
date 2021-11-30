@@ -26,7 +26,6 @@ const BikeForm = function (): JSX.Element {
   const history = useHistory();
   const params = useParams() as { bikeId: string };
 
-  // const [relatedEvents, setRelatedEvents] = useState(``)
   useEffect(() => {
     if (!selectedBike && params.bikeId) {
       dispatch(getBike(params.bikeId));

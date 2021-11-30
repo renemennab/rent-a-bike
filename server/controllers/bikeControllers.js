@@ -111,7 +111,6 @@ export async function createBike(req, res) {
   try {
     await newBike.save();
 
-    // successful creation
     return res.status(201).json(newBike);
   } catch (error) {
     return res.status(409).json({ message: error.message });

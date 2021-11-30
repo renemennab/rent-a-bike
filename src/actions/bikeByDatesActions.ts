@@ -2,7 +2,6 @@ import { Dispatch } from "redux";
 import * as api from "../api";
 import { BIKES_BY_DATES_REDUCER_OPTIONS } from "../reducers/bikesByDatesReducer";
 
-// eslint-disable-next-line max-len
 export const getBikesByDates =
   (dates: ITimestamps) =>
   async (dispatch: Dispatch): Promise<void> => {

@@ -9,7 +9,6 @@ const middlewareAuth = async (req, res, next) => {
     if (token) {
       decodedData = jwt.verify(token, secretString);
       if (decodedData) {
-        // @ts-ignore
         req.userId = decodedData.id;
       }
     }

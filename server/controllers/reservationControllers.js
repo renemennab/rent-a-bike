@@ -62,7 +62,6 @@ export async function createReservation(req, res) {
   try {
     await newReservation.save();
 
-    // successful creation
     return res.status(201).json(newReservation);
   } catch (error) {
     return res.status(409).json({ message: error.message });

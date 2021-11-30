@@ -40,7 +40,6 @@ export const createBike =
     }
   };
 
-// eslint-disable-next-line max-len
 export const updateBike =
   (bikeId: string, updatedBike: PostBike) =>
   async (dispatch: Dispatch): Promise<void> => {

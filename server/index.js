@@ -11,7 +11,6 @@ import pathConstants from "../src/pathConstants.js";
 const app = express();
 dotenv.config();
 
-// @ts-ignore
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
