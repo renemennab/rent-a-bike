@@ -103,7 +103,8 @@ export async function getUserReservations(req, res) {
                     as: 'bikeInfo'
                 }
             },
-            { $addFields: { bikeInfo: { $first: '$bikeInfo' } } }
+            { $addFields: { bikeInfo: { $first: '$bikeInfo' } } },
+            { $sort: { createdAt: -1 } }
         ])
 
         return res.status(200).json(reservations)
