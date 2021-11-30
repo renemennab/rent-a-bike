@@ -24,14 +24,14 @@ const ConfirmationDialog = function ({
           className="confirmationDialog--container__delete"
           onClick={() => onDelete()}
         >
-          Sim
+          Yes
         </button>
         <button
           type="button"
           className="confirmationDialog--container__cancel"
           onClick={() => onCancel()}
         >
-          Cancelar
+          Cancel
         </button>
       </div>
     </StyledConfirmationDialog>
