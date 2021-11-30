@@ -1,16 +1,20 @@
-import { Dispatch } from 'redux'
-import * as api from '../api'
-import { BIKES_BY_DATES_REDUCER_OPTIONS } from '../reducers/bikesByDatesReducer'
+import { Dispatch } from "redux";
+import * as api from "../api";
+import { BIKES_BY_DATES_REDUCER_OPTIONS } from "../reducers/bikesByDatesReducer";
 
+// eslint-disable-next-line max-len
 export const getBikesByDates =
-    (dates: ITimestamps) =>
-    async (dispatch: Dispatch): Promise<void> => {
-        try {
-            const { data } = await api.fetchBikesByDates(dates)
-            dispatch({ type: BIKES_BY_DATES_REDUCER_OPTIONS.SET_BIKES_BY_DATES, payload: data })
-        } catch (error) {
-            console.log(error)
-        }
+  (dates: ITimestamps) =>
+  async (dispatch: Dispatch): Promise<void> => {
+    try {
+      const { data } = await api.fetchBikesByDates(dates);
+      dispatch({
+        type: BIKES_BY_DATES_REDUCER_OPTIONS.SET_BIKES_BY_DATES,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-export default getBikesByDates
+export default getBikesByDates;

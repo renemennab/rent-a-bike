@@ -1,97 +1,117 @@
-import { Dispatch } from 'redux'
-import { RouteComponentProps } from 'react-router-dom'
-import * as api from '../api'
-import { LOGGED_USER_REDUCER_OPTIONS } from '../reducers/loggedUser'
-import { ROUTES } from '../utils'
-import { USERS_REDUCER_OPTIONS } from '../reducers/usersReducer'
-import { SELECTED_USER_REDUCER_OPTIONS } from '../reducers/selectedUserReducer'
-import { SEARCH_FILTERS_REDUCER_OPTIONS } from '../reducers/searchFiltersReducer'
+import { Dispatch } from "redux";
+import { RouteComponentProps } from "react-router-dom";
+import * as api from "../api";
+import { LOGGED_USER_REDUCER_OPTIONS } from "../reducers/loggedUser";
+import { ROUTES } from "../utils";
+import { USERS_REDUCER_OPTIONS } from "../reducers/usersReducer";
+import { SELECTED_USER_REDUCER_OPTIONS } from "../reducers/selectedUserReducer";
+import { SEARCH_FILTERS_REDUCER_OPTIONS } from "../reducers/searchFiltersReducer";
 
 export const loginUser =
-    (params: ILoginParams, history: RouteComponentProps['history'], setUserNotFound: (status: boolean) => void) =>
-    async (dispatch: Dispatch): Promise<void> => {
-        try {
-            const { data } = await api.loginUser(params)
-            dispatch({ type: LOGGED_USER_REDUCER_OPTIONS.LOGIN_USER, payload: data })
-            history.push('/')
-        } catch (error) {
-            setUserNotFound(true)
-            console.log(error)
-        }
+  (
+    params: ILoginParams,
+    history: RouteComponentProps["history"],
+    setUserNotFound: (status: boolean) => void
+  ) =>
+  async (dispatch: Dispatch): Promise<void> => {
+    try {
+      const { data } = await api.loginUser(params);
+      dispatch({ type: LOGGED_USER_REDUCER_OPTIONS.LOGIN_USER, payload: data });
+      history.push("/");
+    } catch (error) {
+      setUserNotFound(true);
+      console.log(error);
     }
+  };
 
 export const createUser =
-    (params: ISignupParams, history: RouteComponentProps['history'], login?: boolean) =>
-    async (dispatch: Dispatch): Promise<void> => {
-        try {
-            const { data } = await api.createUser(params)
-            dispatch({ type: USERS_REDUCER_OPTIONS.CREATE, payload: [data.result] })
-            if (login) {
-                dispatch({ type: LOGGED_USER_REDUCER_OPTIONS.LOGIN_USER, payload: data })
-                history.push('/')
-            } else {
-                history.push(ROUTES.USERS)
-            }
-        } catch (error) {
-            console.log(error)
-        }
+  (
+    params: ISignupParams,
+    history: RouteComponentProps["history"],
+    login?: boolean
+  ) =>
+  async (dispatch: Dispatch): Promise<void> => {
+    try {
+      const { data } = await api.createUser(params);
+      dispatch({ type: USERS_REDUCER_OPTIONS.CREATE, payload: [data.result] });
+      if (login) {
+        dispatch({
+          type: LOGGED_USER_REDUCER_OPTIONS.LOGIN_USER,
+          payload: data,
+        });
+        history.push("/");
+      } else {
+        history.push(ROUTES.USERS);
+      }
+    } catch (error) {
+      console.log(error);
     }
+  };
 
 export const fetchUsers =
-    () =>
-    async (dispatch: Dispatch): Promise<void> => {
-        try {
-            const { data } = await api.fetchUsers()
-            dispatch({ type: USERS_REDUCER_OPTIONS.FETCH_ALL, payload: data })
-        } catch (error) {
-            console.log(error)
-        }
+  () =>
+  async (dispatch: Dispatch): Promise<void> => {
+    try {
+      const { data } = await api.fetchUsers();
+      dispatch({ type: USERS_REDUCER_OPTIONS.FETCH_ALL, payload: data });
+    } catch (error) {
+      console.log(error);
     }
+  };
 
 export const fetchUser =
-    (userId: string) =>
-    async (dispatch: Dispatch): Promise<void> => {
-        try {
-            const { data } = await api.fetchUser(userId)
-            dispatch({ type: SELECTED_USER_REDUCER_OPTIONS.SET_SELECTED_USER, payload: data })
-        } catch (error) {
-            console.log(error)
-        }
+  (userId: string) =>
+  async (dispatch: Dispatch): Promise<void> => {
+    try {
+      const { data } = await api.fetchUser(userId);
+      dispatch({
+        type: SELECTED_USER_REDUCER_OPTIONS.SET_SELECTED_USER,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
     }
+  };
 
 export const updateUser =
-    (updatedUser: IUpdateUserParams, history: RouteComponentProps['history']) =>
-    async (dispatch: Dispatch): Promise<void> => {
-        try {
-            const { data } = await api.updateUser(updatedUser)
-            dispatch({ type: USERS_REDUCER_OPTIONS.UPDATE, payload: [data] })
-            dispatch({ type: SELECTED_USER_REDUCER_OPTIONS.SET_SELECTED_USER, payload: data })
-            history.push(`${ROUTES.USERS}/${updatedUser.userId}`)
-        } catch (error) {
-            console.log(error)
-        }
+  (updatedUser: IUpdateUserParams, history: RouteComponentProps["history"]) =>
+  async (dispatch: Dispatch): Promise<void> => {
+    try {
+      const { data } = await api.updateUser(updatedUser);
+      dispatch({ type: USERS_REDUCER_OPTIONS.UPDATE, payload: [data] });
+      dispatch({
+        type: SELECTED_USER_REDUCER_OPTIONS.SET_SELECTED_USER,
+        payload: data,
+      });
+      history.push(`${ROUTES.USERS}/${updatedUser.userId}`);
+    } catch (error) {
+      console.log(error);
     }
+  };
 
 export const deleteUser =
-    (user: IStorageResult) =>
-    async (dispatch: Dispatch): Promise<void> => {
-        try {
-            await api.deleteUser(user._id)
-            dispatch({ type: USERS_REDUCER_OPTIONS.DELETE, payload: [user] })
-        } catch (error) {
-            console.log(error)
-        }
+  (user: IStorageResult) =>
+  async (dispatch: Dispatch): Promise<void> => {
+    try {
+      await api.deleteUser(user._id);
+      dispatch({ type: USERS_REDUCER_OPTIONS.DELETE, payload: [user] });
+    } catch (error) {
+      console.log(error);
     }
+  };
 
 export const setShowUsersWithReservations =
-    (status: boolean) =>
-    (dispatch: Dispatch): void => {
-        const { SHOW_USERS_WITH_RESERVATIONS } = SEARCH_FILTERS_REDUCER_OPTIONS
+  (status: boolean) =>
+  (dispatch: Dispatch): void => {
+    const { SHOW_USERS_WITH_RESERVATIONS } = SEARCH_FILTERS_REDUCER_OPTIONS;
 
-        if (status) {
-            window.sessionStorage.removeItem(SHOW_USERS_WITH_RESERVATIONS)
-        } else {
-            window.sessionStorage.setItem(SHOW_USERS_WITH_RESERVATIONS, 'true')
-        }
-        dispatch({ type: SHOW_USERS_WITH_RESERVATIONS, payload: { showUserWithReservation: status } })
+    if (status) {
+      window.sessionStorage.removeItem(SHOW_USERS_WITH_RESERVATIONS);
+    } else {
+      window.sessionStorage.setItem(SHOW_USERS_WITH_RESERVATIONS, "true");
     }
+    dispatch({
+      type: SHOW_USERS_WITH_RESERVATIONS,
+      payload: { showUserWithReservation: status },
+    });
+  };
