@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/rent-a-bike/static/css/main.9f57ead3.chunk.css",
-    "main.js": "/rent-a-bike/static/js/main.5ff02ad6.chunk.js",
-    "main.js.map": "/rent-a-bike/static/js/main.5ff02ad6.chunk.js.map",
+    "main.js": "/rent-a-bike/static/js/main.6efa4cd8.chunk.js",
+    "main.js.map": "/rent-a-bike/static/js/main.6efa4cd8.chunk.js.map",
     "runtime-main.js": "/rent-a-bike/static/js/runtime-main.db110218.js",
     "runtime-main.js.map": "/rent-a-bike/static/js/runtime-main.db110218.js.map",
     "static/css/2.c8956ef5.chunk.css": "/rent-a-bike/static/css/2.c8956ef5.chunk.css",
@@ -18,6 +18,6 @@
     "static/css/2.c8956ef5.chunk.css",
     "static/js/2.0ff1f7aa.chunk.js",
     "static/css/main.9f57ead3.chunk.css",
-    "static/js/main.5ff02ad6.chunk.js"
+    "static/js/main.6efa4cd8.chunk.js"
   ]
 }
