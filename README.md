@@ -26,7 +26,7 @@ Users can:
 
  ## Production
 
- the production version of the app is hosted at: https://61a6c822c14ea00008ae1dca--rent-a-bike.netlify.app
+ the production version of the app is hosted at: https://rent-a-bike.netlify.app/#/
 
  the front-end is hosted with netlify and the back-end with heroku.
 
