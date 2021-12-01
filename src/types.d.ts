@@ -53,7 +53,7 @@ interface IlocalStorageProfile {
 }
 
 interface IStorageResult extends ISignupParams {
-  isManager: false;
+  isManager: boolean;
   reservations: IReservation[];
   _id: string;
 }
