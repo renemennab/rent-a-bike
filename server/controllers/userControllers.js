@@ -109,14 +109,15 @@ export async function updateUser(req, res) {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(404).send("No user with that id");
     }
-
     const existingUser = await UserModel.findOne({ email });
 
     if (existingUser && existingUser._id.toString() !== userId) {
       return res.status(400).json("Email already exist for another user");
     }
 
-    let hashedPassword = existingUser.password;
+    const user = await UserModel.findOne({ _id: userId });
+
+    let hashedPassword = user.password;
     if (password) hashedPassword = await bcrypt.hash(password, 12);
 
     const updatedUser = {
