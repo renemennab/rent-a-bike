@@ -28,6 +28,8 @@ Users can:
 
  the production version of the app is hosted at: https://61a6c822c14ea00008ae1dca--rent-a-bike.netlify.app
 
+ the front-end is hosted with netlify and the back-end with heroku.
+
 you can get the user experience creating your profile or using:
 - User login: test@gmail.com
 - User password: 12345678
