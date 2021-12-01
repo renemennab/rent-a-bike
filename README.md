@@ -94,4 +94,6 @@ this will compile the react code using webpack and generate a folder called docs
 
 - I used Styled components combined with B.E.M to add the styles.
 
-- I ran user tests in chrome(mac), chrome(android) and IOS(Iphone)
+- I ran user tests in chrome(mac), firefox(mac), safari(ios), chrome(android) and IOS(Iphone)
+
+- When the "check availability" button is checked it returns the bikes with availability information and ordered by rating for the user
