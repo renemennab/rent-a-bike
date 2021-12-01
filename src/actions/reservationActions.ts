@@ -43,11 +43,18 @@ export const getReservation =
   };
 
 export const createReservation =
-  (newReservation: PostReservation, history: RouteComponentProps["history"]) =>
+  (
+    newReservation: PostReservation,
+    bikeInfo: IBike,
+    history: RouteComponentProps["history"]
+  ) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
       const { data } = await api.createReservation(newReservation);
-      dispatch({ type: RESERVATION_REDUCER_OPTIONS.CREATE, payload: [data] });
+      dispatch({
+        type: RESERVATION_REDUCER_OPTIONS.CREATE,
+        payload: [{ ...data, bikeInfo }],
+      });
       history.push(ROUTES.RESERVATIONS);
       setGlobalNotification(
         dispatch,

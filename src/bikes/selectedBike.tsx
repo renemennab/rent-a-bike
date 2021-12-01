@@ -38,7 +38,7 @@ const SelectedBike = function (): JSX.Element {
       startTimestamp: selectedTimestamps.start,
       endTimestamp: selectedTimestamps.end,
     };
-    dispatch(createReservation(reservationParams, history));
+    dispatch(createReservation(reservationParams, selectedBike, history));
   };
 
   const handleRatingClick = (
