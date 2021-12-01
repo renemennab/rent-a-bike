@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { deleteBike, getBike } from "../actions/bikeActions";
+import { deleteBike, getBike, getBikes } from "../actions/bikeActions";
+import { getBikesByDates } from "../actions/bikeByDatesActions";
 import { createReservation } from "../actions/reservationActions";
 import { rateBike } from "../api";
 import { CardRating } from "../common/listCard";
@@ -47,9 +48,11 @@ const SelectedBike = function (): JSX.Element {
   ): void => {
     event.preventDefault();
 
-    rateBike(selectedBike._id, value).then(() =>
-      dispatch(getBike(params.bikeId))
-    );
+    rateBike(selectedBike._id, value).then(() => {
+      dispatch(getBike(params.bikeId));
+      dispatch(getBikes());
+      dispatch(getBikesByDates(selectedTimestamps));
+    });
   };
   const { isManager } = getLoggedInUser().result;
 
