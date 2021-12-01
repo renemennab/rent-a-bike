@@ -34,7 +34,7 @@ export function handleErrors(dispatch: Dispatch, error: AxiosError): void {
   }
 }
 
-const baseUrl = "/#/";
+const baseUrl = "/";
 
 export const ROUTES = {
   LOGIN: `${baseUrl}login`,
