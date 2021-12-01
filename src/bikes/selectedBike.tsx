@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { deleteBike, getBike, getBikes } from "../actions/bikeActions";
+import { deleteBike, getBike } from "../actions/bikeActions";
 import { getBikesByDates } from "../actions/bikeByDatesActions";
 import { createReservation } from "../actions/reservationActions";
 import { rateBike } from "../api";
@@ -22,9 +22,7 @@ const SelectedBike = function (): JSX.Element {
   const userRating = selectedBike?.userRatingValue;
 
   useEffect(() => {
-    if (!selectedBike && params.bikeId) {
-      dispatch(getBike(params.bikeId));
-    }
+    dispatch(getBike(params.bikeId));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
