@@ -85,5 +85,13 @@ const StyledSelectedReservation = styled.div`
         text-transform: uppercase;
       }
     }
+    &--cancel {
+      border: none;
+      padding: 10px;
+      background: var(--red);
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+    }
   }
 `;
