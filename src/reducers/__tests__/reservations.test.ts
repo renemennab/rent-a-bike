@@ -1,7 +1,10 @@
 import reservationsReducer, {
   RESERVATION_REDUCER_OPTIONS,
 } from "../reservationsReducer";
-import { getReservationTestData, getNewReservationTestData } from "./testData";
+import {
+  getReservationTestData,
+  getNewReservationTestData,
+} from "../../common/testData";
 
 const { FETCH_ALL, CREATE, UPDATE, DELETE } = RESERVATION_REDUCER_OPTIONS;
 

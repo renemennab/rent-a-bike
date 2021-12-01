@@ -1,5 +1,5 @@
 import bikesReducer, { BIKE_REDUCER_OPTIONS } from "../bikesReducer";
-import { getBikeTestData, getNewBikeTestData } from "./testData";
+import { getBikeTestData, getNewBikeTestData } from "../../common/testData";
 
 const { FETCH_ALL, CREATE, UPDATE, DELETE } = BIKE_REDUCER_OPTIONS;
 
