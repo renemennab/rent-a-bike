@@ -111,7 +111,7 @@ const BikesList = function (): JSX.Element {
         ))}
       </div>
       <DateSelector />
-      {filteredList.map((data: IBike) => {
+      {filteredList?.map((data: IBike) => {
         if (data.rateAverage < bikeRating) return null;
         return (
           <ListCard
