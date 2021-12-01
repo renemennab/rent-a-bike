@@ -75,3 +75,9 @@ interface IGlobalNotification {
   message: string;
   type: GlobalNotificationType;
 }
+
+type CrudReducerPossibleTypes = IBike | IReservation | IStorageResult;
+interface ICrudReducerAction {
+  type: string;
+  payload: CrudReducerPossibleTypes[];
+}
