@@ -37,3 +37,31 @@ export function getBikeAgregationModel(userId) {
     { $unset: ["ratings", "userRating"] },
   ];
 }
+
+export function addUserAndBikeInfoToReservation() {
+  return [
+    {
+      $addFields: {
+        bikeId: { $toObjectId: "$bikeId" },
+        userId: { $toObjectId: "$userId" },
+      },
+    },
+    {
+      $lookup: {
+        from: "bikes",
+        localField: "bikeId",
+        foreignField: "_id",
+        as: "bikeInfo",
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "userId",
+        foreignField: "_id",
+        as: "userInfo",
+      },
+    },
+    { $addFields: { bikeInfo: { $first: "$bikeInfo" } } },
+  ];
+}

@@ -33,14 +33,20 @@ const SelectedReservation = function (): JSX.Element {
     history.push(ROUTES.RESERVATIONS);
     setShowModal(false);
   }
+
   return selectedReservation ? (
     <StyledSelectedReservation className="selectedReservation">
-      <PageHeader pageName={selectedReservation.bikeId} />
+      <PageHeader pageName={selectedReservation.bikeInfo.model} />
       <span className="selectedReservation--start">
-        <strong>Start: </strong> {selectedReservation.startTimestamp}
+        <strong>Location: </strong> {selectedReservation.bikeInfo.location}
+      </span>
+      <span className="selectedReservation--start">
+        <strong>From: </strong>
+        {new Date(selectedReservation.startTimestamp).toLocaleString()}
       </span>
       <span className="selectedReservation--end">
-        <strong>End: </strong> {selectedReservation.endTimestamp}
+        <strong>To: </strong>
+        {new Date(selectedReservation.endTimestamp).toLocaleString()}
       </span>
       <button
         className="selectedReservation--cancel"

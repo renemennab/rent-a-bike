@@ -1,32 +1,12 @@
 import mongoose from "mongoose";
 import ReservationModel from "../models/reservationModel.js";
+import { addUserAndBikeInfoToReservation } from "./utils.js";
 
 export async function getReservations(req, res) {
   try {
-    const reservations = await ReservationModel.aggregate([
-      {
-        $addFields: {
-          bikeId: { $toObjectId: "$bikeId" },
-          userId: { $toObjectId: "$userId" },
-        },
-      },
-      {
-        $lookup: {
-          from: "bikes",
-          localField: "bikeId",
-          foreignField: "_id",
-          as: "bikeInfo",
-        },
-      },
-      {
-        $lookup: {
-          from: "users",
-          localField: "userId",
-          foreignField: "_id",
-          as: "userInfo",
-        },
-      },
-    ]);
+    const reservations = await ReservationModel.aggregate(
+      addUserAndBikeInfoToReservation()
+    );
 
     return res.status(200).json(reservations);
   } catch (error) {
@@ -41,9 +21,14 @@ export async function getReservation(req, res) {
     return res.status(404).send("No reservation with that id");
 
   try {
-    const reservation = await ReservationModel.findById(_id);
-
-    return res.status(200).json(reservation);
+    const reservation = await ReservationModel.aggregate([
+      { $match: { _id: new mongoose.Types.ObjectId(_id) } },
+      ...addUserAndBikeInfoToReservation(),
+    ]);
+    if (reservation.length) {
+      return res.status(200).json(reservation[0]);
+    }
+    return res.status(404).json("reservation not found");
   } catch (error) {
     return res.status(404).json({ message: error.message });
   }
