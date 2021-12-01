@@ -13,6 +13,7 @@ import {
 } from "../actions/userActions";
 import { getLoggedInUser, ROUTES } from "../common/utils";
 import { SEARCH_FILTERS_REDUCER_OPTIONS } from "../reducers/searchFiltersReducer";
+import UserReservationList from "./userReservationList";
 
 const UsersList = function (): JSX.Element {
   const usersData = useSelector(
@@ -23,7 +24,6 @@ const UsersList = function (): JSX.Element {
   );
   const [filter, setFilter] = useState("");
   const [filteredList, setFilteredList] = useState(usersData);
-  const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -58,9 +58,6 @@ const UsersList = function (): JSX.Element {
   const placeLink =
     history.location.pathname === "/" ? "" : history.location.pathname;
 
-  const handleOpen = (): void => {
-    setIsOpen(!isOpen);
-  };
   useEffect(() => {
     const { SHOW_USERS_WITH_RESERVATIONS } = SEARCH_FILTERS_REDUCER_OPTIONS;
 
@@ -87,7 +84,7 @@ const UsersList = function (): JSX.Element {
         </Link>
       ) : null}
       <FilterInput
-        className="users--searchInput"
+        className="usersList--searchInput"
         type="text"
         value={filter}
         onChange={(event) => setFilter(event.target.value)}
@@ -110,9 +107,9 @@ const UsersList = function (): JSX.Element {
         )
           return null;
         return (
-          <ListCard className="users--card" key={user._id}>
+          <ListCard className="usersList--card" key={user._id}>
             <CardLink
-              className="users--card__link"
+              className="usersList--card__link"
               to={`${placeLink}/${user._id}`}
               onClick={() =>
                 dispatch({
@@ -121,26 +118,14 @@ const UsersList = function (): JSX.Element {
                 })
               }
             >
-              <CardHeading className="users--card__link--model">{`${user.firstName} ${user.lastName}`}</CardHeading>
-              <CardSpan className="users--card__link--color">
+              <CardHeading className="usersList--card__link--model">{`${user.firstName} ${user.lastName}`}</CardHeading>
+              <CardSpan className="usersList--card__link--color">
                 {user.email}
               </CardSpan>
             </CardLink>
             {showUserWithReservation ? (
-              <button type="button" onClick={handleOpen}>
-                {isOpen ? "close" : "open"}
-              </button>
+              <UserReservationList reservations={user.reservations} />
             ) : null}
-            <div className="rese">
-              {isOpen
-                ? user.reservations.map((reservation) => (
-                    <div className="item" key={reservation._id}>
-                      from: {reservation.startTimestamp} to:{" "}
-                      {reservation.endTimestamp}
-                    </div>
-                  ))
-                : null}
-            </div>
           </ListCard>
         );
       })}
