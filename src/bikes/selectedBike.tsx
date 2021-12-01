@@ -50,7 +50,6 @@ const SelectedBike = function (): JSX.Element {
 
     rateBike(selectedBike._id, value).then(() => {
       dispatch(getBike(params.bikeId));
-      dispatch(getBikes());
       dispatch(getBikesByDates(selectedTimestamps));
     });
   };
