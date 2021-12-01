@@ -20,3 +20,30 @@ export function getNewBikeTestData(): IBike {
     isAvailable: true,
   };
 }
+
+export function getReservationTestData(): IReservation {
+  const bikeInfo = getBikeTestData();
+  return {
+    bikeInfo,
+    _id: "reservationId",
+    userId: "user Id",
+    creator: "user Id",
+    createdAt: new Date().getTime(),
+    bikeId: bikeInfo._id,
+    startTimestamp: new Date().getTime(),
+    endTimestamp: new Date().getTime(),
+  };
+}
+export function getNewReservationTestData(): IReservation {
+  const bikeInfo = getBikeTestData();
+  return {
+    bikeInfo,
+    _id: "new reservationId",
+    userId: "new Id",
+    creator: "new user Id",
+    createdAt: new Date().getTime(),
+    bikeId: bikeInfo._id,
+    startTimestamp: new Date().getTime(),
+    endTimestamp: new Date().getTime(),
+  };
+}
