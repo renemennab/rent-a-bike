@@ -47,3 +47,15 @@ export function getNewReservationTestData(): IReservation {
     endTimestamp: new Date().getTime(),
   };
 }
+
+export function getUserTestData(type: "user" | "manager"): IStorageResult {
+  return {
+    _id: "reservationId",
+    isManager: type === "manager",
+    reservations: [],
+    firstName: "user name",
+    lastName: "user last name",
+    email: "user@email.com",
+    password: "12345678",
+  };
+}
