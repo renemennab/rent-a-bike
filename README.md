@@ -82,6 +82,8 @@ $ yarn build
 this will compile the react code using webpack and generate a folder called docs in the root level
 ## Considerations
 
+- Because it is a bike rental app I decided to design the page with a mobile first approach
+
 - The token for the session lasts one hour
 
 - Managers can see all the bikes, users can only see a bike if they look for a specific span
