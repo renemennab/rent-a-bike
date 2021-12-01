@@ -102,13 +102,22 @@ export async function getUser(req, res) {
 export async function updateUser(req, res) {
   const { email, password, firstName, lastName, isManager, userId } = req.body;
   try {
-    if (!mongoose.Types.ObjectId.isValid(userId))
+    if (password && password.length < 8) {
+      return res.status(500).json("password to short");
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(404).send("No user with that id");
+    }
+
     const existingUser = await UserModel.findOne({ email });
+
     if (existingUser && existingUser._id.toString() !== userId) {
       return res.status(400).json("Email already exist for another user");
     }
-    const hashedPassword = await bcrypt.hash(password, 12);
+
+    let hashedPassword = existingUser.password;
+    if (password) hashedPassword = await bcrypt.hash(password, 12);
 
     const updatedUser = {
       email,
