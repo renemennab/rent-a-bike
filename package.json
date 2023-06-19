@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": "16.20.0"
+  },
   "homepage": "https://rent-a-bike.netlify.app/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
