@@ -7,7 +7,23 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
-COPY ./docs ./
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+
+RUN \
+  if [ -f yarn.lock ]; then yarn ; \
+  elif [ -f package-lock.json ]; then npm ci; \
+  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i ; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
+
+# Rebuild the source code only when needed
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+FROM base AS runner
+WORKDIR /app
 
 ENV NODE_ENV production
 
@@ -20,8 +36,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/schema.gql .
 
 USER nextjs
 
-EXPOSE 8000
+EXPOSE 5000
 
-ENV PORT 8000
+ENV PORT 5000
 
-CMD ["node", "index.js"]
+CMD ["yarn", "serve"]
