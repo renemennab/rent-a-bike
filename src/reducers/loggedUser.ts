@@ -7,7 +7,7 @@ const optionValues = Object.values(LOGGED_USER_REDUCER_OPTIONS);
 
 interface IAction {
   payload: IlocalStorageProfile | null;
-  type: typeof optionValues[number];
+  type: (typeof optionValues)[number];
 }
 
 const defaultAction = { type: "", payload: null };

@@ -4,23 +4,20 @@ import { checkIfTokenIsExpired } from "./common/utils";
 
 const PrivateRoute = function ({ children, ...rest }: RouteProps): JSX.Element {
   const isTokenExpired = checkIfTokenIsExpired();
+  if (isTokenExpired) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/login",
+        }}
+      />
+    );
+  }
   return (
-    <Route
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...rest}
-      render={({ location }) =>
-        isTokenExpired ? (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { from: location },
-            }}
-          />
-        ) : (
-          children
-        )
-      }
-    />
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <Route exact path="/" {...rest}>
+      {isTokenExpired ? <Redirect to="/dashboard" /> : children}
+    </Route>
   );
 };
 

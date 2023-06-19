@@ -9,7 +9,7 @@ const optionValues = Object.values(SEARCH_FILTERS_REDUCER_OPTIONS);
 
 interface IAction {
   payload: ISearchFilters;
-  type: typeof optionValues[number];
+  type: (typeof optionValues)[number];
 }
 
 const defaultFilters = { showUserWithReservation: false, bikeRating: 0 };

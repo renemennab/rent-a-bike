@@ -8,7 +8,7 @@ const optionValues = Object.values(SELECTED_TIMESTAMPS_REDUCER_OPTIONS);
 
 interface IAction {
   payload: number;
-  type: typeof optionValues[number];
+  type: (typeof optionValues)[number];
 }
 
 const defaultAction = { type: "", payload: 0 };

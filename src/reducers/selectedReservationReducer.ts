@@ -6,7 +6,7 @@ const optionValues = Object.values(SELECTED_RESERVATION_REDUCER_OPTIONS);
 
 interface IAction {
   payload: IReservation | null;
-  type: typeof optionValues[number];
+  type: (typeof optionValues)[number];
 }
 
 const defaultAction = { type: "", payload: null };

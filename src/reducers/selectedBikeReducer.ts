@@ -6,7 +6,7 @@ const optionValues = Object.values(SELECTED_BIKE_REDUCER_OPTIONS);
 
 interface IAction {
   payload: IBike | null;
-  type: typeof optionValues[number];
+  type: (typeof optionValues)[number];
 }
 
 const defaultAction = { type: "", payload: null };

@@ -6,7 +6,7 @@ const optionValues = Object.values(GLOBAL_NOTIFICATION_REDUCER_OPTIONS);
 
 interface IAction {
   payload: IGlobalNotification;
-  type: typeof optionValues[number];
+  type: (typeof optionValues)[number];
 }
 
 const globalNotificationReducer = (
